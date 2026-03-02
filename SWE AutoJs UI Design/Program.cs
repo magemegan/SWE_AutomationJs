@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SWE_AutomationJs
+namespace SWE_AutoJs_UI_Design
 {
     internal static class Program
     {

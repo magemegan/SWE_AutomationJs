@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4BE5BFA7-DB9A-43F1-AEDC-8751A521B1C2}</ProjectGuid>
+    <ProjectGuid>{DFB29257-0131-494A-A48D-E446EE2C8A92}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SWE_AutomationJs</RootNamespace>
-    <AssemblyName>SWE_AutomationJs</AssemblyName>
+    <RootNamespace>SWE_AutoJs_UI_Design</RootNamespace>
+    <AssemblyName>SWE AutoJs UI Design</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

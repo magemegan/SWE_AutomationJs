@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SWE_AutomationJs.Properties
+namespace SWE_AutoJs_UI_Design.Properties
 {
 
 

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SWE_AutomationJs
+namespace SWE_AutoJs_UI_Design
 {
     public partial class Form1 : Form
     {
