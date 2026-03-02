@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SWE AutoJs UI Design")]
+[assembly: AssemblyTitle("SWE AutomationJs UI Design")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SWE AutoJs UI Design")]
+[assembly: AssemblyProduct("SWE AutomationJs UI Design")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dfb29257-0131-494a-a48d-e446ee2c8a92")]
+[assembly: Guid("217c45fb-5df9-4abb-955b-dc10eae167c1")]
 
 // Version information for an assembly consists of the following four values:
 //

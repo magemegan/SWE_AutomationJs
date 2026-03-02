@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SWE_AutoJs_UI_Design
+namespace SWE_AutomationJs_UI_Design
 {
     internal static class Program
     {
@@ -16,7 +16,7 @@ namespace SWE_AutoJs_UI_Design
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainMenu());
         }
     }
 }

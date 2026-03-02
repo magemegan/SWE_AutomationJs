@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.37012.4 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE AutoJs UI Design", "SWE AutoJs UI Design.csproj", "{DFB29257-0131-494A-A48D-E446EE2C8A92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWE AutomationJs UI Design", "SWE AutomationJs UI Design.csproj", "{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DFB29257-0131-494A-A48D-E446EE2C8A92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFB29257-0131-494A-A48D-E446EE2C8A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFB29257-0131-494A-A48D-E446EE2C8A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFB29257-0131-494A-A48D-E446EE2C8A92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2BA2BF8B-22DD-4C81-8B95-330047AAF92D}
+		SolutionGuid = {2D2F49E6-1CAC-4E10-AEF4-27918F1B07A5}
 	EndGlobalSection
 EndGlobal

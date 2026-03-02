@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DFB29257-0131-494A-A48D-E446EE2C8A92}</ProjectGuid>
+    <ProjectGuid>{217C45FB-5DF9-4ABB-955B-DC10EAE167C1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SWE_AutoJs_UI_Design</RootNamespace>
-    <AssemblyName>SWE AutoJs UI Design</AssemblyName>
+    <RootNamespace>SWE_AutomationJs_UI_Design</RootNamespace>
+    <AssemblyName>SWE AutomationJs UI Design</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,16 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main Menu.cs">
+    <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main Menu.Designer.cs">
-      <DependentUpon>Main Menu.cs</DependentUpon>
+    <Compile Include="MainMenu.Designer.cs">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Main Menu.resx">
-      <DependentUpon>Main Menu.cs</DependentUpon>
+    <EmbeddedResource Include="MainMenu.resx">
+      <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

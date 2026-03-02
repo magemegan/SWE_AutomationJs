@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SWE_AutoJs_UI_Design
+namespace SWE_AutomationJs_UI_Design
 {
-    public partial class Form1 : Form
+    public partial class AdminMenu : Form
     {
-        public Form1()
+        public AdminMenu()
         {
             InitializeComponent();
         }
