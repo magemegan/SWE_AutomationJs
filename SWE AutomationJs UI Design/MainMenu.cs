@@ -30,7 +30,7 @@ namespace SWE_AutomationJs_UI_Design
              else if (textBox1.Text == "user" && textBox2.Text == "user")
             {
                 //open user menu
-                UserMenu userMenu = new UserMenu();
+                EmployeeMenu userMenu = new EmployeeMenu();
                 userMenu.Show();
                 this.Hide();
             }
