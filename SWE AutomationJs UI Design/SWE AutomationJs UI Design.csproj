@@ -52,11 +52,23 @@
     <Compile Include="AdminMenu.Designer.cs">
       <DependentUpon>AdminMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="BusboyScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BusboyScreen.Designer.cs">
+      <DependentUpon>BusboyScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmployeeMenu.Designer.cs">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KitchenScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="KitchenScreen.Designer.cs">
+      <DependentUpon>KitchenScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
@@ -66,11 +78,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaiterScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WaiterScreen.Designer.cs">
+      <DependentUpon>WaiterScreen.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AdminMenu.resx">
       <DependentUpon>AdminMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BusboyScreen.resx">
+      <DependentUpon>BusboyScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeeMenu.resx">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KitchenScreen.resx">
+      <DependentUpon>KitchenScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
@@ -84,6 +108,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WaiterScreen.resx">
+      <DependentUpon>WaiterScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
