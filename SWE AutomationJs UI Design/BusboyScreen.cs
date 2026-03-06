@@ -10,15 +10,15 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class AdminMenu : Form
+    public partial class BusboyScreen : Form
     {
-        public AdminMenu()
+        public BusboyScreen()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//logout
+        {//log out button
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Hide();

@@ -17,6 +17,7 @@ namespace SWE_AutomationJs_UI_Design
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainMenu());
+            Application.Run(new WaiterScreen());
         }
     }
 }

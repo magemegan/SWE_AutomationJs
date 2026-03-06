@@ -1,6 +1,6 @@
 ﻿namespace SWE_AutomationJs_UI_Design
 {
-    partial class AdminMenu
+    partial class KitchenScreen
     {
         /// <summary>
         /// Required designer variable.
@@ -35,15 +35,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(271, 99);
+            this.label1.Location = new System.Drawing.Point(284, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 13);
+            this.label1.Size = new System.Drawing.Size(116, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Welcome Administrator";
+            this.label1.Text = "Welcome Kitchen Staff";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(301, 349);
+            this.button1.Location = new System.Drawing.Point(28, 397);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -51,15 +51,15 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // AdminMenu
+            // KitchenScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Name = "AdminMenu";
-            this.Text = "AdminMenu";
+            this.Name = "KitchenScreen";
+            this.Text = "KitchenScreen";
             this.ResumeLayout(false);
             this.PerformLayout();
 

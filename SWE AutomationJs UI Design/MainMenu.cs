@@ -59,5 +59,10 @@ namespace SWE_AutomationJs_UI_Design
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//exit button
+            Application.Exit();
+        }
     }
 }
