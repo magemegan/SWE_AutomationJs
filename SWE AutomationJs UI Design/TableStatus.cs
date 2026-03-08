@@ -79,6 +79,7 @@ namespace SWE_AutomationJs_UI_Design
                 button.BackColor = Color.LightGreen;
                 button.Text = "Avaliable";
             }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {//go back
