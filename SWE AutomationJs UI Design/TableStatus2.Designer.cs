@@ -1,6 +1,6 @@
 ﻿namespace SWE_AutomationJs_UI_Design
 {
-    partial class TableStatus
+    partial class TableStatus2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
@@ -60,7 +62,6 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.button9 = new System.Windows.Forms.Button();
             this.label37 = new System.Windows.Forms.Label();
@@ -91,14 +92,13 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel11.SuspendLayout();
@@ -107,24 +107,53 @@
             this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(360, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Table Status";
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(54, 400);
+            this.button1.Location = new System.Drawing.Point(47, 399);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
+            this.button1.TabIndex = 12;
             this.button1.Text = "Back";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label1
+            // button2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(337, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Table Status";
+            this.button2.Location = new System.Drawing.Point(673, 398);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Next Page";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Controls.Add(this.panel3);
+            this.flowLayoutPanel1.Controls.Add(this.panel4);
+            this.flowLayoutPanel1.Controls.Add(this.panel5);
+            this.flowLayoutPanel1.Controls.Add(this.panel6);
+            this.flowLayoutPanel1.Controls.Add(this.panel10);
+            this.flowLayoutPanel1.Controls.Add(this.panel12);
+            this.flowLayoutPanel1.Controls.Add(this.panel11);
+            this.flowLayoutPanel1.Controls.Add(this.panel9);
+            this.flowLayoutPanel1.Controls.Add(this.panel8);
+            this.flowLayoutPanel1.Controls.Add(this.panel7);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(47, 109);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(707, 233);
+            this.flowLayoutPanel1.TabIndex = 14;
             // 
             // panel1
             // 
@@ -136,7 +165,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(114, 109);
             this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // button3
             // 
@@ -174,7 +202,6 @@
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Table 1";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // panel2
             // 
@@ -195,7 +222,6 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "Avaliable";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // label27
             // 
@@ -243,7 +269,6 @@
             this.button5.TabIndex = 11;
             this.button5.Text = "Avaliable";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // label28
             // 
@@ -291,7 +316,6 @@
             this.button6.TabIndex = 12;
             this.button6.Text = "Avaliable";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label29
             // 
@@ -339,7 +363,6 @@
             this.button7.TabIndex = 12;
             this.button7.Text = "Avaliable";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label30
             // 
@@ -387,7 +410,6 @@
             this.button8.TabIndex = 12;
             this.button8.Text = "Avaliable";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label31
             // 
@@ -416,26 +438,6 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Table 6";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
-            this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.panel3);
-            this.flowLayoutPanel1.Controls.Add(this.panel4);
-            this.flowLayoutPanel1.Controls.Add(this.panel5);
-            this.flowLayoutPanel1.Controls.Add(this.panel6);
-            this.flowLayoutPanel1.Controls.Add(this.panel10);
-            this.flowLayoutPanel1.Controls.Add(this.panel12);
-            this.flowLayoutPanel1.Controls.Add(this.panel11);
-            this.flowLayoutPanel1.Controls.Add(this.panel9);
-            this.flowLayoutPanel1.Controls.Add(this.panel8);
-            this.flowLayoutPanel1.Controls.Add(this.panel7);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(54, 110);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(707, 233);
-            this.flowLayoutPanel1.TabIndex = 9;
-            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
-            // 
             // panel10
             // 
             this.panel10.Controls.Add(this.button9);
@@ -455,7 +457,6 @@
             this.button9.TabIndex = 12;
             this.button9.Text = "Avaliable";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // label37
             // 
@@ -483,7 +484,6 @@
             this.label11.Size = new System.Drawing.Size(43, 13);
             this.label11.TabIndex = 0;
             this.label11.Text = "Table 7";
-            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // panel12
             // 
@@ -504,7 +504,6 @@
             this.button10.TabIndex = 12;
             this.button10.Text = "Avaliable";
             this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // label36
             // 
@@ -552,7 +551,6 @@
             this.button11.TabIndex = 12;
             this.button11.Text = "Avaliable";
             this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // label35
             // 
@@ -600,7 +598,6 @@
             this.button12.TabIndex = 12;
             this.button12.Text = "Avaliable";
             this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // label34
             // 
@@ -648,7 +645,6 @@
             this.button13.TabIndex = 12;
             this.button13.Text = "Avaliable";
             this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // label33
             // 
@@ -696,7 +692,6 @@
             this.button14.TabIndex = 12;
             this.button14.Text = "Avaliable";
             this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // label32
             // 
@@ -725,28 +720,18 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Table 12";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(686, 400);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Next Page";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // TableStatus
+            // TableStatus2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "TableStatus";
-            this.Text = "TableStatus";
-            this.Load += new System.EventHandler(this.TableStatus_Load);
+            this.Controls.Add(this.label1);
+            this.Name = "TableStatus2";
+            this.Text = "TableStatus2";
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -759,7 +744,6 @@
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panel12.ResumeLayout(false);
@@ -778,70 +762,69 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label8;
     }
 }

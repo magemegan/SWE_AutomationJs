@@ -114,6 +114,18 @@
     <Compile Include="TableStatus.Designer.cs">
       <DependentUpon>TableStatus.cs</DependentUpon>
     </Compile>
+    <Compile Include="TableStatus2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableStatus2.Designer.cs">
+      <DependentUpon>TableStatus2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableStatus3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableStatus3.Designer.cs">
+      <DependentUpon>TableStatus3.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaiterScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TableStatus.resx">
       <DependentUpon>TableStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableStatus2.resx">
+      <DependentUpon>TableStatus2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableStatus3.resx">
+      <DependentUpon>TableStatus3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaiterScreen.resx">
       <DependentUpon>WaiterScreen.cs</DependentUpon>

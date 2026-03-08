@@ -10,13 +10,12 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class TableStatus : Form
+    public partial class TableStatus2 : Form
     {
-        public TableStatus()
+        public TableStatus2()
         {
             InitializeComponent();
         }
-
         enum tableStatus
         {
             Available,
@@ -153,26 +152,6 @@ namespace SWE_AutomationJs_UI_Design
         private void button14_Click(object sender, EventArgs e)
         {//button for table 12
             UpdateButton(sender, e);
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -10,13 +10,12 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class TableStatus : Form
+    public partial class TableStatus3 : Form
     {
-        public TableStatus()
+        public TableStatus3()
         {
             InitializeComponent();
         }
-
         enum tableStatus
         {
             Available,
@@ -79,20 +78,13 @@ namespace SWE_AutomationJs_UI_Design
                 button.BackColor = Color.LightGreen;
                 button.Text = "Avaliable";
             }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {//go back
             WaiterScreen waiterScreen = new WaiterScreen();
             waiterScreen.Show();
             this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {//next page
-            TableStatus2 tableStatus2 = new TableStatus2();
-            tableStatus2.Show();
-            this.Hide();
-
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -153,26 +145,6 @@ namespace SWE_AutomationJs_UI_Design
         private void button14_Click(object sender, EventArgs e)
         {//button for table 12
             UpdateButton(sender, e);
-        }
-
-        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
