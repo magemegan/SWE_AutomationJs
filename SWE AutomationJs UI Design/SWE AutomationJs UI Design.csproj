@@ -52,6 +52,12 @@
     <Compile Include="AdminMenu.Designer.cs">
       <DependentUpon>AdminMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssignTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignTables.Designer.cs">
+      <DependentUpon>AssignTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="BusboyScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,8 +82,38 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="MarkTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarkTables.Designer.cs">
+      <DependentUpon>MarkTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Orders.Designer.cs">
+      <DependentUpon>Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payment.Designer.cs">
+      <DependentUpon>Payment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Schedule.Designer.cs">
+      <DependentUpon>Schedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TableStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableStatus.Designer.cs">
+      <DependentUpon>TableStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaiterScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +122,9 @@
     </Compile>
     <EmbeddedResource Include="AdminMenu.resx">
       <DependentUpon>AdminMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssignTables.resx">
+      <DependentUpon>AssignTables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BusboyScreen.resx">
       <DependentUpon>BusboyScreen.cs</DependentUpon>
@@ -99,6 +138,15 @@
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MarkTables.resx">
+      <DependentUpon>MarkTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Orders.resx">
+      <DependentUpon>Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payment.resx">
+      <DependentUpon>Payment.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -108,6 +156,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Schedule.resx">
+      <DependentUpon>Schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableStatus.resx">
+      <DependentUpon>TableStatus.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WaiterScreen.resx">
       <DependentUpon>WaiterScreen.cs</DependentUpon>
     </EmbeddedResource>

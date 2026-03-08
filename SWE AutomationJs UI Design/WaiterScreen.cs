@@ -28,5 +28,47 @@ namespace SWE_AutomationJs_UI_Design
             mainMenu.Show();
             this.Hide();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//check table status
+            TableStatus tableStatus = new TableStatus();
+            tableStatus.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {//assign tables
+            AssignTables assignTables = new AssignTables();
+            assignTables.Show();
+            this.Hide();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {//customer orders
+            Orders customerOrders = new Orders();
+            customerOrders.Show();
+            this.Hide();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {//mark tables
+            MarkTables markTables = new MarkTables();
+            markTables.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {//process payments
+            Payment processPayment = new Payment();
+            processPayment.Show();
+            this.Hide();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {//access schedule
+            Schedule accessSchedule = new Schedule();
+            accessSchedule.Show();
+            this.Hide();
+        }
     }
 }

@@ -17,27 +17,6 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {// waiter staff
-            WaiterScreen waitingHomeScreen = new WaiterScreen();
-            waitingHomeScreen.Show();
-            this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {//kitchen staff
-            KitchenScreen kitchenHomeScreen = new KitchenScreen();
-            kitchenHomeScreen.Show();
-            this.Hide();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {//busboy
-            BusboyScreen busboyHomeScreen = new BusboyScreen();
-            busboyHomeScreen.Show();
-            this.Hide();
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {//log out
             MainMenu mainMenu = new MainMenu();
@@ -46,9 +25,25 @@ namespace SWE_AutomationJs_UI_Design
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
+        private void button2_Click_1(object sender, EventArgs e)
+        {//kitchen 
+            KitchenScreen kitchenHomeScreen = new KitchenScreen();
+            kitchenHomeScreen.Show();
+            this.Hide();
+        }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {//waiter/waitress
+            WaiterScreen waitingHomeScreen = new WaiterScreen();
+            waitingHomeScreen.Show();
+            this.Hide();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {//busboy
+            BusboyScreen busboyHomeScreen = new BusboyScreen();
+            busboyHomeScreen.Show();
+            this.Hide();
         }
     }
 }

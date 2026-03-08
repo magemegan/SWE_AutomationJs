@@ -10,23 +10,18 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class KitchenScreen : Form
+    public partial class Payment : Form
     {
-        public KitchenScreen()
+        public Payment()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//log out
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
+        {//go back
+            WaiterScreen waiterScreen = new WaiterScreen();
+            waiterScreen.Show();
             this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

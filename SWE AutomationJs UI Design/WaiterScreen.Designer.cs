@@ -41,7 +41,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 36);
+            this.label1.Location = new System.Drawing.Point(326, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 13);
             this.label1.TabIndex = 0;
@@ -49,7 +49,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(51, 393);
+            this.button1.Location = new System.Drawing.Point(29, 402);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -59,57 +59,63 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(77, 176);
+            this.button2.Location = new System.Drawing.Point(90, 180);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 23);
+            this.button2.Size = new System.Drawing.Size(129, 48);
             this.button2.TabIndex = 2;
             this.button2.Text = "Check Table Status";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(316, 175);
+            this.button3.Location = new System.Drawing.Point(316, 179);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(129, 23);
+            this.button3.Size = new System.Drawing.Size(142, 49);
             this.button3.TabIndex = 3;
             this.button3.Text = "Assigned Tables";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(550, 174);
+            this.button4.Location = new System.Drawing.Point(550, 178);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(109, 23);
+            this.button4.Size = new System.Drawing.Size(109, 50);
             this.button4.TabIndex = 4;
             this.button4.Text = "Customer Orders";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(303, 311);
+            this.button5.Location = new System.Drawing.Point(316, 281);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(142, 23);
+            this.button5.Size = new System.Drawing.Size(142, 53);
             this.button5.TabIndex = 5;
             this.button5.Text = "Process Payments";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(77, 311);
+            this.button6.Location = new System.Drawing.Point(90, 281);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(129, 23);
+            this.button6.Size = new System.Drawing.Size(129, 53);
             this.button6.TabIndex = 6;
             this.button6.Text = "Mark Tables";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(550, 311);
+            this.button7.Location = new System.Drawing.Point(550, 281);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(109, 23);
+            this.button7.Size = new System.Drawing.Size(109, 53);
             this.button7.TabIndex = 7;
-            this.button7.Text = "View Schedule";
+            this.button7.Text = "Access Schedule";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // WaiterScreen
             // 
