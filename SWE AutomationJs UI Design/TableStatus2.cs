@@ -25,7 +25,7 @@ namespace SWE_AutomationJs_UI_Design
         }
 
         //tableStatus currentStatus = tableStatus.Available;
-        private void TableStatus_Load(object sender, EventArgs e)
+        private void TableStatus2_Load(object sender, EventArgs e)
         {
             button3.BackColor = Color.LightGreen;
             button4.BackColor = Color.LightGreen;
@@ -78,18 +78,19 @@ namespace SWE_AutomationJs_UI_Design
                 button.BackColor = Color.LightGreen;
                 button.Text = "Avaliable";
             }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {//go back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+            TableStatus tableStatus = new TableStatus();
+            tableStatus.Show();
             this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//next page
-            TableStatus2 tableStatus2 = new TableStatus2();
-            tableStatus2.Show();
+            TableStatus3 tableStatus3 = new TableStatus3();
+            tableStatus3.Show();
             this.Hide();
 
         }

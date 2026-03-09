@@ -86,9 +86,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(297, 162);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(161, 147);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(176, 13);
+            this.label3.Size = new System.Drawing.Size(451, 31);
             this.label3.TabIndex = 5;
             this.label3.Text = "Please Enter Your Login Credentials";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -115,6 +116,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "MainMenu";
             this.Text = "MainMenu";
             this.ResumeLayout(false);

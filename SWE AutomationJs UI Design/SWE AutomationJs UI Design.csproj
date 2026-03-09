@@ -58,6 +58,18 @@
     <Compile Include="AssignTables.Designer.cs">
       <DependentUpon>AssignTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssignTables2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignTables2.Designer.cs">
+      <DependentUpon>AssignTables2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssignTables3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignTables3.Designer.cs">
+      <DependentUpon>AssignTables3.cs</DependentUpon>
+    </Compile>
     <Compile Include="BusboyScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,6 +81,12 @@
     </Compile>
     <Compile Include="EmployeeMenu.Designer.cs">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IncomingOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IncomingOrders.Designer.cs">
+      <DependentUpon>IncomingOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="KitchenScreen.cs">
       <SubType>Form</SubType>
@@ -138,11 +156,20 @@
     <EmbeddedResource Include="AssignTables.resx">
       <DependentUpon>AssignTables.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AssignTables2.resx">
+      <DependentUpon>AssignTables2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssignTables3.resx">
+      <DependentUpon>AssignTables3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BusboyScreen.resx">
       <DependentUpon>BusboyScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeMenu.resx">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IncomingOrders.resx">
+      <DependentUpon>IncomingOrders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KitchenScreen.resx">
       <DependentUpon>KitchenScreen.cs</DependentUpon>

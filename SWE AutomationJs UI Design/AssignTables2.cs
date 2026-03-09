@@ -10,12 +10,13 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class TableStatus3 : Form
+    public partial class AssignTables2 : Form
     {
-        public TableStatus3()
+        public AssignTables2()
         {
             InitializeComponent();
         }
+
         enum tableStatus
         {
             Available,
@@ -25,7 +26,7 @@ namespace SWE_AutomationJs_UI_Design
         }
 
         //tableStatus currentStatus = tableStatus.Available;
-        private void TableStatus3_Load(object sender, EventArgs e)
+        private void TableStatus_Load2(object sender, EventArgs e)
         {
             button3.BackColor = Color.LightGreen;
             button4.BackColor = Color.LightGreen;
@@ -40,18 +41,18 @@ namespace SWE_AutomationJs_UI_Design
             button13.BackColor = Color.LightGreen;
             button14.BackColor = Color.LightGreen;
 
-            button3.Text = "Avaliable";
-            button4.Text = "Avaliable";
-            button5.Text = "Avaliable";
-            button6.Text = "Avaliable";
-            button7.Text = "Avaliable";
-            button8.Text = "Avaliable";
-            button9.Text = "Avaliable";
-            button10.Text = "Avaliable";
-            button11.Text = "Avaliable";
-            button12.Text = "Avaliable";
-            button13.Text = "Avaliable";
-            button14.Text = "Avaliable";
+            button3.Text = "Table 13";
+            button4.Text = "Table 14";
+            button5.Text = "Table 15";
+            button6.Text = "Table 16";
+            button7.Text = "Table 17";
+            button8.Text = "Table 18";
+            button9.Text = "Table 19";
+            button10.Text = "Table 20";
+            button11.Text = "Table 21";
+            button12.Text = "Table 22";
+            button13.Text = "Table 23";
+            button14.Text = "Table 24";
         }
 
         private void UpdateButton(object sender, EventArgs e)
@@ -60,91 +61,88 @@ namespace SWE_AutomationJs_UI_Design
 
             if (button.BackColor == Color.LightGreen)
             {
-                button.BackColor = Color.Gray;
-                button.Text = "Reserved";
-            }
-            else if (button.BackColor == Color.Gray)
-            {
                 button.BackColor = Color.Orange;
-                button.Text = "Occupied";
-            }
-            else if (button.BackColor == Color.Orange)
-            {
-                button.BackColor = Color.Red;
-                button.Text = "Needs Cleaning";
+                //button.Text = "Occupied";
             }
             else
             {
                 button.BackColor = Color.LightGreen;
-                button.Text = "Avaliable";
+                //button.Text = "Avaliable";
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {//go back
-            TableStatus2 tableStatus2 = new TableStatus2();
-            tableStatus2.Show();
+            AssignTables assignTables = new AssignTables();
+            assignTables.Show();
             this.Hide();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {//button for table 1
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AssignTables3 assignTables3 = new AssignTables3();
+            assignTables3.Show();
+            this.Hide();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
             UpdateButton(sender, e);
         }
 
         private void button4_Click(object sender, EventArgs e)
-        {//button for table 2
+        {
             UpdateButton(sender, e);
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {//button for table 3
+        {
             UpdateButton(sender, e);
         }
 
         private void button6_Click(object sender, EventArgs e)
-        {//button for table 4
+        {
             UpdateButton(sender, e);
         }
 
         private void button7_Click(object sender, EventArgs e)
-        {//button for table 5
+        {
             UpdateButton(sender, e);
         }
 
         private void button8_Click(object sender, EventArgs e)
-        {//button for table 6
+        {
             UpdateButton(sender, e);
         }
 
         private void button9_Click(object sender, EventArgs e)
-        {//button for table 7
+        {
             UpdateButton(sender, e);
         }
 
         private void button10_Click(object sender, EventArgs e)
-        {//button for table 8
+        {
             UpdateButton(sender, e);
         }
 
         private void button11_Click(object sender, EventArgs e)
-        {//button for table 9
+        {
             UpdateButton(sender, e);
         }
 
         private void button12_Click(object sender, EventArgs e)
-        {//button for table 10
+        {
             UpdateButton(sender, e);
         }
 
         private void button13_Click(object sender, EventArgs e)
-        {//button for table 11  
+        {
             UpdateButton(sender, e);
         }
 
         private void button14_Click(object sender, EventArgs e)
-        {//button for table 12
-            UpdateButton(sender, e);
+        {
+            UpdateButton(sender, e); 
         }
     }
 }

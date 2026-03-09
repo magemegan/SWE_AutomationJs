@@ -32,63 +32,51 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
-            this.label26 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button5 = new System.Windows.Forms.Button();
-            this.label28 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
-            this.label29 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.button7 = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.button8 = new System.Windows.Forms.Button();
-            this.label31 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.button9 = new System.Windows.Forms.Button();
-            this.label37 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.button10 = new System.Windows.Forms.Button();
-            this.label36 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
-            this.label35 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.button12 = new System.Windows.Forms.Button();
-            this.label34 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.button13 = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.button14 = new System.Windows.Forms.Button();
-            this.label32 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -120,16 +108,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(337, 44);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(309, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(208, 39);
             this.label1.TabIndex = 1;
             this.label1.Text = "Table Status";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -147,15 +135,6 @@
             this.button3.Text = "Avaliable";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(3, 83);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(75, 13);
-            this.label26.TabIndex = 2;
-            this.label26.Text = "Server Name: ";
             // 
             // label14
             // 
@@ -179,7 +158,6 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.label27);
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Location = new System.Drawing.Point(123, 3);
@@ -196,15 +174,6 @@
             this.button4.Text = "Avaliable";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(3, 83);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(75, 13);
-            this.label27.TabIndex = 3;
-            this.label27.Text = "Server Name: ";
             // 
             // label15
             // 
@@ -227,7 +196,6 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.button5);
-            this.panel3.Controls.Add(this.label28);
             this.panel3.Controls.Add(this.label16);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Location = new System.Drawing.Point(238, 3);
@@ -244,15 +212,6 @@
             this.button5.Text = "Avaliable";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(3, 83);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(75, 13);
-            this.label28.TabIndex = 3;
-            this.label28.Text = "Server Name: ";
             // 
             // label16
             // 
@@ -275,7 +234,6 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.button6);
-            this.panel4.Controls.Add(this.label29);
             this.panel4.Controls.Add(this.label17);
             this.panel4.Controls.Add(this.label5);
             this.panel4.Location = new System.Drawing.Point(357, 3);
@@ -292,15 +250,6 @@
             this.button6.Text = "Avaliable";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(3, 83);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(75, 13);
-            this.label29.TabIndex = 3;
-            this.label29.Text = "Server Name: ";
             // 
             // label17
             // 
@@ -323,7 +272,6 @@
             // panel5
             // 
             this.panel5.Controls.Add(this.button7);
-            this.panel5.Controls.Add(this.label30);
             this.panel5.Controls.Add(this.label18);
             this.panel5.Controls.Add(this.label6);
             this.panel5.Location = new System.Drawing.Point(472, 3);
@@ -340,15 +288,6 @@
             this.button7.Text = "Avaliable";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(4, 83);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(75, 13);
-            this.label30.TabIndex = 3;
-            this.label30.Text = "Server Name: ";
             // 
             // label18
             // 
@@ -371,7 +310,6 @@
             // panel6
             // 
             this.panel6.Controls.Add(this.button8);
-            this.panel6.Controls.Add(this.label31);
             this.panel6.Controls.Add(this.label19);
             this.panel6.Controls.Add(this.label7);
             this.panel6.Location = new System.Drawing.Point(593, 3);
@@ -388,15 +326,6 @@
             this.button8.Text = "Avaliable";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(3, 83);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(75, 13);
-            this.label31.TabIndex = 3;
-            this.label31.Text = "Server Name: ";
             // 
             // label19
             // 
@@ -439,7 +368,6 @@
             // panel10
             // 
             this.panel10.Controls.Add(this.button9);
-            this.panel10.Controls.Add(this.label37);
             this.panel10.Controls.Add(this.label20);
             this.panel10.Controls.Add(this.label11);
             this.panel10.Location = new System.Drawing.Point(3, 118);
@@ -456,15 +384,6 @@
             this.button9.Text = "Avaliable";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(3, 85);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(75, 13);
-            this.label37.TabIndex = 3;
-            this.label37.Text = "Server Name: ";
             // 
             // label20
             // 
@@ -488,7 +407,6 @@
             // panel12
             // 
             this.panel12.Controls.Add(this.button10);
-            this.panel12.Controls.Add(this.label36);
             this.panel12.Controls.Add(this.label21);
             this.panel12.Controls.Add(this.label13);
             this.panel12.Location = new System.Drawing.Point(118, 118);
@@ -505,15 +423,6 @@
             this.button10.Text = "Avaliable";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(3, 85);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(75, 13);
-            this.label36.TabIndex = 3;
-            this.label36.Text = "Server Name: ";
             // 
             // label21
             // 
@@ -536,7 +445,6 @@
             // panel11
             // 
             this.panel11.Controls.Add(this.button11);
-            this.panel11.Controls.Add(this.label35);
             this.panel11.Controls.Add(this.label22);
             this.panel11.Controls.Add(this.label12);
             this.panel11.Location = new System.Drawing.Point(233, 118);
@@ -553,15 +461,6 @@
             this.button11.Text = "Avaliable";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(0, 85);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(75, 13);
-            this.label35.TabIndex = 3;
-            this.label35.Text = "Server Name: ";
             // 
             // label22
             // 
@@ -584,7 +483,6 @@
             // panel9
             // 
             this.panel9.Controls.Add(this.button12);
-            this.panel9.Controls.Add(this.label34);
             this.panel9.Controls.Add(this.label23);
             this.panel9.Controls.Add(this.label10);
             this.panel9.Location = new System.Drawing.Point(354, 118);
@@ -601,15 +499,6 @@
             this.button12.Text = "Avaliable";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(3, 85);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(75, 13);
-            this.label34.TabIndex = 3;
-            this.label34.Text = "Server Name: ";
             // 
             // label23
             // 
@@ -632,7 +521,6 @@
             // panel8
             // 
             this.panel8.Controls.Add(this.button13);
-            this.panel8.Controls.Add(this.label33);
             this.panel8.Controls.Add(this.label24);
             this.panel8.Controls.Add(this.label9);
             this.panel8.Location = new System.Drawing.Point(473, 118);
@@ -649,15 +537,6 @@
             this.button13.Text = "Avaliable";
             this.button13.UseVisualStyleBackColor = true;
             this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(3, 85);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(75, 13);
-            this.label33.TabIndex = 3;
-            this.label33.Text = "Server Name: ";
             // 
             // label24
             // 
@@ -680,7 +559,6 @@
             // panel7
             // 
             this.panel7.Controls.Add(this.button14);
-            this.panel7.Controls.Add(this.label32);
             this.panel7.Controls.Add(this.label25);
             this.panel7.Controls.Add(this.label8);
             this.panel7.Location = new System.Drawing.Point(588, 118);
@@ -697,15 +575,6 @@
             this.button14.Text = "Avaliable";
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(3, 85);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(75, 13);
-            this.label32.TabIndex = 3;
-            this.label32.Text = "Server Name: ";
             // 
             // label25
             // 
@@ -819,18 +688,6 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
