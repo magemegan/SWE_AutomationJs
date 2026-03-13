@@ -61,6 +61,7 @@
             this.Controls.Add(this.label1);
             this.Name = "IncomingOrders";
             this.Text = "IncomingOrders";
+            this.Load += new System.EventHandler(this.IncomingOrders_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

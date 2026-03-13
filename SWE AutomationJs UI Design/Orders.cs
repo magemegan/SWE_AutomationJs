@@ -11,9 +11,20 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
+    public static class OrderStorage
+    {
+        public static List<Order> IncomingOrders = new List<Order>(); 
+    }
+    public class Order
+    {
+        public int TableNumber { get; set; }
+        public List<string> Items { get; set; }
+        public string Status { get; set; }
+    }
     public partial class Orders : Form
     {
-        private int tableNumber;
+        public int tableNumber;
+        public int chosenTable;
         public Orders(int chosenTable)
         {
             InitializeComponent();
@@ -40,9 +51,21 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button4_Click(object sender, EventArgs e)
         {//send to kitchen
-            IncomingOrders orders = new IncomingOrders();
-            orders.Show();
-            this.Hide();
+            Order newOrder = new Order();
+            newOrder.TableNumber = chosenTable;
+            newOrder.Items = new List<string>();
+            newOrder.Status = "Pending";
+
+            foreach (var item in listBox2.Items)
+            {
+                newOrder.Items.Add(item.ToString());
+            }
+
+            OrderStorage.IncomingOrders.Add(newOrder);
+
+            MessageBox.Show("Order sent to kitchen.");
+
+            listBox2.Items.Clear();
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -12,6 +12,7 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class IncomingOrders : Form
     {
+        //public static List<Orders> IncomingOrders = new List<Orders>();
         public IncomingOrders()
         {
             InitializeComponent();
@@ -23,5 +24,33 @@ namespace SWE_AutomationJs_UI_Design
             kitchenScreen.Show();
             this.Hide();
         }
+
+        private void IncomingOrders_Load(object sender, EventArgs e)
+        {
+            //listBoxIncomingOrders.Items.Clear();
+
+            //foreach (Orders order in OrderStorage.IncomingOrders)
+            //{
+            //    listBoxIncomingOrders.Items.Add($"Table {order.tableNumber} - {order.Status}");
+            //}
+
+            
+        }
+
+        //private void listBoxIncomingOrders_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    int selectedIndex = listBoxIncomingOrders.SelectedIndex;
+
+        //    if (selectedIndex == -1) return;
+
+        //    listBoxOrderDetails.Items.Clear();
+
+        //    Order selectedOrder = OrderStorage.IncomingOrders[selectedIndex];
+
+        //    foreach (string item in selectedOrder.Items)
+        //    {
+        //        listBoxOrderDetails.Items.Add(item);
+        //    }
+        //}
     }
 }
