@@ -17,6 +17,8 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
         }
 
+        int tableNumber;
+
         private void button1_Click(object sender, EventArgs e)
         {//go back
             WaiterScreen waiterScreen = new WaiterScreen();

@@ -89,6 +89,9 @@ namespace SWE_AutomationJs_UI_Design
         {
             UpdateButton(sender, e);
             // lead to order?
+            Orders serverName = new Orders();
+            serverName.Show();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
