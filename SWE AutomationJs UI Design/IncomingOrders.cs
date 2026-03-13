@@ -12,7 +12,7 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class IncomingOrders : Form
     {
-        //public static List<Orders> IncomingOrders = new List<Orders>();
+        //public static List<Order> IncomingOrders = new List<Order>();
         public IncomingOrders()
         {
             InitializeComponent();
@@ -37,19 +37,39 @@ namespace SWE_AutomationJs_UI_Design
             
         }
 
-        //private void listBoxIncomingOrders_SelectedIndexChanged(object sender, EventArgs e)
+        //int selectedIndex = listBoxIncomingOrders.SelectedIndex;
+
+        //if (selectedIndex == -1) return;
+
+        //listBoxOrderDetails.Items.Clear();
+
+        //Order selectedOrder = OrderStorage.IncomingOrders[selectedIndex];
+
+        //foreach (string item in selectedOrder.Items)
         //{
+        //    listBoxOrderDetails.Items.Add(item);
+        //}
+
+
         //    int selectedIndex = listBoxIncomingOrders.SelectedIndex;
+        //if (selectedIndex == -1) return;
 
-        //    if (selectedIndex == -1) return;
+        //OrderStorage.IncomingOrders[selectedIndex].Status = "Preparing";
+        //RefreshIncomingOrders();
 
-        //    listBoxOrderDetails.Items.Clear();
+        //    int selectedIndex = listBoxIncomingOrders.SelectedIndex;
+        //if (selectedIndex == -1) return;
 
-        //    Order selectedOrder = OrderStorage.IncomingOrders[selectedIndex];
+        //OrderStorage.IncomingOrders[selectedIndex].Status = "Ready";
+        //RefreshIncomingOrders();
 
-        //    foreach (string item in selectedOrder.Items)
+        //private void RefreshIncomingOrders()
+        //{
+        //    listBoxIncomingOrders.Items.Clear();
+
+        //    foreach (Order order in OrderStorage.IncomingOrders)
         //    {
-        //        listBoxOrderDetails.Items.Add(item);
+        //        listBoxIncomingOrders.Items.Add("Table " + order.TableNumber + " - " + order.Status);
         //    }
         //}
     }

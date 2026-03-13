@@ -16,8 +16,8 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, System.EventArgs e)
         {//back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+            Schedule schedule = new Schedule();
+            schedule.Show();
             this.Hide();
         }
     }
