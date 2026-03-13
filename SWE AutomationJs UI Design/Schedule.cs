@@ -23,5 +23,24 @@ namespace SWE_AutomationJs_UI_Design
             waiterScreen.Show();
             this.Hide();
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//request off
+            TimeOff dayOff = new TimeOff();
+            dayOff.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {//swap shift
+            Swap swapShift = new Swap();
+            swapShift.Show();
+            this.Hide();
+        }
     }
 }
