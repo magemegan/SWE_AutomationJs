@@ -88,61 +88,97 @@ namespace SWE_AutomationJs_UI_Design
         private void button3_Click_1(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(13);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(14);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(15);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(16);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(17);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(18);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(19);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(20);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(21);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(22);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
+            Orders serverName = new Orders(23);
+            serverName.Show();
+            this.Hide();
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            UpdateButton(sender, e); 
+            UpdateButton(sender, e);
+            Orders serverName = new Orders(24);
+            serverName.Show();
+            this.Hide();
         }
     }
 }

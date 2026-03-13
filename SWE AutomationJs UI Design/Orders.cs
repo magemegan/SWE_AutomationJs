@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,17 +13,28 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class Orders : Form
     {
-        public Orders()
+        private int tableNumber;
+        public Orders(int chosenTable)
         {
             InitializeComponent();
+            tableNumber = chosenTable;
+
         }
 
-        int tableNumber;
+        private void Orders_load(object sender, EventArgs e)
+        {
+            label2.Text = $"Table: {tableNumber}";
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {//go back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+            AssignTables assignTables = new AssignTables();
+            assignTables.Show();
             this.Hide();
         }
 
