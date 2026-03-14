@@ -8,6 +8,6 @@ namespace SWE_AutomationJs_UI_Design
 {
     public class OrderStorage
     {
-        public static List<Order> IncomingOrders = new List<Order>();
+        public static List<Order> IncomingOrder = new List<Order>();
     }
 }

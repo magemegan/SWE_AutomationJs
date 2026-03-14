@@ -14,11 +14,11 @@ namespace SWE_AutomationJs_UI_Design
     public partial class Orders : Form
     {
         public int tableNumber;
-        public int chosenTable;
-        public Orders(int chosenTable)
+        private int chosenTable;
+        public Orders(int tableNumber)
         {
             InitializeComponent();
-            tableNumber = chosenTable;
+            chosenTable = tableNumber;
 
         }
 
@@ -51,7 +51,7 @@ namespace SWE_AutomationJs_UI_Design
                 newOrder.Items.Add(item.ToString());
             }
 
-            OrderStorage.IncomingOrders.Add(newOrder);
+            OrderStorage.IncomingOrder.Add(newOrder);
 
             MessageBox.Show("Order sent to kitchen.");
 

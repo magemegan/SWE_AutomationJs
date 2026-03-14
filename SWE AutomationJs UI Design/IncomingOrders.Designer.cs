@@ -67,6 +67,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(266, 212);
             this.listBox1.TabIndex = 2;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -105,6 +106,7 @@
             this.label4.Size = new System.Drawing.Size(73, 25);
             this.label4.TabIndex = 6;
             this.label4.Text = "Table: ";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -124,6 +126,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Preparing";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -133,6 +136,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "Ready";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // IncomingOrders
             // 
