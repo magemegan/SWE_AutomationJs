@@ -27,14 +27,14 @@ namespace SWE_AutomationJs_UI_Design
 
         private void IncomingOrders_Load(object sender, EventArgs e)
         {
-            //listBoxIncomingOrders.Items.Clear();
+            listBoxIncomingOrders.Items.Clear();
 
-            //foreach (Orders order in OrderStorage.IncomingOrders)
-            //{
-            //    listBoxIncomingOrders.Items.Add($"Table {order.tableNumber} - {order.Status}");
-            //}
+            foreach (Orders order in OrderStorage.IncomingOrders)
+            {
+                listBoxIncomingOrders.Items.Add($"Table {order.tableNumber} - {order.Status}");
+            }
 
-            
+
         }
 
         //private void listBoxIncomingOrders_SelectedIndexChanged(object sender, EventArgs e)

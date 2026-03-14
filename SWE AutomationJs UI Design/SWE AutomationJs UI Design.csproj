@@ -106,7 +106,9 @@
     <Compile Include="MarkTables.Designer.cs">
       <DependentUpon>MarkTables.cs</DependentUpon>
     </Compile>
-    <Compile Include="Orders.cs" />
+    <Compile Include="Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Orders.Designer.cs">
       <DependentUpon>Orders.cs</DependentUpon>
     </Compile>
