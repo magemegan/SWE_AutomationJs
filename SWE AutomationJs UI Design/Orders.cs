@@ -11,6 +11,16 @@ using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
+    public static class OrderStorage
+    {
+        public static List<Order> IncomingOrders = new List<Order>(); 
+    }
+    public class Order
+    {
+        public int TableNumber { get; set; }
+        public List<string> Items { get; set; }
+        public string Status { get; set; }
+    }
     public partial class Orders : Form
     {
         public int tableNumber;
