@@ -13,7 +13,6 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class IncomingOrders : Form
     {
-        Order order;
         public IncomingOrders()
         {
             InitializeComponent();
@@ -51,6 +50,8 @@ namespace SWE_AutomationJs_UI_Design
             label4.Text = "Table: " + selectedOrder.TableNumber;
             label5.Text = "Status: " + selectedOrder.Status;
 
+            listBox2.Items.Clear();
+
             foreach (string item in selectedOrder.Items)
             {
                 listBox2.Items.Add(item);
@@ -62,19 +63,47 @@ namespace SWE_AutomationJs_UI_Design
             int SelectedIndex = listBox1.SelectedIndex;    
 
             if (SelectedIndex == -1) return;
+            if (SelectedIndex >= OrderStorage.IncomingOrder.Count) return;
 
             OrderStorage.IncomingOrder[SelectedIndex].Status = "Preparing";
+
+            label5.Text = "Status: Preparing";
             LoadOrderQueue();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {//ready
-            int index =listBox2.SelectedIndex;
-            if (index == -1) return;
+            int foodindex =listBox2.SelectedIndex;
+            int orderindex = listBox1.SelectedIndex;
+            if (foodindex == -1) return;
+            if (orderindex == -1) return;
 
-            listBox2.Items.Clear();
+            if (orderindex >= OrderStorage.IncomingOrder.Count) return;
+            Order selectedorder = OrderStorage.IncomingOrder[orderindex];
 
-            OrderStorage.IncomingOrder[index].Status = "Ready";
+            if (foodindex >= selectedorder.Items.Count) return;
+
+            selectedorder.Items.RemoveAt(foodindex);
+
+            if (selectedorder.Items.Count == 0)
+            {
+                OrderStorage.IncomingOrder.RemoveAt(orderindex);
+
+                label4.Text = "Table: ";
+                label5.Text = "Status: ";
+                listBox2.Items.Clear();
+            }
+            else
+            {
+                listBox2.Items.Clear();
+
+                foreach (string item in selectedorder.Items)
+                {
+                    listBox2.Items.Add(item);
+                }
+
+                if(listBox2.Items.Count > 0) { listBox2.SelectedIndex = 0; }
+            }
             LoadOrderQueue();
         }
 

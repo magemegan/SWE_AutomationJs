@@ -24,7 +24,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void Orders_load(object sender, EventArgs e)
         {
-            label2.Text = $"Table: {tableNumber}";
+            label2.Text = $"Table: {chosenTable}";
         }
 
         private void label2_Click(object sender, EventArgs e)
