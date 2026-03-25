@@ -29,8 +29,20 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {// send to request to manager
-            MessageBox.Show("Inventory request sent to manager.");
+            Request newRequest = new Request();
+            newRequest.Quantity = (int)numericUpDown1.Value;
+            newRequest.Priority = comboBox2.SelectedItem.ToString();
+            newRequest.ItemName = comboBox1.SelectedItem.ToString();
+            newRequest.Status = "Pending";
 
+            foreach (var item in listBox2.Items)
+            {
+                newRequest.ItemName.Add(item.ToString());
+            }
+
+            RequestStorage.RequestOrder.Add(newRequest);
+
+            MessageBox.Show("Request sent to Manager.");
         }
     }
 }
