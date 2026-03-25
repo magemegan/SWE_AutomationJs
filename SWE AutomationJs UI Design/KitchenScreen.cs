@@ -30,5 +30,12 @@ namespace SWE_AutomationJs_UI_Design
             orders.Show();
             this.Hide();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {//restock inventory
+            Inventory inventoryScreen = new Inventory();
+            inventoryScreen.Show();
+            this.Hide();
+        }
     }
 }

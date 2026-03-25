@@ -23,5 +23,19 @@ namespace SWE_AutomationJs_UI_Design
             mainMenu.Show();
             this.Hide();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {//view schedule
+            Schedule scheduleScreen = new Schedule();
+            scheduleScreen.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//view tables
+            TableStatus tableStatus = new TableStatus();
+            tableStatus.Show();
+            this.Hide();
+        }
     }
 }
