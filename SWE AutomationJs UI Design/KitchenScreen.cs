@@ -37,5 +37,12 @@ namespace SWE_AutomationJs_UI_Design
             inventoryScreen.Show();
             this.Hide();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {//schedule
+            Schedule scheduleScreen = new Schedule();
+            scheduleScreen.Show();
+            this.Hide();
+        }
     }
 }

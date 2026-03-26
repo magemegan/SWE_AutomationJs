@@ -29,13 +29,6 @@ namespace SWE_AutomationJs_UI_Design
             this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {//check table status
-            TableStatus tableStatus = new TableStatus();
-            tableStatus.Show();
-            this.Hide();
-        }
-
         private void button3_Click(object sender, EventArgs e)
         {//assign tables
             AssignTables assignTables = new AssignTables();

@@ -33,7 +33,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {//view tables
-            TableStatus tableStatus = new TableStatus();
+            CleaningScreen tableStatus = new CleaningScreen();
             tableStatus.Show();
             this.Hide();
         }

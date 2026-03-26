@@ -8,6 +8,6 @@ namespace SWE_AutomationJs_UI_Design
 {
     internal class RequestStorage
     {
-        public static List<Inventory> RequestOrder = new List<Inventory>();
+        public static List<Request> RequestOrder = new List<Request>();
     }
 }

@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class MarkTables : Form
+    public partial class InventoryManagement : Form
     {
-        public MarkTables()
+        public InventoryManagement()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//go back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+        {//back to admin menu
+            AdminMenu adminMenu = new AdminMenu();
+            adminMenu.Show();
             this.Hide();
         }
     }

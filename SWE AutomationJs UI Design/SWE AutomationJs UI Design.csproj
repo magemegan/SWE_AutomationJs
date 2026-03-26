@@ -76,11 +76,23 @@
     <Compile Include="BusboyScreen.Designer.cs">
       <DependentUpon>BusboyScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="CleaningScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CleaningScreen.Designer.cs">
+      <DependentUpon>CleaningScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="EmployeeMenu.Designer.cs">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeScheduling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeScheduling.Designer.cs">
+      <DependentUpon>EmployeeScheduling.cs</DependentUpon>
     </Compile>
     <Compile Include="IncomingOrders.cs">
       <SubType>Form</SubType>
@@ -93,6 +105,12 @@
     </Compile>
     <Compile Include="Inventory.Designer.cs">
       <DependentUpon>Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InventoryManagement.Designer.cs">
+      <DependentUpon>InventoryManagement.cs</DependentUpon>
     </Compile>
     <Compile Include="KitchenScreen.cs">
       <SubType>Form</SubType>
@@ -130,6 +148,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestStorage.cs" />
+    <Compile Include="RestockRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RestockRequests.Designer.cs">
+      <DependentUpon>RestockRequests.cs</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,14 +211,23 @@
     <EmbeddedResource Include="BusboyScreen.resx">
       <DependentUpon>BusboyScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CleaningScreen.resx">
+      <DependentUpon>CleaningScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EmployeeMenu.resx">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeScheduling.resx">
+      <DependentUpon>EmployeeScheduling.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IncomingOrders.resx">
       <DependentUpon>IncomingOrders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory.resx">
       <DependentUpon>Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InventoryManagement.resx">
+      <DependentUpon>InventoryManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KitchenScreen.resx">
       <DependentUpon>KitchenScreen.cs</DependentUpon>
@@ -220,6 +253,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RestockRequests.resx">
+      <DependentUpon>RestockRequests.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Schedule.resx">
       <DependentUpon>Schedule.cs</DependentUpon>
     </EmbeddedResource>

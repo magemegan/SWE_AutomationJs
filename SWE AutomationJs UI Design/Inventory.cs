@@ -31,18 +31,20 @@ namespace SWE_AutomationJs_UI_Design
         {// send to request to manager
             Request newRequest = new Request();
             newRequest.Quantity = (int)numericUpDown1.Value;
-            newRequest.Priority = comboBox2.SelectedItem.ToString();
-            newRequest.ItemName = comboBox1.SelectedItem.ToString();
+            newRequest.Priority = comboBox2.Text;
+            newRequest.ItemName = textBox2.Text;
+            newRequest.Notes = textBox1.Text;   
             newRequest.Status = "Pending";
-
-            foreach (var item in listBox2.Items)
-            {
-                newRequest.ItemName.Add(item.ToString());
-            }
 
             RequestStorage.RequestOrder.Add(newRequest);
 
             MessageBox.Show("Request sent to Manager.");
+
+            // Clear the form for the next request
+            textBox2.Clear();
+            comboBox2.SelectedIndex = -1;
+            numericUpDown1.Value = 1;
+            textBox1.Clear();
         }
     }
 }
