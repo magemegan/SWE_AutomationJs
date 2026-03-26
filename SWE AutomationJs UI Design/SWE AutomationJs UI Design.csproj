@@ -124,12 +124,6 @@
     <Compile Include="MainMenu.Designer.cs">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarkTables.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MarkTables.Designer.cs">
-      <DependentUpon>MarkTables.cs</DependentUpon>
-    </Compile>
     <Compile Include="Order.cs" />
     <Compile Include="Orders.cs">
       <SubType>Form</SubType>
@@ -165,24 +159,6 @@
     </Compile>
     <Compile Include="Swap.Designer.cs">
       <DependentUpon>Swap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TableStatus.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TableStatus.Designer.cs">
-      <DependentUpon>TableStatus.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TableStatus2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TableStatus2.Designer.cs">
-      <DependentUpon>TableStatus2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TableStatus3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TableStatus3.Designer.cs">
-      <DependentUpon>TableStatus3.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeOff.cs">
       <SubType>Form</SubType>
@@ -235,9 +211,6 @@
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MarkTables.resx">
-      <DependentUpon>MarkTables.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Orders.resx">
       <DependentUpon>Orders.cs</DependentUpon>
     </EmbeddedResource>
@@ -261,15 +234,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Swap.resx">
       <DependentUpon>Swap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TableStatus.resx">
-      <DependentUpon>TableStatus.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TableStatus2.resx">
-      <DependentUpon>TableStatus2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TableStatus3.resx">
-      <DependentUpon>TableStatus3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeOff.resx">
       <DependentUpon>TimeOff.cs</DependentUpon>
