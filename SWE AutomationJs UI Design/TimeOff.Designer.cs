@@ -113,6 +113,7 @@
             this.Controls.Add(this.label1);
             this.Name = "TimeOff";
             this.Text = "TimeOff";
+            this.Load += new System.EventHandler(this.TimeOff_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

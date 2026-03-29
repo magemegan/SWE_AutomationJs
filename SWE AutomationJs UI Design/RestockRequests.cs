@@ -25,6 +25,7 @@ namespace SWE_AutomationJs_UI_Design
         private void RequestLoad()
         {
             listBox1.Items.Clear();
+            // Load requests from storage and display in listbox
             foreach (Request request in RequestStorage.RequestOrder)
             {
                 listBox1.Items.Add($"{request.ItemName} - Quantity: {request.Quantity} - Priority: {request.Priority} - Status: {request.Status}");
@@ -39,11 +40,10 @@ namespace SWE_AutomationJs_UI_Design
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = listBox1.SelectedIndex;
-
             if (index == -1) return;
-
+            // Get the corresponding request based on the selected index
             Request selectedRequest = RequestStorage.RequestOrder[index];
-
+            // Display request details in labels and textbox
             label2.Text = "Item: " + selectedRequest.ItemName;
             label3.Text = "Quantity: " + selectedRequest.Quantity;
             label4.Text = "Priority: " + selectedRequest.Priority;
@@ -55,10 +55,12 @@ namespace SWE_AutomationJs_UI_Design
         {//approve button
             int index = listBox1.SelectedIndex;
             if (index == -1) return;
+            // Get the corresponding request based on the selected index
             Request selectedRequest = RequestStorage.RequestOrder[index];
             selectedRequest.Status = "Approved";
+            // Update the status label to reflect the change
             label4.Text = "Status: " + selectedRequest.Status;
-            RequestStorage.RequestOrder.RemoveAt(index);
+            RequestStorage.RequestOrder.RemoveAt(index);// Remove the request from storage after approval
             RequestLoad();
 
         }
@@ -67,10 +69,12 @@ namespace SWE_AutomationJs_UI_Design
         {//deny button
             int index = listBox1.SelectedIndex;
             if (index == -1) return;
+            // Get the corresponding request based on the selected index
             Request selectedRequest = RequestStorage.RequestOrder[index];
             selectedRequest.Status = "Denied";
+            // Update the status label to reflect the change
             label4.Text = "Status: " + selectedRequest.Status;
-            RequestStorage.RequestOrder.RemoveAt(index);
+            RequestStorage.RequestOrder.RemoveAt(index);// Remove the request from storage after denial
             RequestLoad();
 
         }

@@ -30,31 +30,43 @@ namespace SWE_AutomationJs_UI_Design
         private void LoadCleaningQueue()
         {
             listBox1.Items.Clear();
-            foreach (Order order in OrderStorage.IncomingOrder)
+
+            //list through all tables and add those that need cleaning to the listbox
+            foreach (var table in TableStorage.TableStatuses)
             {
-                listBox1.Items.Add($"Table {order.TableNumber} - {order.Status}");
+                if (table.Value == "Needs Cleaning")
+                {
+                    listBox1.Items.Add($"Table {table.Key}");
+                }
             }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedIndex = listBox1.SelectedIndex;
-            if (selectedIndex == -1) return;
+            if (listBox1.SelectedIndex == null) return;
+            //display details of the selected order
+            string selectedIndex = listBox1.SelectedIndex.ToString();
 
-            Order selectedOrder = OrderStorage.IncomingOrder[selectedIndex];
-
-            label4.Text = "Table: " + selectedOrder.TableNumber;
-            label5.Text = "Status: " + selectedOrder.Status;
-
-            listBox1.Items.Clear();
+            //display order details in labels
+            label4.Text = selectedIndex;
+            label5.Text = "Status: Needs Cleaning";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//mark table as clean
-            int selectedIndex = listBox1.SelectedIndex;
-            if (selectedIndex == -1) return;
-            Order selectedOrder = OrderStorage.IncomingOrder[selectedIndex];
-            selectedOrder.Status = "Cleaned";
+            if (listBox1.SelectedIndex == null) return;
+            //display details of the selected order
+            string selectedIndex = listBox1.SelectedIndex.ToString();
+            //parse table number from selected index
+            int tableNumber = int.Parse(selectedIndex.Split(' ')[1]);
+
+            TableStorage.TableStatuses[tableNumber] = "Open";
+
+            //display order details in labels
+            label4.Text = "Table:";
+            label5.Text = "Status:";
+            MessageBox.Show($"Table {tableNumber} marked as clean!");
+
             LoadCleaningQueue();
         }
     }

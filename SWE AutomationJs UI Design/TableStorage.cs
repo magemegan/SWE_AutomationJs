@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SWE_AutomationJs_UI_Design
+{
+    internal class TableStorage
+    {
+        // This class is responsible for storing the status of each table in the restaurant. It uses a dictionary to map table numbers to their current status (e.g., "Open", "Needs Cleaning", etc.).
+        public static Dictionary<int, string> TableStatuses = new Dictionary<int, string>()
+        {
+            { 1, "Open" },
+            { 2, "Open" },
+            { 3, "Open" },
+            { 4, "Open" },
+            { 5, "Open" },
+            { 6, "Open" },
+            { 7, "Open" },
+            { 8, "Open" },
+            { 9, "Open" },
+            { 10, "Open" },
+            { 11, "Open" },
+            { 12, "Open" }
+        };
+    }
+}

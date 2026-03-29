@@ -17,9 +17,9 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
         }
 
-        enum tableStatus
+        public enum TableState
         {
-            Available,
+            Open,
             Occupied,
             Reserved,
             NeedsCleaning
@@ -28,6 +28,7 @@ namespace SWE_AutomationJs_UI_Design
         //tableStatus currentStatus = tableStatus.Available;
         private void TableStatus_Load(object sender, EventArgs e)
         {
+            // Initialize all buttons to available state
             button3.BackColor = Color.LightGreen;
             button4.BackColor = Color.LightGreen;
             button5.BackColor = Color.LightGreen;
@@ -40,7 +41,7 @@ namespace SWE_AutomationJs_UI_Design
             button12.BackColor = Color.LightGreen;
             button13.BackColor = Color.LightGreen;
             button14.BackColor = Color.LightGreen;
-
+            // Set button text to indicate table numbers
             button3.Text = "Table 1";
             button4.Text = "Table 2";
             button5.Text = "Table 3";
@@ -58,7 +59,7 @@ namespace SWE_AutomationJs_UI_Design
         private void UpdateButton(object sender, EventArgs e)
         {
             Button button = sender as Button;
-
+            // Toggle between available and occupied states
             if (button.BackColor == Color.LightGreen)
             {
                 button.BackColor = Color.Orange;
@@ -88,7 +89,7 @@ namespace SWE_AutomationJs_UI_Design
         private void button3_Click(object sender, EventArgs e)
         {
             UpdateButton(sender, e);
-            // lead to order?
+            //open orders form for the selected table
             Orders serverName = new Orders(1);
             serverName.Show();
             this.Hide();

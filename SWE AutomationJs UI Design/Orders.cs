@@ -24,6 +24,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void Orders_load(object sender, EventArgs e)
         {
+            //display the table number in label2
             label2.Text = $"Table: {chosenTable}";
         }
 
@@ -45,7 +46,7 @@ namespace SWE_AutomationJs_UI_Design
             newOrder.TableNumber = chosenTable;
             newOrder.Items = new List<string>();
             newOrder.Status = "Pending";
-
+            // Add items from listBox2 to the order
             foreach (var item in listBox2.Items)
             {
                 newOrder.Items.Add(item.ToString());

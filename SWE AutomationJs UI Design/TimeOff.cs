@@ -26,5 +26,10 @@ namespace SWE_AutomationJs_UI_Design
         {//submit request
 
         }
+
+        private void TimeOff_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
