@@ -154,6 +154,8 @@
     <Compile Include="Schedule.Designer.cs">
       <DependentUpon>Schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScheduleRequest.cs" />
+    <Compile Include="ScheduleRequestStorage.cs" />
     <Compile Include="Swap.cs">
       <SubType>Form</SubType>
     </Compile>
