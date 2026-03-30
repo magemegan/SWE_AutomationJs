@@ -10,6 +10,7 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class CleaningScreen : Form
     {
+        private List<int> dirtyTables = new List<int>();
         public CleaningScreen()
         {
             InitializeComponent();
@@ -30,12 +31,14 @@ namespace SWE_AutomationJs_UI_Design
         private void LoadCleaningQueue()
         {
             listBox1.Items.Clear();
+            dirtyTables.Clear();
 
             //list through all tables and add those that need cleaning to the listbox
             foreach (var table in TableStorage.TableStatuses)
             {
                 if (table.Value == "Needs Cleaning")
                 {
+                    dirtyTables.Add(table.Key);
                     listBox1.Items.Add($"Table {table.Key}");
                 }
             }
@@ -43,30 +46,35 @@ namespace SWE_AutomationJs_UI_Design
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex == null) return;
-            //display details of the selected order
-            string selectedIndex = listBox1.SelectedIndex.ToString();
-
+            int selectedIndex = listBox1.SelectedIndex;
+            //check if selected index is valid
+            if (selectedIndex == -1) return;
+            if (selectedIndex >= dirtyTables.Count) return;
+            //get table number from dirty tables list
+            int selectedTableNumber = dirtyTables[selectedIndex];
 
             //display order details in labels
-            label4.Text = selectedIndex;
+            label4.Text = $"Table: {selectedTableNumber}";
             label5.Text = "Status: Needs Cleaning";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//mark table as clean
-            if (listBox1.SelectedIndex == null) return;
-            //display details of the selected order
-            string selectedIndex = listBox1.SelectedIndex.ToString();
-            //parse table number from selected index
-            int tableNumber = int.Parse(selectedIndex.Replace("Table ", ""));
+            int selectedIndex = listBox1.SelectedIndex;
 
-            TableStorage.TableStatuses[tableNumber] = "Open";
+            if (selectedIndex == -1) return;
+            if (selectedIndex >= dirtyTables.Count) return;
+
+            int selectedTableNumber = dirtyTables[selectedIndex];
+
+
+            TableStorage.TableStatuses[selectedTableNumber] = "Open";
+            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+            listBox1.ClearSelected();
 
             //display order details in labels
             label4.Text = "Table:";
             label5.Text = "Status:";
-            MessageBox.Show($"Table {tableNumber} marked as clean!");
 
             LoadCleaningQueue();
         }

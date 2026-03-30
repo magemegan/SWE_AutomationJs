@@ -54,8 +54,6 @@ namespace SWE_AutomationJs_UI_Design
 
             OrderStorage.IncomingOrder.Add(newOrder);
 
-            MessageBox.Show("Order sent to kitchen.");
-
             listBox2.Items.Clear();
         }
 

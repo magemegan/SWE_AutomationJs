@@ -11,7 +11,17 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, System.EventArgs e)
         {//submit swap
+            ScheduleRequest request = new ScheduleRequest();
 
+            request.EmployeeName = " ";
+            request.RequestType = "Swap";
+            request.Details = textBox1.Text;
+            request.Status = "Pending";
+            request.ShiftDate = dateTimePicker1.Value;
+
+            ScheduleRequestStorage.ScheduleRequests.Add(request);
+
+            textBox1.Clear();
         }
 
         private void button1_Click(object sender, System.EventArgs e)

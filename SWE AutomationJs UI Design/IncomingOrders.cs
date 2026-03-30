@@ -93,7 +93,6 @@ namespace SWE_AutomationJs_UI_Design
                 // If all items are ready, update the table status to "NeedsCleaning"
                 int tableNumber = selectedorder.TableNumber;
                 TableStorage.TableStatuses[tableNumber] = "Needs Cleaning";
-                MessageBox.Show($"Order for Table {tableNumber} is ready. Please clean the table.");
                 // Remove the order from the incoming orders list
                 OrderStorage.IncomingOrder.RemoveAt(orderindex);
                 // Clear the details of the removed order
