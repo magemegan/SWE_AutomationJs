@@ -93,6 +93,7 @@ namespace SWE_AutomationJs_UI_Design
                 // If all items are ready, update the table status to "NeedsCleaning"
                 int tableNumber = selectedorder.TableNumber;
                 TableStorage.TableStatuses[tableNumber] = "Needs Cleaning";
+                MessageBox.Show($"Order for Table {tableNumber} is ready. Please clean the table.");
                 // Remove the order from the incoming orders list
                 OrderStorage.IncomingOrder.RemoveAt(orderindex);
                 // Clear the details of the removed order
@@ -108,8 +109,6 @@ namespace SWE_AutomationJs_UI_Design
                 {
                     listBox2.Items.Add(item);
                 }
-                // Optionally, select the first item in listBox2 after refreshing
-                if (listBox2.Items.Count > 0) { listBox2.SelectedIndex = 0; }
             }
             LoadOrderQueue();
         }

@@ -47,6 +47,7 @@ namespace SWE_AutomationJs_UI_Design
             //display details of the selected order
             string selectedIndex = listBox1.SelectedIndex.ToString();
 
+
             //display order details in labels
             label4.Text = selectedIndex;
             label5.Text = "Status: Needs Cleaning";
@@ -58,7 +59,7 @@ namespace SWE_AutomationJs_UI_Design
             //display details of the selected order
             string selectedIndex = listBox1.SelectedIndex.ToString();
             //parse table number from selected index
-            int tableNumber = int.Parse(selectedIndex.Split(' ')[1]);
+            int tableNumber = int.Parse(selectedIndex.Replace("Table ", ""));
 
             TableStorage.TableStatuses[tableNumber] = "Open";
 

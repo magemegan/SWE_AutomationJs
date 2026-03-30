@@ -130,6 +130,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CleaningScreen";
             this.Text = "Cleaning Screen";
+            this.Load += new System.EventHandler(this.CleaningScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

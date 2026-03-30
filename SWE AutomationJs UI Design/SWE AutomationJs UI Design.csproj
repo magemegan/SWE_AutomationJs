@@ -160,6 +160,7 @@
     <Compile Include="Swap.Designer.cs">
       <DependentUpon>Swap.cs</DependentUpon>
     </Compile>
+    <Compile Include="TableStorage.cs" />
     <Compile Include="TimeOff.cs">
       <SubType>Form</SubType>
     </Compile>
