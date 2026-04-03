@@ -10,15 +10,17 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class TimeOff : Form
     {
-        public TimeOff()
+        private string previousScreen;
+        public TimeOff(string previousScreen)
         {
             InitializeComponent();
+            this.previousScreen = previousScreen;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+            Schedule schedule = new Schedule(previousScreen);
+            schedule.Show();
             this.Hide();
         }
 
@@ -31,7 +33,6 @@ namespace SWE_AutomationJs_UI_Design
             request.Status = "Pending";
             DateTime selectedDate = dateTimePicker1.Value;
             request.ShiftDate = selectedDate;
-            MessageBox.Show("Time off request submitted for " + request.ShiftDate.ToShortDateString() + ". Status: " + request.Status);
 
             ScheduleRequestStorage.ScheduleRequests.Add(request);
 

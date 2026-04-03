@@ -12,16 +12,33 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class Schedule : Form
     {
-        public Schedule()
+        private string previousScreen;
+        public Schedule(string previousScreen)
         {
             InitializeComponent();
+            this.previousScreen = previousScreen;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {// go back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
-            this.Hide();
+            if (previousScreen == "Busboy")
+            {
+                BusboyScreen busboyScreen = new BusboyScreen();
+                busboyScreen.Show();
+                this.Hide();
+            }
+            else if (previousScreen == "Kitchen")
+            {
+                KitchenScreen kitchenScreen = new KitchenScreen();
+                kitchenScreen.Show();
+                this.Hide();
+            }
+            else if (previousScreen == "Waiter")
+            {
+                WaiterScreen waiterScreen = new WaiterScreen();
+                waiterScreen.Show();
+                this.Hide();
+            }
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -31,14 +48,14 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {//request off
-            TimeOff dayOff = new TimeOff();
+            TimeOff dayOff = new TimeOff(previousScreen);
             dayOff.Show();
             this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {//swap shift
-            Swap swapShift = new Swap();
+            Swap swapShift = new Swap(previousScreen);
             swapShift.Show();
             this.Hide();
         }

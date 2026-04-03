@@ -38,7 +38,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button7_Click(object sender, EventArgs e)
         {//access schedule
-            Schedule accessSchedule = new Schedule();
+            Schedule accessSchedule = new Schedule("Waiter");
             accessSchedule.Show();
             this.Hide();
         }

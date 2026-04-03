@@ -4,9 +4,11 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class Swap : Form
     {
-        public Swap()
+        private string previousScreen;
+        public Swap(string previousScreen)
         {
             InitializeComponent();
+            this.previousScreen = previousScreen;
         }
 
         private void button2_Click(object sender, System.EventArgs e)
@@ -26,8 +28,8 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, System.EventArgs e)
         {//back
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
+            Schedule schedule = new Schedule(previousScreen);
+            schedule.Show();
             this.Hide();
         }
     }

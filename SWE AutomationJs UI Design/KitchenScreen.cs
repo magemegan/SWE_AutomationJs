@@ -40,7 +40,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button6_Click(object sender, EventArgs e)
         {//schedule
-            Schedule scheduleScreen = new Schedule();
+            Schedule scheduleScreen = new Schedule("Kitchen");
             scheduleScreen.Show();
             this.Hide();
         }

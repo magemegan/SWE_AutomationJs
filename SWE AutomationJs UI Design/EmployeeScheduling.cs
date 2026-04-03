@@ -21,5 +21,17 @@ namespace SWE_AutomationJs_UI_Design
             adminMenu.Show();
             this.Hide();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {//view requests
+            ViewRequests viewRequests = new ViewRequests();
+            viewRequests.Show();
+            this.Hide();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button5_Click(object sender, EventArgs e)
         {//view schedule
-            Schedule scheduleScreen = new Schedule();
+            Schedule scheduleScreen = new Schedule("Busboy");
             scheduleScreen.Show();
             this.Hide();
         }
