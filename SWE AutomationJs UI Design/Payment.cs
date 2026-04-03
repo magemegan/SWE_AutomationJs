@@ -23,5 +23,43 @@ namespace SWE_AutomationJs_UI_Design
             waiterScreen.Show();
             this.Hide();
         }
+
+        private void LoadPaymentQueue()
+        {
+            listBox1.Items.Clear();
+            // Load the incoming orders into listBox1
+            foreach (PastPayment payment in PastPaymentStorage.Payments)
+            {
+                listBox1.Items.Add($"Table {payment.TableNumber} - {payment.Total} - {payment.Status}");
+            }
+        }
+
+        private void Payment_Load(object sender, EventArgs e)
+        {
+            LoadPaymentQueue();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected index from listBox1
+            int selectedIndex = listBox1.SelectedIndex;
+            // Check if a valid index is selected
+            if (selectedIndex == -1) return;
+            // Get the corresponding order based on the selected index
+            PastPayment selectedPayment = PastPaymentStorage.Payments[selectedIndex];
+            // Display the order details in the labels and listBox2
+            label4.Text = "Table: " + selectedPayment.TableNumber;
+            label5.Text = "Status: " + selectedPayment.Status;
+            label6.Text = "Total: $" + selectedPayment.Total;
+            label7.Text = "Date: " + selectedPayment.Date;
+            label8.Text = "Items:";
+
+            listBox2.Items.Clear();
+            // Load the items of the selected order into listBox2
+            foreach (string item in selectedPayment.Items)
+            {
+                listBox2.Items.Add($"- {item}");
+            }
+        }
     }
 }

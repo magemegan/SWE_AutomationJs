@@ -132,6 +132,8 @@
       <DependentUpon>Orders.cs</DependentUpon>
     </Compile>
     <Compile Include="OrderStorage.cs" />
+    <Compile Include="PastPayment.cs" />
+    <Compile Include="PastPaymentStorage.cs" />
     <Compile Include="Payment.cs">
       <SubType>Form</SubType>
     </Compile>

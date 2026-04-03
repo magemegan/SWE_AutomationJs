@@ -15,7 +15,7 @@ namespace SWE_AutomationJs_UI_Design
             { 2, "Open" },
             { 3, "Open" },
             { 4, "Open" },
-            { 5, "Needs Cleaning" },
+            { 5, "Open" },
             { 6, "Open" },
             { 7, "Open" },
             { 8, "Open" },
