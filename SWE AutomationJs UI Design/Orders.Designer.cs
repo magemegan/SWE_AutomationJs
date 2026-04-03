@@ -51,6 +51,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button14 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +78,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button14);
             this.panel1.Controls.Add(this.listBox2);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.button4);
@@ -93,7 +95,7 @@
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(12, 112);
+            this.listBox2.Location = new System.Drawing.Point(12, 93);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(288, 95);
             this.listBox2.TabIndex = 8;
@@ -101,7 +103,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 224);
+            this.label7.Location = new System.Drawing.Point(20, 191);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(37, 13);
             this.label7.TabIndex = 7;
@@ -109,7 +111,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(208, 253);
+            this.button4.Location = new System.Drawing.Point(33, 257);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(92, 23);
             this.button4.TabIndex = 5;
@@ -119,7 +121,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(110, 253);
+            this.button3.Location = new System.Drawing.Point(187, 219);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(92, 23);
             this.button3.TabIndex = 4;
@@ -129,7 +131,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 253);
+            this.button2.Location = new System.Drawing.Point(33, 219);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(92, 23);
             this.button2.TabIndex = 3;
@@ -141,7 +143,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(20, 92);
+            this.label4.Location = new System.Drawing.Point(20, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 17);
             this.label4.TabIndex = 2;
@@ -290,6 +292,16 @@
             this.listBox1.Size = new System.Drawing.Size(288, 95);
             this.listBox1.TabIndex = 8;
             // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(177, 257);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(113, 23);
+            this.button14.TabIndex = 9;
+            this.button14.Text = "Complete Payment";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
             // Orders
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -336,5 +348,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.Button button14;
     }
 }

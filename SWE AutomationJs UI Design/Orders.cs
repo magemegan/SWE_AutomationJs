@@ -117,5 +117,24 @@ namespace SWE_AutomationJs_UI_Design
         {
             listBox2.Items.Add("Food 9");
         }
+
+        private void button14_Click(object sender, EventArgs e)
+        {//payment stuff
+            PastPayment pastPayment = new PastPayment();    
+
+            pastPayment.TableNumber = chosenTable;
+            pastPayment.Items = new List<string>();
+
+            foreach (var item in listBox2.Items)
+            {
+                pastPayment.Items.Add(item.ToString());
+            }
+            pastPayment.Total = pastPayment.Items.Count * 10; // Assuming each item costs 10 units
+            pastPayment.Status = "Paid";
+            pastPayment.Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            PastPaymentStorage.Payments.Add(pastPayment);
+            listBox2.Items.Clear();
+        }
     }
 }
