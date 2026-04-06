@@ -131,7 +131,7 @@ namespace SWE_AutomationJs_UI_Design
             }
             pastPayment.Total = pastPayment.Items.Count * 10; // Assuming each item costs 10 units
             pastPayment.Status = "Paid";
-            pastPayment.Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            pastPayment.Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
             PastPaymentStorage.Payments.Add(pastPayment);
             listBox2.Items.Clear();
