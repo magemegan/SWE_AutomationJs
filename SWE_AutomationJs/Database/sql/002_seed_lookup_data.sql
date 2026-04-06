@@ -1,5 +1,9 @@
 PRAGMA foreign_keys = ON;
 
+-- =========================================
+-- Roles
+-- =========================================
+
 INSERT OR IGNORE INTO Roles (RoleName) VALUES
     ('Admin'),
     ('Manager'),
@@ -7,12 +11,18 @@ INSERT OR IGNORE INTO Roles (RoleName) VALUES
     ('Cashier'),
     ('Kitchen');
 
+-- =========================================
+-- Table Status
+-- =========================================
+
 INSERT OR IGNORE INTO TableStatus (StatusName) VALUES
     ('Available'),
     ('Occupied'),
-    ('Reserved'),
-    ('Dirty'),
-    ('Closed');
+    ('Dirty');
+
+-- =========================================
+-- Order Status
+-- =========================================
 
 INSERT OR IGNORE INTO OrderStatus (StatusName) VALUES
     ('Open'),
@@ -20,6 +30,10 @@ INSERT OR IGNORE INTO OrderStatus (StatusName) VALUES
     ('Ready'),
     ('Closed'),
     ('Cancelled');
+
+-- =========================================
+-- Menu Categories
+-- =========================================
 
 INSERT OR IGNORE INTO MenuCategories (CategoryName) VALUES
     ('Appetizers'),

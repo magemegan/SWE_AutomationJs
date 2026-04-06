@@ -1,9 +1,11 @@
 import sqlite3
 import sys
+import time
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = BASE_DIR / "data" / "restaurant.db"
+
 
 def run_sql_file(sql_file_relative_path: str):
     sql_path = (BASE_DIR / sql_file_relative_path).resolve()
@@ -20,19 +22,33 @@ def run_sql_file(sql_file_relative_path: str):
     with open(sql_path, "r", encoding="utf-8") as f:
         sql = f.read()
 
-    print("First 200 characters:")
-    print(sql[:200])
-
     if not sql.strip():
         raise ValueError(f"SQL file is empty: {sql_path}")
 
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON;")
-    conn.executescript(sql)
-    conn.commit()
-    conn.close()
+    print("First 200 characters of SQL:")
+    print(sql[:200])
+    print("-" * 50)
 
-    print("Executed successfully.")
+    conn = sqlite3.connect(DB_PATH)
+
+    try:
+        conn.execute("PRAGMA foreign_keys = ON;")
+        start_time = time.time()
+
+        conn.executescript(sql)
+        conn.commit()
+
+        elapsed = time.time() - start_time
+        print(f"Executed successfully in {elapsed:.2f} seconds.")
+
+    except Exception as e:
+        conn.rollback()
+        print(f"Error executing SQL file: {e}")
+        raise
+
+    finally:
+        conn.close()
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

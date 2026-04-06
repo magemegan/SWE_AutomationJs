@@ -1,5 +1,9 @@
 PRAGMA foreign_keys = ON;
 
+-- =========================================
+-- Employees
+-- =========================================
+
 INSERT OR IGNORE INTO Employees
 (EmployeeId, RoleId, FirstName, LastName, PasswordHash, IsActive)
 VALUES
@@ -9,14 +13,33 @@ VALUES
     ('E00004', 4, 'Noah', 'Davis', 'hashed_cashier_pw', 1),
     ('E00005', 5, 'Mia', 'Brown', 'hashed_kitchen_pw', 1);
 
+-- =========================================
+-- Dining Tables (Fixed Layout)
+-- =========================================
+
 INSERT OR IGNORE INTO DiningTables
-(TableCode, CurrentTableStatusId, SeatCapacity, RowNumber)
+(TableCode, ColumnLetter, RowNumber, CurrentTableStatusId, SeatCapacity)
 VALUES
-    ('A1', 1, 4, 1),
-    ('A2', 1, 4, 1),
-    ('B1', 1, 2, 2),
-    ('B2', 2, 6, 2),
-    ('C1', 3, 4, 3);
+    ('A1', 'A', 1, 1, 4),
+    ('A2', 'A', 2, 1, 4),
+    ('B1', 'B', 1, 1, 2),
+    ('B2', 'B', 2, 2, 4),
+    ('C1', 'C', 1, 3, 4);
+
+-- =========================================
+-- Waiter Table Assignments (NEW)
+-- =========================================
+
+INSERT INTO WaiterTableAssignments
+(EmployeeId, TableId)
+VALUES
+    ('E00003', 1),
+    ('E00003', 2),
+    ('E00003', 3);
+
+-- =========================================
+-- Menu Items
+-- =========================================
 
 INSERT OR IGNORE INTO MenuItems
 (CategoryId, ItemName, Price, IsActive)
@@ -31,6 +54,10 @@ VALUES
     (4, 'Sweet Tea', 2.99, 1),
     (4, 'Lemonade', 2.99, 1),
     (4, 'Coffee', 2.49, 1);
+
+-- =========================================
+-- Time Clock
+-- =========================================
 
 INSERT INTO TimeClock
 (EmployeeId, ClockIn, ClockOut)

@@ -1,6 +1,10 @@
 DROP VIEW IF EXISTS vw_order_payment_summary;
 DROP VIEW IF EXISTS vw_order_payment_summary_detailed;
 
+-- =========================================
+-- BASIC PAYMENT SUMMARY
+-- =========================================
+
 CREATE VIEW vw_order_payment_summary AS
 SELECT
     o.OrderId,
@@ -8,7 +12,7 @@ SELECT
     ROUND(IFNULL(SUM(p.Amount), 0), 2) AS TotalPaid,
     ROUND(o.Total - IFNULL(SUM(p.Amount), 0), 2) AS BalanceRemaining,
     CASE
-        WHEN IFNULL(SUM(p.Amount), 0) = 0 THEN 'Unpaid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = 0 THEN 'Unpaid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) < ROUND(o.Total, 2) THEN 'Partially Paid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = ROUND(o.Total, 2) THEN 'Paid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) > ROUND(o.Total, 2) THEN 'Overpaid'
@@ -16,7 +20,11 @@ SELECT
     END AS PaymentStatus
 FROM Orders o
 LEFT JOIN Payments p ON o.OrderId = p.OrderId
-GROUP BY o.OrderId, o.Total;
+GROUP BY o.OrderId;
+
+-- =========================================
+-- DETAILED PAYMENT VIEW (MANAGER VIEW)
+-- =========================================
 
 CREATE VIEW vw_order_payment_summary_detailed AS
 SELECT
@@ -28,7 +36,7 @@ SELECT
     ROUND(IFNULL(SUM(p.Amount), 0), 2) AS TotalPaid,
     ROUND(o.Total - IFNULL(SUM(p.Amount), 0), 2) AS BalanceRemaining,
     CASE
-        WHEN IFNULL(SUM(p.Amount), 0) = 0 THEN 'Unpaid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = 0 THEN 'Unpaid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) < ROUND(o.Total, 2) THEN 'Partially Paid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = ROUND(o.Total, 2) THEN 'Paid'
         WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) > ROUND(o.Total, 2) THEN 'Overpaid'
@@ -44,5 +52,4 @@ GROUP BY
     dt.TableCode,
     e.FirstName,
     e.LastName,
-    os.StatusName,
-    o.Total;
+    os.StatusName;
