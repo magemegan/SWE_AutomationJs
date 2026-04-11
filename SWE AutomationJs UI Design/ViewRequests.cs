@@ -67,8 +67,8 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//back
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
+            EmployeeScheduling scheduling = new EmployeeScheduling();
+            scheduling.Show();
             this.Hide();
         }
     }
