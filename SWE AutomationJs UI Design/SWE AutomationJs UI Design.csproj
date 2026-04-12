@@ -170,6 +170,12 @@
     <Compile Include="RestockRequests.Designer.cs">
       <DependentUpon>RestockRequests.cs</DependentUpon>
     </Compile>
+    <Compile Include="SalesReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesReports.Designer.cs">
+      <DependentUpon>SalesReports.cs</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs">
       <SubType>Form</SubType>
     </Compile>
