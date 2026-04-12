@@ -95,6 +95,12 @@
     <Compile Include="EmployeeMenu.Designer.cs">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="EmployeeProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmployeeProfile.Designer.cs">
+      <DependentUpon>EmployeeProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="EmployeeRecords.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeMenu.resx">
       <DependentUpon>EmployeeMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmployeeProfile.resx">
+      <DependentUpon>EmployeeProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EmployeeRecords.resx">
       <DependentUpon>EmployeeRecords.cs</DependentUpon>

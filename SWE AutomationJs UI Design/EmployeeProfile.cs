@@ -12,9 +12,11 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class EmployeeProfile : Form
     {
-        public EmployeeProfile()
+        private int selectedIndex;
+        public EmployeeProfile(int employeeIndex)
         {
             InitializeComponent();
+            selectedIndex = employeeIndex;
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -25,6 +27,31 @@ namespace SWE_AutomationJs_UI_Design
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void EmployeeProfile_Load(object sender, EventArgs e)
+        {
+            if (selectedIndex < 0 || selectedIndex >= EmployeeStorage.Employees.Count)
+            {
+                MessageBox.Show("Invalid employee index.");
+                this.Close();
+                return;
+            }
+
+            Employee selectedEmployee = EmployeeStorage.Employees[selectedIndex];
+
+            label8.Text = $"Name: {selectedEmployee.Name}";
+            label7.Text = $"Role: {selectedEmployee.Role}";
+            label4.Text = $"Phone: {selectedEmployee.Phone}";
+            label5.Text = $"Email: {selectedEmployee.Email}";
+            label6.Text = $"Employment Type: {selectedEmployee.EmploymentType}";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {//back to employee records
+            EmployeeRecords employeeRecords = new EmployeeRecords();
+            employeeRecords.Show();
+            this.Hide();
         }
     }
 }

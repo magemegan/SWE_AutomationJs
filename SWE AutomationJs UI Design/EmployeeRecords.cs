@@ -88,5 +88,19 @@ namespace SWE_AutomationJs_UI_Design
             label5.Text = $"Email: {worker.Email}";
             label6.Text = $"Employment Type: {worker.EmploymentType}";
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {//view employee
+            int selectedIndex = listBox1.SelectedIndex;
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show("Please select an employee to view.");
+                return;
+            }
+
+            EmployeeProfile employeeProfile = new EmployeeProfile(selectedIndex);
+            employeeProfile.Show();
+            this.Hide();
+        }
     }
 }

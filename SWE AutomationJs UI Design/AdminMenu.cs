@@ -60,10 +60,8 @@ namespace SWE_AutomationJs_UI_Design
         }
 
         private void button7_Click(object sender, EventArgs e)
-        {//employee profile
-            //EmployeeProfile employeeProfile = new EmployeeProfile();
-            //employeeProfile.Show();
-            //this.Hide();
+        {
+            
         }
     }
 }
