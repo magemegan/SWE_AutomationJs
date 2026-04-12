@@ -275,6 +275,9 @@
     <EmbeddedResource Include="RestockRequests.resx">
       <DependentUpon>RestockRequests.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SalesReports.resx">
+      <DependentUpon>SalesReports.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Schedule.resx">
       <DependentUpon>Schedule.cs</DependentUpon>
     </EmbeddedResource>
