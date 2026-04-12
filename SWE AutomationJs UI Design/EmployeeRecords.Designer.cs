@@ -200,6 +200,7 @@
             this.Controls.Add(this.label1);
             this.Name = "EmployeeRecords";
             this.Text = "EmployeeRecords";
+            this.Load += new System.EventHandler(this.EmployeeRecords_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

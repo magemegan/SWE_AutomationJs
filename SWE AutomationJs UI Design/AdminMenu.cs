@@ -26,9 +26,9 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {//employee records
-            //EmployeeRecords employeeRecords = new EmployeeRecords();
-            //employeeRecords.Show();
-            //this.Hide();
+            EmployeeRecords employeeRecords = new EmployeeRecords();
+            employeeRecords.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)

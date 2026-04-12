@@ -38,7 +38,17 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button5_Click(object sender, EventArgs e)
         {//edit employee
+            int selectedIndex = listBox1.SelectedIndex;
 
+            if (selectedIndex == -1)
+            {
+                MessageBox.Show("Please select an employee to edit.");
+                return;
+            }
+
+            AddEmployee addEmployee = new AddEmployee(selectedIndex);
+            addEmployee.Show();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)

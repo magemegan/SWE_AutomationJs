@@ -125,6 +125,10 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "High ",
+            "Medium ",
+            "Low"});
             this.comboBox2.Location = new System.Drawing.Point(259, 227);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(154, 21);

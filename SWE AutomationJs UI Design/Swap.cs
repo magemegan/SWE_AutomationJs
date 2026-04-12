@@ -23,6 +23,8 @@ namespace SWE_AutomationJs_UI_Design
 
             ScheduleRequestStorage.ScheduleRequests.Add(request);
 
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
             textBox1.Clear();
         }
 
