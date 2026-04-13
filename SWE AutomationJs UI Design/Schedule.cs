@@ -41,6 +41,42 @@ namespace SWE_AutomationJs_UI_Design
             }
         }
 
+        private void Schedule_Load(object sender, EventArgs e)
+        {
+            SetupScheduleGrid();
+            LoadSampleSchedule();
+        }
+
+        private void SetupScheduleGrid()
+        {
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+
+            // Set up columns for employee name and days of the week
+            dataGridView1.Columns.Add("Sunday", "Sunday");
+            dataGridView1.Columns.Add("Monday", "Monday");
+            dataGridView1.Columns.Add("Tuesday", "Tuesday");
+            dataGridView1.Columns.Add("Wednesday", "Wednesday");
+            dataGridView1.Columns.Add("Thursday", "Thursday");
+            dataGridView1.Columns.Add("Friday", "Friday");
+            dataGridView1.Columns.Add("Saturday", "Saturday");
+
+            // Set properties for better appearance
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.ReadOnly = true;
+            }
+        }
+
+        private void LoadSampleSchedule()
+        {
+            dataGridView1.Rows.Add("9am-5pm", "Off", "10am-6pm", "9am-5pm", "Off", "5am-1pm");
+        }
+
         private void label3_Click(object sender, EventArgs e)
         {
 

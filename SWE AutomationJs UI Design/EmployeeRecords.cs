@@ -84,9 +84,6 @@ namespace SWE_AutomationJs_UI_Design
             // Display the details of the selected request
             label8.Text = $"Name: {worker.Name}";
             label7.Text = $"Role: {worker.Role}";
-            label4.Text = $"Phone: {worker.Phone}";
-            label5.Text = $"Email: {worker.Email}";
-            label6.Text = $"Employment Type: {worker.EmploymentType}";
         }
 
         private void button3_Click(object sender, EventArgs e)
