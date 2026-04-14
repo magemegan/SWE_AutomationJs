@@ -15,6 +15,7 @@ namespace SWE_AutomationJs_UI_Design
     {
         public int tableNumber;
         private int chosenTable;
+        double currentTotal = 0.0;
         public Orders(int tableNumber)
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace SWE_AutomationJs_UI_Design
         {
             //display the table number in label2
             label2.Text = $"Table: {chosenTable}";
+            label3.Text = $"Total: ${currentTotal.ToString("F2")}";
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -39,6 +41,13 @@ namespace SWE_AutomationJs_UI_Design
             assignTables.Show();
             this.Hide();
         }
+
+        private void AddItemToOrder(string itemName, double price)
+        {
+            listBox2.Items.Add($"{itemName} - ${price.ToString("F2")}");
+            currentTotal += price;
+            label3.Text = $"Total: ${currentTotal.ToString("F2")}";
+        }   
 
         private void button4_Click(object sender, EventArgs e)
         {//send to kitchen
@@ -54,7 +63,7 @@ namespace SWE_AutomationJs_UI_Design
 
             OrderStorage.IncomingOrder.Add(newOrder);
 
-            listBox2.Items.Clear();
+            MessageBox.Show("Order sent to the kitchen!");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -63,63 +72,97 @@ namespace SWE_AutomationJs_UI_Design
             {
                 listBox2.Items.Clear();
             }
+            currentTotal = 0.0;
+            label3.Text = $"Total: ${currentTotal.ToString("F2")}";
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//remove item
-            if (listBox2.SelectedItem != null)
+            int index = listBox2.SelectedIndex;
+            if (index == -1)
             {
-                listBox2.Items.Remove(listBox2.SelectedItem);
+                return;
             }
+
+            string selecteditem = listBox2.Items[index].ToString();
+
+            string[] itemParts = selecteditem.Split('$');
+            double price = Convert.ToDouble(itemParts[1]);
+
+            currentTotal -= price;
+
+            listBox2.Items.Remove(listBox2.SelectedItem);
+            label3.Text = $"Total: ${currentTotal.ToString("F2")}"; 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {//food 1
-            listBox2.Items.Add("Food 1");
+            AddItemToOrder("CheeseBurger", 10);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 2");
+            AddItemToOrder("Chicken Alfredo", 14);
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 3");
+            AddItemToOrder("Grilled Chicken Sandwich", 11);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 4");
+            AddItemToOrder("Fries", 4);
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 5");
+            AddItemToOrder("Side Salad", 5);
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 6");
+            AddItemToOrder("Onion Rings", 5.50);
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 7");
+            AddItemToOrder("Soda", 3);
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 8");
+            AddItemToOrder("Lemonade", 3.30);
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            listBox2.Items.Add("Food 9");
+            AddItemToOrder("Iced Tea", 2.50);
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            AddItemToOrder("Cheesecake", 6);
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            AddItemToOrder("Brownie", 5);
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            AddItemToOrder("Cookie", 3);
         }
 
         private void button14_Click(object sender, EventArgs e)
         {//payment stuff
+            if (listBox2.Items.Count == 0)
+            {
+                MessageBox.Show("No items in the order to pay for.");
+                return;
+            }
+
             PastPayment pastPayment = new PastPayment();    
 
             pastPayment.TableNumber = chosenTable;
@@ -129,12 +172,24 @@ namespace SWE_AutomationJs_UI_Design
             {
                 pastPayment.Items.Add(item.ToString());
             }
-            pastPayment.Total = pastPayment.Items.Count * 10; // Assuming each item costs 10 units
+            pastPayment.Total = currentTotal;
             pastPayment.Status = "Paid";
             pastPayment.Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
             PastPaymentStorage.Payments.Add(pastPayment);
+
             listBox2.Items.Clear();
+            currentTotal = 0.0;
+            label3.Text = $"Total: ${currentTotal.ToString("F2")}";
+
+            ProcessPayment paid = new ProcessPayment(chosenTable, pastPayment.Items, currentTotal, 0.08, currentTotal * 0.08, currentTotal * 1.08);
+            paid.Show();
+            this.Hide();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

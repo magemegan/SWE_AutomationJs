@@ -47,9 +47,9 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button5_Click(object sender, EventArgs e)
         {//sales reports
-            //SalesReports salesReports = new SalesReports();
-            //salesReports.Show();
-            //this.Hide();
+            SalesReports salesReports = new SalesReports();
+            salesReports.Show();
+            this.Hide();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -62,6 +62,20 @@ namespace SWE_AutomationJs_UI_Design
         private void button7_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void button7_Click_1(object sender, EventArgs e)
+        {
+            MenuManagement menuManagement = new MenuManagement();
+            menuManagement.Show();
+            this.Hide();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Notification notification = new Notification();
+            notification.Show();
+            this.Hide();
         }
     }
 }

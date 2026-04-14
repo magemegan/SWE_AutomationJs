@@ -63,7 +63,17 @@ namespace SWE_AutomationJs_UI_Design
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//refund
+        {//refund?
+            // // Get the selected index from listBox1
+            //int selectedIndex = listBox1.SelectedIndex;
+            //// Check if a valid index is selected
+            //if (selectedIndex == -1) return;
+            //// Get the corresponding order based on the selected index
+            //PastPayment selectedPayment = PastPaymentStorage.Payments[selectedIndex];
+            //// Update the status of the selected payment to "Refunded"
+            //selectedPayment.Status = "Refunded";
+            //// Refresh the payment queue to reflect the updated status
+            //LoadPaymentQueue();
 
         }
     }

@@ -13,5 +13,6 @@ namespace SWE_AutomationJs_UI_Design
         public string Date { get; set; }
         public string Status { get; set; }
         public double Total { get; set; }
+        public string PaymentMethod { get; set; }
     }
 }

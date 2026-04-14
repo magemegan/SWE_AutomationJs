@@ -26,6 +26,18 @@ namespace SWE_AutomationJs_UI_Design
 
         private void SalesReports_Load(object sender, EventArgs e)
         {
+            // Sample data for testing
+            PastPayment testPayment = new PastPayment();
+            testPayment.TableNumber = 5;
+            testPayment.Items = new List<string> { "Burger", "Fries", "Coke" };
+            testPayment.Total = 21.00;
+            testPayment.Status = "Paid";
+            testPayment.Date = DateTime.Now.ToShortDateString();
+
+            PastPaymentStorage.Payments.Add(testPayment);
+
+            MessageBox.Show($"Test Payment Added: Table {testPayment.TableNumber}, Total ${testPayment.Total}, Date {testPayment.Date}, Status {testPayment.Status}");
+
             SetupSalesGrid();
             LoadSalesData();
             CalcSalesSummary();
@@ -54,7 +66,12 @@ namespace SWE_AutomationJs_UI_Design
 
             foreach (PastPayment payment in PastPaymentStorage.Payments)
             {
-                dataGridView1.Rows.Add($"{payment.TableNumber}, ${payment.Total}, {payment.Date}, {payment.Status}");
+                dataGridView1.Rows.Add(
+                    payment.TableNumber,
+                    "$" + payment.Total.ToString("0.00"),
+                    payment.Date,
+                    payment.Status
+                );
             }
         }
 
@@ -75,7 +92,7 @@ namespace SWE_AutomationJs_UI_Design
 
             double avgSale = 0;
 
-            if (totalTransactions > 0) { avgSale = totalTransactions / totalTransactions; }
+            if (totalTransactions > 0) { avgSale = totalSales / totalTransactions; }
 
             label8.Text = $"Total Sales: ${totalSales:F2}";
             label7.Text = $"Average Sales: ${avgSale:F2}";
