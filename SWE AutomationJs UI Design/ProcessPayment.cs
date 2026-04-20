@@ -24,15 +24,12 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
         }
 
-        public ProcessPayment(int tableNumber, List<string> orderItems, double subtotal, double tax, double taxAmount, double totalAmount)
+        public ProcessPayment(int tableNumber, List<string> orderItems, double subtotal)
         {
             InitializeComponent();
             chosenTable = tableNumber;
-            this.orderItems = orderItems;
+            this.orderItems = new List<string>(orderItems);
             this.subtotal = subtotal;
-            this.tax = tax;
-            this.taxAmount = taxAmount;
-            this.totalAmount = totalAmount;
         }
 
         private void ProcessPayment_Load(object sender, EventArgs e)
@@ -45,7 +42,7 @@ namespace SWE_AutomationJs_UI_Design
             {
                 listBox1.Items.Add(item);
             }
-
+             
             taxAmount = subtotal * tax;
             totalAmount = subtotal + taxAmount;
 
@@ -61,6 +58,22 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {//payment stuff
+            if (comboBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please enter payment details.");
+                return;
+            }
+
+            PastPayment payPayment = new PastPayment();
+            payPayment.TableNumber = chosenTable;
+            payPayment.Items = new List<string>(orderItems);
+            payPayment.Total = totalAmount;
+            payPayment.Status = "Paid";
+            payPayment.Date = DateTime.Now.ToString("MM/dd/yyyy");
+            payPayment.PaymentMethod = comboBox1.SelectedItem.ToString();
+
+            PastPaymentStorage.Payments.Add(payPayment);
+
             MessageBox.Show("Payment Processed for Table " + chosenTable);
             Orders orders = new Orders(chosenTable);
             orders.Show();

@@ -163,26 +163,14 @@ namespace SWE_AutomationJs_UI_Design
                 return;
             }
 
-            PastPayment pastPayment = new PastPayment();    
-
-            pastPayment.TableNumber = chosenTable;
-            pastPayment.Items = new List<string>();
+            List<string> items = new List<string>();
 
             foreach (var item in listBox2.Items)
             {
-                pastPayment.Items.Add(item.ToString());
+                items.Add(item.ToString());
             }
-            pastPayment.Total = currentTotal;
-            pastPayment.Status = "Paid";
-            pastPayment.Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
-            PastPaymentStorage.Payments.Add(pastPayment);
-
-            listBox2.Items.Clear();
-            currentTotal = 0.0;
-            label3.Text = $"Total: ${currentTotal.ToString("F2")}";
-
-            ProcessPayment paid = new ProcessPayment(chosenTable, pastPayment.Items, currentTotal, 0.08, currentTotal * 0.08, currentTotal * 1.08);
+            ProcessPayment paid = new ProcessPayment(chosenTable, items, currentTotal);
             paid.Show();
             this.Hide();
         }

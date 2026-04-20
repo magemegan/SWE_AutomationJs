@@ -218,6 +218,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ProcessPayment";
             this.Text = "ProcessPayment";
+            this.Load += new System.EventHandler(this.ProcessPayment_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
