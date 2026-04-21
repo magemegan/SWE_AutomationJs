@@ -45,6 +45,12 @@ namespace SWE_AutomationJs_UI_Design
             comboBox2.SelectedIndex = -1;
             numericUpDown1.Value = 1;
             textBox1.Clear();
+
+            Notifications notifications = new Notifications();
+            notifications.Message = $"New inventory request for {newRequest.ItemName} has been sent.";
+            notifications.Role = "Manager";
+            notifications.TimeStamp = DateTime.Now.ToString("g");
+            NotificationStorage.Notify.Add(notifications);
         }
     }
 }

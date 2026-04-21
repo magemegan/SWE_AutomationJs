@@ -110,6 +110,13 @@ namespace SWE_AutomationJs_UI_Design
                 }
             }
             LoadOrderQueue();
+
+            Notifications n = new Notifications();
+            n.Message = "Order for Table " + selectedorder.TableNumber + " is ready.";
+            n.Role = "Waiter";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
 
         private void label4_Click(object sender, EventArgs e)

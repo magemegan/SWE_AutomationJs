@@ -23,5 +23,28 @@ namespace SWE_AutomationJs_UI_Design
             adminMenu.Show();
             this.Hide();
         }
+
+        private void LoadNotification(string role)
+        {
+            listBox1.Items.Clear();
+
+            for(int i = NotificationStorage.Notify.Count - 1; i >= 0; i--)
+            {
+                foreach (Notifications n in NotificationStorage.Notify)
+                {
+                    if (n.Role == role)
+                    {
+                        listBox1.Items.Add($"{n.TimeStamp} - {n.Message}");
+                    }
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {//clear
+            NotificationStorage.Notify.Clear();
+            LoadNotification(currentRole);
+            listBox1.Items.Clear();
+        }
     }
 }

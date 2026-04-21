@@ -64,6 +64,14 @@ namespace SWE_AutomationJs_UI_Design
             OrderStorage.IncomingOrder.Add(newOrder);
 
             MessageBox.Show("Order sent to the kitchen!");
+
+            Notifications n = new Notifications();
+            n.Message = "New order for Table " + tableNumber;
+            n.Role = "Kitchen";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
+
         }
 
         private void button3_Click(object sender, EventArgs e)

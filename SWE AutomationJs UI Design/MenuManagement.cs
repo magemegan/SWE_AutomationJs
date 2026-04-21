@@ -21,7 +21,7 @@ namespace SWE_AutomationJs_UI_Design
         {
             AdminMenu adminMenu = new AdminMenu();
             adminMenu.Show();
-            this.Hide();
+            this.Hide(); 
         }
     }
 }
