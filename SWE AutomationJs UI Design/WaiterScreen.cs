@@ -12,6 +12,7 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class WaiterScreen : Form
     {
+        public static string CurrentEmployee { get; set; }
         public WaiterScreen()
         {
             InitializeComponent();
@@ -52,6 +53,13 @@ namespace SWE_AutomationJs_UI_Design
         {//customer payment
             Payment payment = new Payment();
             payment.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Notification notificationScreen = new Notification("Waiter");
+            notificationScreen.Show();
             this.Hide();
         }
     }

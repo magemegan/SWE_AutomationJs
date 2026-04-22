@@ -169,6 +169,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Swap";
             this.Text = "Swap";
+            this.Load += new System.EventHandler(this.Swap_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

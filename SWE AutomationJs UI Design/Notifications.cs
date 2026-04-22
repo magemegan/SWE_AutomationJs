@@ -10,6 +10,8 @@ namespace SWE_AutomationJs_UI_Design
     {
         public string Message { get; set; }
         public string Role { get; set; }
+        public string Employee { get; set; }
+        public string SentBy { get; set; }
         public string TimeStamp { get; set; }
     }
 }

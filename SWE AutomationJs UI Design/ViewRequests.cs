@@ -53,6 +53,15 @@ namespace SWE_AutomationJs_UI_Design
             ScheduleRequestStorage.ScheduleRequests[selectedIndex].Status = "Approved";
             selectedRequest.Status = "Approved";
             LoadRequestQueue();
+
+            Notifications n = new Notifications();
+            n.Message = "Your request for " + selectedRequest.ShiftDate + " was approved.";
+            n.SentBy = "Manager";
+            n.Role = "";
+            n.Employee = selectedRequest.EmployeeName;
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -63,6 +72,15 @@ namespace SWE_AutomationJs_UI_Design
             ScheduleRequestStorage.ScheduleRequests[selectedIndex].Status = "Denied";
             selectedRequest.Status = "Denied";
             LoadRequestQueue();
+
+            Notifications n = new Notifications();
+            n.Message = "Your request was denied";
+            n.SentBy = "Manager";
+            n.Role = "";
+            n.Employee = selectedRequest.EmployeeName;
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
 
         private void button1_Click(object sender, EventArgs e)

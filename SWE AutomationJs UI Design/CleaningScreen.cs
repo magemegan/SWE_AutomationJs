@@ -77,6 +77,13 @@ namespace SWE_AutomationJs_UI_Design
             label5.Text = "Status:";
 
             LoadCleaningQueue();
+
+            Notifications n = new Notifications();
+            n.Message = "Table " + selectedTableNumber + " is now clean.";
+            n.Role = "Waiter";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
     }
 }

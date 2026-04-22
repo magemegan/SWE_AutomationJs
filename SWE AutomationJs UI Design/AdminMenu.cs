@@ -12,6 +12,7 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class AdminMenu : Form
     {
+        public static string CurrentEmployee { get; set; }
         public AdminMenu()
         {
             InitializeComponent();
@@ -73,7 +74,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Notification notification = new Notification();
+            Notification notification = new Notification("Admin");
             notification.Show();
             this.Hide();
         }

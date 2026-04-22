@@ -12,6 +12,8 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class BusboyScreen : Form
     {
+        public static string CurrentEmployee { get; set; }
+
         public BusboyScreen()
         {
             InitializeComponent();
@@ -36,6 +38,18 @@ namespace SWE_AutomationJs_UI_Design
             CleaningScreen tableStatus = new CleaningScreen();
             tableStatus.Show();
             this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Notification notificationScreen = new Notification("Busboy");
+            notificationScreen.Show();
+            this.Hide();
+        }
+
+        private void BusboyScreen_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

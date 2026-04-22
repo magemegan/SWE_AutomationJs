@@ -12,19 +12,74 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class Notification : Form
     {
+        private string previousScreen;
+
         public Notification()
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public Notification(string previousScreen)
         {
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
-            this.Hide();
+            InitializeComponent();
+            this.previousScreen = previousScreen;
         }
 
-        private void LoadNotification(string role)
+        private void button1_Click(object sender, EventArgs e)
+        {//back
+            if (previousScreen == "Busboy")
+            {
+                BusboyScreen busboyScreen = new BusboyScreen();
+                busboyScreen.Show();
+                this.Hide();
+            }
+            else if (previousScreen == "Kitchen")
+            {
+                KitchenScreen kitchenScreen = new KitchenScreen();
+                kitchenScreen.Show();
+                this.Hide();
+            }
+            else if (previousScreen == "Waiter")
+            {
+                WaiterScreen waiterScreen = new WaiterScreen();
+                waiterScreen.Show();
+                this.Hide();
+            }
+            else if (previousScreen == "Admin")
+            {
+                AdminMenu adminMenu = new AdminMenu();
+                adminMenu.Show();
+                this.Hide();
+            }
+        }
+
+        private void Notification_Load(object sender, EventArgs e)
+        {
+            string role = "";
+            string employee = "";
+            if (previousScreen == "Busboy")
+            {
+                role = "Busboy";
+                employee = BusboyScreen.CurrentEmployee;
+            }
+            else if (previousScreen == "Kitchen")
+            {
+                role = "Kitchen";
+                employee = KitchenScreen.CurrentEmployee;
+            }
+            else if (previousScreen == "Waiter")
+            {
+                role = "Waiter";
+                employee = WaiterScreen.CurrentEmployee;
+            }
+            else if (previousScreen == "Admin")
+            {
+                role = "Admin";
+                employee = AdminMenu.CurrentEmployee;
+            }
+            LoadNotification(role, employee);
+        }
+
+        private void LoadNotification(string role, string employee)
         {
             listBox1.Items.Clear();
 
@@ -32,10 +87,13 @@ namespace SWE_AutomationJs_UI_Design
             {
                 foreach (Notifications n in NotificationStorage.Notify)
                 {
-                    if (n.Role == role)
+                    bool matchesRole = n.Role == role;
+                    bool matchesEmployee = n.Employee == employee;
+
+                    if (matchesRole || matchesEmployee)
                     {
                         listBox1.Items.Add($"{n.TimeStamp} - {n.Message}");
-                    }
+                    } 
                 }
             }
         }
@@ -43,7 +101,6 @@ namespace SWE_AutomationJs_UI_Design
         private void button2_Click(object sender, EventArgs e)
         {//clear
             NotificationStorage.Notify.Clear();
-            LoadNotification(currentRole);
             listBox1.Items.Clear();
         }
     }

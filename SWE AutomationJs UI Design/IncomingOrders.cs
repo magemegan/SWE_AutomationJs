@@ -99,6 +99,13 @@ namespace SWE_AutomationJs_UI_Design
                 label4.Text = "Table: ";
                 label5.Text = "Status: ";
                 listBox2.Items.Clear();
+
+                Notifications b = new Notifications();
+                b.Message = "Table " + selectedorder.TableNumber + " needs cleaning.";
+                b.Role = "Busboy";
+                b.TimeStamp = DateTime.Now.ToShortTimeString();
+
+                NotificationStorage.Notify.Add(b);
             }
             else
             {

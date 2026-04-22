@@ -12,6 +12,8 @@ namespace SWE_AutomationJs_UI_Design
 {
     public partial class KitchenScreen : Form
     {
+        public static string CurrentEmployee { get; set; }
+
         public KitchenScreen()
         {
             InitializeComponent();
@@ -42,6 +44,13 @@ namespace SWE_AutomationJs_UI_Design
         {//schedule
             Schedule scheduleScreen = new Schedule("Kitchen");
             scheduleScreen.Show();
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Notification notificationScreen = new Notification("Kitchen");
+            notificationScreen.Show();
             this.Hide();
         }
     }

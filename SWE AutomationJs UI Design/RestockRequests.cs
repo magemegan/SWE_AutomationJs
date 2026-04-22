@@ -63,6 +63,15 @@ namespace SWE_AutomationJs_UI_Design
             RequestStorage.RequestOrder.RemoveAt(index);// Remove the request from storage after approval
             RequestLoad();
 
+            Notifications n = new Notifications();
+            n.Message = "Restock request approved. Supplies will be ordered soon.";
+            n.SentBy = "Manager";
+            n.Role = "Kitchen";
+            n.Employee = "";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -77,6 +86,14 @@ namespace SWE_AutomationJs_UI_Design
             RequestStorage.RequestOrder.RemoveAt(index);// Remove the request from storage after denial
             RequestLoad();
 
+            Notifications n = new Notifications();
+            n.Message = "Restock request was denied.";
+            n.SentBy = "Manager";
+            n.Role = "Kitchen";
+            n.Employee = "";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
     }
 }

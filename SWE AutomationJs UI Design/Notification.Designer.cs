@@ -83,7 +83,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Notification";
             this.Text = "Notification";
-            this.Load += new System.EventHandler(this.button1_Click);
+            this.Load += new System.EventHandler(this.Notification_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

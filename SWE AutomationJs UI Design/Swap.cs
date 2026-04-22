@@ -34,5 +34,10 @@ namespace SWE_AutomationJs_UI_Design
             schedule.Show();
             this.Hide();
         }
+
+        private void Swap_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
