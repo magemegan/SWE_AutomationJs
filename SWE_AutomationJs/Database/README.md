@@ -51,5 +51,3 @@ GROUP BY
     o.OrderId,
     dt.TableCode,
     e.FirstName,
-    e.LastName,
-    os.StatusName;
