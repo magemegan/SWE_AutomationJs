@@ -129,6 +129,19 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button14_Click(object sender, EventArgs e)
         {
+            OrderHeader header = OrderRepository.GetHeader(currentOrderId);
+            if (header == null)
+            {
+                MessageBox.Show("Order could not be found.");
+                return;
+            }
+
+            if (header.StatusName != "Ready")
+            {
+                MessageBox.Show("Payment can only be completed after the kitchen marks the order ready.");
+                return;
+            }
+
             IReadOnlyList<OrderLine> items = OrderRepository.GetItems(currentOrderId);
             if (items.Count == 0)
             {
@@ -244,6 +257,7 @@ namespace SWE_AutomationJs_UI_Design
             button4.Enabled = items.Count > 0 && status == "Open";
             button3.Enabled = items.Count > 0 && status == "Open";
             button2.Enabled = items.Count > 0 && status == "Open";
+            button14.Enabled = items.Count > 0 && status == "Ready";
         }
 
         private void button5_Click(object sender, EventArgs e) { AddCatalogItemByButtonIndex(0); }

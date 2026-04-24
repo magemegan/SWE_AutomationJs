@@ -9,10 +9,26 @@ namespace SWE_AutomationJs_UI_Design.Data
     {
         public static void Initialize()
         {
+            EnsureRoles();
             EnsureSeedCredentials();
             EnsureDiningTables();
             EnsureMinimumStaffing();
             EnsureMenuExamples();
+        }
+
+        private static void EnsureRoles()
+        {
+            using (var connection = Db.Open())
+            {
+                connection.Execute(@"
+INSERT OR IGNORE INTO Roles (RoleName) VALUES
+    ('Admin'),
+    ('Manager'),
+    ('Server'),
+    ('Cashier'),
+    ('Kitchen'),
+    ('Busboy');");
+            }
         }
 
         private static void EnsureSeedCredentials()
@@ -23,7 +39,8 @@ namespace SWE_AutomationJs_UI_Design.Data
                 { "E00002", "Manager@123" },
                 { "E00003", "Server@123" },
                 { "E00004", "Cashier@123" },
-                { "E00005", "Kitchen@123" }
+                { "E00005", "Kitchen@123" },
+                { "E00010", "Busboy@123" }
             };
 
             using (var connection = Db.Open())
@@ -106,6 +123,7 @@ VALUES
                 EnsureEmployee(connection, "E00007", "Sophia", "Nguyen", "Server", "Server@123");
                 EnsureEmployee(connection, "E00008", "Liam", "Walker", "Kitchen", "Kitchen@123");
                 EnsureEmployee(connection, "E00009", "Olivia", "Hall", "Kitchen", "Kitchen@123");
+                EnsureEmployee(connection, "E00010", "Marcus", "Reed", "Busboy", "Busboy@123");
 
                 EnsureWaiterAssignment(connection, "E00003", 1);
                 EnsureWaiterAssignment(connection, "E00003", 2);

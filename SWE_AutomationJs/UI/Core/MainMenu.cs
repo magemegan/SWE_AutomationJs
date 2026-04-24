@@ -89,6 +89,9 @@ namespace SWE_AutomationJs_UI_Design
                 case "Server":
                     nextScreen = new WaiterScreen();
                     break;
+                case "Busboy":
+                    nextScreen = new BusboyScreen();
+                    break;
                 default:
                     nextScreen = new EmployeeMenu();
                     break;
@@ -102,7 +105,7 @@ namespace SWE_AutomationJs_UI_Design
         {
             Label detailsLabel = new Label();
             detailsLabel.AutoSize = true;
-            detailsLabel.Location = new System.Drawing.Point(261, 120);
+            detailsLabel.Location = new System.Drawing.Point(543, 107);
             detailsLabel.Name = "detailsLabel";
             detailsLabel.Size = new System.Drawing.Size(260, 39);
             detailsLabel.Text = "Hours: Mon-Sun 11:00 AM - 10:00 PM\r\nContact: (555) 010-3313\r\nAddress: 123 Campus Drive, Kennesaw, GA";

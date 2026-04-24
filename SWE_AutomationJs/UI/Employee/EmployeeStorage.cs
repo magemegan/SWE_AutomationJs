@@ -47,7 +47,8 @@ namespace SWE_AutomationJs_UI_Design
                 new Employee { EmployeeId = "E00007", Name = "Sophia Nguyen", Role = "Waiter", Phone = "555-0107", Email = "sophia@automationjs.local", EmploymentType = "Part-Time", AssignedTables = new List<int> { 7, 8, 9 } },
                 new Employee { EmployeeId = "E00005", Name = "Mia Brown", Role = "Kitchen", Phone = "555-0105", Email = "mia@automationjs.local", EmploymentType = "Full-Time" },
                 new Employee { EmployeeId = "E00008", Name = "Liam Walker", Role = "Kitchen", Phone = "555-0108", Email = "liam@automationjs.local", EmploymentType = "Full-Time" },
-                new Employee { EmployeeId = "E00009", Name = "Olivia Hall", Role = "Kitchen", Phone = "555-0109", Email = "olivia@automationjs.local", EmploymentType = "Part-Time" }
+                new Employee { EmployeeId = "E00009", Name = "Olivia Hall", Role = "Kitchen", Phone = "555-0109", Email = "olivia@automationjs.local", EmploymentType = "Part-Time" },
+                new Employee { EmployeeId = "E00010", Name = "Marcus Reed", Role = "Busboy", Phone = "555-0110", Email = "marcus@automationjs.local", EmploymentType = "Full-Time" }
             };
         }
     }

@@ -13,6 +13,7 @@ namespace SWE_AutomationJs_UI_Design.Data
         public int TableId { get; set; }
         public string TableCode { get; set; }
         public string ServerEmployeeId { get; set; }
+        public string ServerDisplayName { get; set; }
         public string StatusName { get; set; }
         public DateTime OpenedAt { get; set; }
         public DateTime? SubmittedAt { get; set; }
@@ -77,7 +78,7 @@ SELECT last_insert_rowid();";
 
         public static long GetOrCreateDraftOrder(int tableId, string serverEmployeeId, int? partySize)
         {
-            long? existingOrderId = GetOpenOrderIdForTable(tableId);
+            long? existingOrderId = GetLatestActiveOrderIdForTable(tableId);
             return existingOrderId ?? CreateDraftOrder(tableId, serverEmployeeId, partySize);
         }
 
@@ -157,6 +158,7 @@ SELECT
     o.TableId,
     t.TableCode,
     o.ServerEmployeeId,
+    e.FirstName || ' ' || e.LastName AS ServerDisplayName,
     s.StatusName,
     o.OpenedAt,
     o.SubmittedAt,
@@ -168,6 +170,7 @@ SELECT
     o.Total
 FROM Orders o
 INNER JOIN DiningTables t ON t.TableId = o.TableId
+INNER JOIN Employees e ON e.EmployeeId = o.ServerEmployeeId
 INNER JOIN OrderStatus s ON s.OrderStatusId = o.OrderStatusId
 WHERE o.OrderId = @OrderId;";
 
@@ -219,6 +222,7 @@ SELECT
     o.TableId,
     t.TableCode,
     o.ServerEmployeeId,
+    e.FirstName || ' ' || e.LastName AS ServerDisplayName,
     s.StatusName,
     o.OpenedAt,
     o.SubmittedAt,
@@ -230,6 +234,7 @@ SELECT
     o.Total
 FROM Orders o
 INNER JOIN DiningTables t ON t.TableId = o.TableId
+INNER JOIN Employees e ON e.EmployeeId = o.ServerEmployeeId
 INNER JOIN OrderStatus s ON s.OrderStatusId = o.OrderStatusId
 WHERE s.StatusName IN ('Submitted', 'Ready')
 ORDER BY

@@ -98,11 +98,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(258, 186);
+            this.label4.Location = new System.Drawing.Point(543, 182);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(219, 39);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Seed logins:\r\nE00001 / Admin@123\r\nE00003 / Server@123\r\nE00005 / Kitchen@123";
+            this.label4.Text = "Seed logins:\r\nE00001 / Admin@123\r\nE00003 / Server@123\r\nE00005 / Kitchen@123\r\nE00010 / Busboy@123";
             // 
             // button2
             // 

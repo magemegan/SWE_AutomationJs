@@ -95,16 +95,9 @@ namespace SWE_AutomationJs_UI_Design
             Notifications waiterNotification = new Notifications();
             waiterNotification.Message = "Order for Table " + selectedOrder.TableId + " is ready.";
             waiterNotification.Role = "Waiter";
+            waiterNotification.Employee = selectedOrder.ServerDisplayName;
             waiterNotification.TimeStamp = DateTime.Now.ToShortTimeString();
             NotificationStorage.Notify.Add(waiterNotification);
-
-            Notifications busboyNotification = new Notifications();
-            busboyNotification.Message = "Table " + selectedOrder.TableId + " will need cleaning soon.";
-            busboyNotification.Role = "Busboy";
-            busboyNotification.TimeStamp = DateTime.Now.ToShortTimeString();
-            NotificationStorage.Notify.Add(busboyNotification);
-
-            TableRepository.SetStatus(selectedOrder.TableId, "Dirty", employeeId);
             LoadOrderQueue();
         }
 
