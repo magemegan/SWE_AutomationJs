@@ -83,17 +83,14 @@ namespace SWE_AutomationJs_UI_Design
         {
             listBox1.Items.Clear();
 
-            for(int i = NotificationStorage.Notify.Count - 1; i >= 0; i--)
+            foreach (Notifications n in NotificationStorage.Notify)
             {
-                foreach (Notifications n in NotificationStorage.Notify)
-                {
-                    bool matchesRole = n.Role == role;
-                    bool matchesEmployee = n.Employee == employee;
+                bool matchesRole = n.Role == role;
+                bool matchesEmployee = n.Employee == employee;
 
-                    if (matchesRole || matchesEmployee)
-                    {
-                        listBox1.Items.Add($"{n.TimeStamp} - {n.Message}");
-                    } 
+                if (matchesRole || matchesEmployee)
+                {
+                    listBox1.Items.Add($"{n.TimeStamp} - {n.Message}");
                 }
             }
         }

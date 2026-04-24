@@ -37,6 +37,13 @@ namespace SWE_AutomationJs_UI_Design
             ScheduleRequestStorage.ScheduleRequests.Add(request);
 
             textBox1.Clear();
+
+            Notifications n = new Notifications();
+            n.Message = "Your TimeOff Request has been sent.";
+            n.Role = "Manager";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
 
         private void TimeOff_Load(object sender, EventArgs e)

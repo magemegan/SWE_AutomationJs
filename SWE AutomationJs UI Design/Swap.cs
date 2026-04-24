@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
@@ -26,6 +27,13 @@ namespace SWE_AutomationJs_UI_Design
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
             textBox1.Clear();
+
+            Notifications n = new Notifications();
+            n.Message = "Your Swap Request has been sent.";
+            n.Role = "Manager";
+            n.TimeStamp = DateTime.Now.ToShortTimeString();
+
+            NotificationStorage.Notify.Add(n);
         }
 
         private void button1_Click(object sender, System.EventArgs e)

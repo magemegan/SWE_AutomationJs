@@ -66,7 +66,7 @@ namespace SWE_AutomationJs_UI_Design
             MessageBox.Show("Order sent to the kitchen!");
 
             Notifications n = new Notifications();
-            n.Message = "New order for Table " + tableNumber;
+            n.Message = "New order for Table " + chosenTable;
             n.Role = "Kitchen";
             n.TimeStamp = DateTime.Now.ToShortTimeString();
 
