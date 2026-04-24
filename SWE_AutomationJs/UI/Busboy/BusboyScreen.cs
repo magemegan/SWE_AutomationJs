@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Session;
 
 namespace SWE_AutomationJs_UI_Design
 {
@@ -21,6 +22,8 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//log out button
+            SessionContext.Clear();
+            CurrentEmployee = null;
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Hide();

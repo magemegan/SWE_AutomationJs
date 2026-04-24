@@ -13,10 +13,16 @@ namespace SWE_AutomationJs_UI_Design
     public partial class EmployeeProfile : Form
     {
         private int selectedIndex;
+        private Label labelAssignedTables;
         public EmployeeProfile(int employeeIndex)
         {
             InitializeComponent();
             selectedIndex = employeeIndex;
+            labelAssignedTables = new Label();
+            labelAssignedTables.AutoSize = true;
+            labelAssignedTables.Font = label8.Font;
+            labelAssignedTables.Location = new System.Drawing.Point(114, 315);
+            Controls.Add(labelAssignedTables);
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -40,11 +46,12 @@ namespace SWE_AutomationJs_UI_Design
 
             Employee selectedEmployee = EmployeeStorage.Employees[selectedIndex];
 
-            label8.Text = $"Name: {selectedEmployee.Name}";
+            label8.Text = $"Name: {selectedEmployee.Name} [{selectedEmployee.EmployeeId}]";
             label7.Text = $"Role: {selectedEmployee.Role}";
             label4.Text = $"Phone: {selectedEmployee.Phone}";
             label5.Text = $"Email: {selectedEmployee.Email}";
             label6.Text = $"Employment Type: {selectedEmployee.EmploymentType}";
+            labelAssignedTables.Text = $"Assigned Tables: {string.Join(",", selectedEmployee.AssignedTables)}";
         }
 
         private void button1_Click(object sender, EventArgs e)

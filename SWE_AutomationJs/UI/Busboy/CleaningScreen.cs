@@ -1,26 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+using System.Linq;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
+using SWE_AutomationJs_UI_Design.Session;
 
 namespace SWE_AutomationJs_UI_Design
 {
     public partial class CleaningScreen : Form
     {
-        private List<int> dirtyTables = new List<int>();
+        private readonly List<int> dirtyTables = new List<int>();
+
         public CleaningScreen()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//back to busboy screen
+        {
             BusboyScreen busboyScreen = new BusboyScreen();
             busboyScreen.Show();
-            this.Hide();
+            Hide();
         }
 
         private void CleaningScreen_Load(object sender, EventArgs e)
@@ -33,57 +33,52 @@ namespace SWE_AutomationJs_UI_Design
             listBox1.Items.Clear();
             dirtyTables.Clear();
 
-            //list through all tables and add those that need cleaning to the listbox
-            foreach (var table in TableStorage.TableStatuses)
+            foreach (TableStatusInfo table in TableRepository.GetAllTableStatuses().Where(x => x.UiStatus == "Needs Cleaning"))
             {
-                if (table.Value == "Needs Cleaning")
-                {
-                    dirtyTables.Add(table.Key);
-                    listBox1.Items.Add($"Table {table.Key}");
-                }
+                dirtyTables.Add(table.TableId);
+                listBox1.Items.Add($"Table {table.TableId}");
             }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedIndex = listBox1.SelectedIndex;
-            //check if selected index is valid
-            if (selectedIndex == -1) return;
-            if (selectedIndex >= dirtyTables.Count) return;
-            //get table number from dirty tables list
-            int selectedTableNumber = dirtyTables[selectedIndex];
+            if (selectedIndex < 0 || selectedIndex >= dirtyTables.Count)
+            {
+                return;
+            }
 
-            //display order details in labels
+            int selectedTableNumber = dirtyTables[selectedIndex];
             label4.Text = $"Table: {selectedTableNumber}";
             label5.Text = "Status: Needs Cleaning";
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//mark table as clean
+        {
             int selectedIndex = listBox1.SelectedIndex;
+            if (selectedIndex < 0 || selectedIndex >= dirtyTables.Count)
+            {
+                return;
+            }
 
-            if (selectedIndex == -1) return;
-            if (selectedIndex >= dirtyTables.Count) return;
+            if (!SessionContext.IsAuthenticated)
+            {
+                MessageBox.Show("Please sign in again before updating table status.");
+                return;
+            }
 
             int selectedTableNumber = dirtyTables[selectedIndex];
+            TableRepository.SetStatus(selectedTableNumber, "Available", SessionContext.CurrentEmployee.EmployeeId);
 
-
-            TableStorage.TableStatuses[selectedTableNumber] = "Open";
-            listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-            listBox1.ClearSelected();
-
-            //display order details in labels
             label4.Text = "Table:";
             label5.Text = "Status:";
-
             LoadCleaningQueue();
 
-            Notifications n = new Notifications();
-            n.Message = "Table " + selectedTableNumber + " is now clean.";
-            n.Role = "Waiter";
-            n.TimeStamp = DateTime.Now.ToShortTimeString();
-
-            NotificationStorage.Notify.Add(n);
+            Notifications notification = new Notifications();
+            notification.Message = "Table " + selectedTableNumber + " is now clean.";
+            notification.Role = "Waiter";
+            notification.TimeStamp = DateTime.Now.ToShortTimeString();
+            NotificationStorage.Notify.Add(notification);
         }
     }
 }

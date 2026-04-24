@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
+using SWE_AutomationJs_UI_Design.Session;
 
 namespace SWE_AutomationJs_UI_Design
 {
@@ -16,6 +18,7 @@ namespace SWE_AutomationJs_UI_Design
         public WaiterScreen()
         {
             InitializeComponent();
+            InitializeOverrideButton();
         }
 
         private void WaitierScreen_Load(object sender, EventArgs e)
@@ -25,6 +28,8 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//log out
+            SessionContext.Clear();
+            CurrentEmployee = null;
             MainMenu mainMenu = new MainMenu();
             mainMenu.Show();
             this.Hide();
@@ -61,6 +66,21 @@ namespace SWE_AutomationJs_UI_Design
             Notification notificationScreen = new Notification("Waiter");
             notificationScreen.Show();
             this.Hide();
+        }
+
+        private void InitializeOverrideButton()
+        {
+            Button overrideButton = new Button();
+            overrideButton.Location = new System.Drawing.Point(106, 312);
+            overrideButton.Size = new System.Drawing.Size(142, 52);
+            overrideButton.Text = "Request Override";
+            overrideButton.Click += (sender, args) =>
+            {
+                OverrideRequestForm form = new OverrideRequestForm();
+                form.Show();
+                Hide();
+            };
+            Controls.Add(overrideButton);
         }
     }
 }

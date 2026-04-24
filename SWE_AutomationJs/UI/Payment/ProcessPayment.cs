@@ -1,93 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
+using SWE_AutomationJs_UI_Design.Session;
 
 namespace SWE_AutomationJs_UI_Design
 {
     public partial class ProcessPayment : Form
     {
-        private int chosenTable;
-        private List<string> orderItems;
-        private double subtotal;
-        private double tax = 0.08;
-        private double taxAmount;
-        private double totalAmount;
+        private readonly long orderId;
+        private readonly int chosenTable;
+        private OrderHeader currentOrder;
 
         public ProcessPayment()
         {
             InitializeComponent();
         }
 
-        public ProcessPayment(int tableNumber, List<string> orderItems, double subtotal)
+        public ProcessPayment(long orderId, int tableNumber)
         {
             InitializeComponent();
+            this.orderId = orderId;
             chosenTable = tableNumber;
-            this.orderItems = new List<string>(orderItems);
-            this.subtotal = subtotal;
         }
 
         private void ProcessPayment_Load(object sender, EventArgs e)
         {
-            label2.Text = $"Table: {chosenTable}";
-
-            // Display order items in listBox1
-            listBox1.Items.Clear();
-            foreach (var item in orderItems)
+            currentOrder = OrderRepository.GetHeader(orderId);
+            if (currentOrder == null)
             {
-                listBox1.Items.Add(item);
-            }
-             
-            taxAmount = subtotal * tax;
-            totalAmount = subtotal + taxAmount;
-
-            label5.Text = $"Subtotal: ${subtotal.ToString("F2")}";
-            label6.Text = $"Tax: ${taxAmount.ToString("F2")}";
-            label7.Text = $"Total: {totalAmount.ToString("F2")}";
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {//payment stuff
-            if (comboBox1.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please enter payment details.");
+                MessageBox.Show("Order could not be loaded.");
+                Close();
                 return;
             }
 
-            PastPayment payPayment = new PastPayment();
-            payPayment.TableNumber = chosenTable;
-            payPayment.Items = new List<string>(orderItems);
-            payPayment.Total = totalAmount;
-            payPayment.Status = "Paid";
-            payPayment.Date = DateTime.Now.ToString("MM/dd/yyyy");
-            payPayment.PaymentMethod = comboBox1.SelectedItem.ToString();
+            label2.Text = $"Table: {chosenTable}";
+            listBox1.Items.Clear();
+            foreach (OrderLine item in OrderRepository.GetItems(orderId))
+            {
+                listBox1.Items.Add($"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2}");
+            }
 
-            PastPaymentStorage.Payments.Add(payPayment);
+            label5.Text = $"Subtotal: ${currentOrder.Subtotal:F2}";
+            label6.Text = $"Tax: ${currentOrder.Tax:F2}";
+            label7.Text = $"Total: {currentOrder.Total:F2}";
+        }
 
-            MessageBox.Show("Payment Processed for Table " + chosenTable);
-            Orders orders = new Orders(chosenTable);
-            orders.Show();
-            this.Hide();
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a payment method.");
+                return;
+            }
+
+            if (!SessionContext.IsAuthenticated)
+            {
+                MessageBox.Show("Please sign in again before processing a payment.");
+                return;
+            }
+
+            PaymentRepository.RecordPayment(
+                orderId,
+                currentOrder.Total,
+                comboBox1.SelectedItem.ToString(),
+                SessionContext.CurrentEmployee.EmployeeId);
+            ActivityLogService.Log(SessionContext.CurrentEmployee.EmployeeId, "PaymentProcessed", $"Order {orderId} amount {currentOrder.Total:F2}");
+
+            MessageBox.Show("Payment processed for Table " + chosenTable);
+            Payment paymentHistory = new Payment();
+            paymentHistory.Show();
+            Hide();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
-        {//print receipt
+        {
             MessageBox.Show("Receipt Printed for Table " + chosenTable);
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void button1_Click(object sender, EventArgs e) { }
+        private void label3_Click(object sender, EventArgs e) { }
     }
 }

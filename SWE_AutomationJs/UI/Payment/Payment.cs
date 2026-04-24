@@ -1,37 +1,25 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
 
 namespace SWE_AutomationJs_UI_Design
 {
     public partial class Payment : Form
     {
+        private IReadOnlyList<PaymentHistoryEntry> paymentHistory = Array.Empty<PaymentHistoryEntry>();
+
         public Payment()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//go back
+        {
             WaiterScreen waiterScreen = new WaiterScreen();
             waiterScreen.Show();
-            this.Hide();
-        }
-
-        private void LoadPaymentQueue()
-        {
-            listBox1.Items.Clear();
-            // Load the incoming orders into listBox1
-            foreach (PastPayment payment in PastPaymentStorage.Payments)
-            {
-                listBox1.Items.Add($"Table {payment.TableNumber} - {payment.Total} - {payment.Status}");
-            }
+            Hide();
         }
 
         private void Payment_Load(object sender, EventArgs e)
@@ -39,42 +27,44 @@ namespace SWE_AutomationJs_UI_Design
             LoadPaymentQueue();
         }
 
+        private void LoadPaymentQueue()
+        {
+            paymentHistory = PaymentRepository.GetPaymentHistory();
+            listBox1.Items.Clear();
+
+            foreach (PaymentHistoryEntry payment in paymentHistory)
+            {
+                listBox1.Items.Add($"Table {payment.TableId} - ${payment.TotalPaid:F2} - {payment.PaymentStatus}");
+            }
+        }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get the selected index from listBox1
             int selectedIndex = listBox1.SelectedIndex;
-            // Check if a valid index is selected
-            if (selectedIndex == -1) return;
-            // Get the corresponding order based on the selected index
-            PastPayment selectedPayment = PastPaymentStorage.Payments[selectedIndex];
-            // Display the order details in the labels and listBox2
-            label4.Text = "Table: " + selectedPayment.TableNumber;
-            label5.Text = "Status: " + selectedPayment.Status;
-            label6.Text = "Total: $" + selectedPayment.Total;
-            label7.Text = "Date: " + selectedPayment.Date;
+            if (selectedIndex < 0 || selectedIndex >= paymentHistory.Count)
+            {
+                return;
+            }
+
+            PaymentHistoryEntry selectedPayment = paymentHistory[selectedIndex];
+            label4.Text = "Table: " + selectedPayment.TableId;
+            label5.Text = "Status: " + selectedPayment.PaymentStatus;
+            label6.Text = "Total: $" + selectedPayment.OrderTotal.ToString("F2");
+            label7.Text = "Date: " + (selectedPayment.PaidAt.HasValue
+                ? selectedPayment.PaidAt.Value.ToString("MM/dd/yyyy")
+                : "N/A");
             label8.Text = "Items:";
 
             listBox2.Items.Clear();
-            // Load the items of the selected order into listBox2
-            foreach (string item in selectedPayment.Items)
+            foreach (OrderLine item in OrderRepository.GetItems(selectedPayment.OrderId))
             {
-                listBox2.Items.Add($"- {item}");
+                listBox2.Items.Add($"- {item.ItemName} x{item.Qty}");
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//refund?
-            // // Get the selected index from listBox1
-            //int selectedIndex = listBox1.SelectedIndex;
-            //// Check if a valid index is selected
-            //if (selectedIndex == -1) return;
-            //// Get the corresponding order based on the selected index
-            //PastPayment selectedPayment = PastPaymentStorage.Payments[selectedIndex];
-            //// Update the status of the selected payment to "Refunded"
-            //selectedPayment.Status = "Refunded";
-            //// Refresh the payment queue to reflect the updated status
-            //LoadPaymentQueue();
-
+        {
+            MessageBox.Show("Refund processing is not implemented yet.");
         }
     }
 }

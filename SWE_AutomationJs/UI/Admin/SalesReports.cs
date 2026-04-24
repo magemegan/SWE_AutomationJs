@@ -1,43 +1,29 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
 
 namespace SWE_AutomationJs_UI_Design
 {
     public partial class SalesReports : Form
     {
+        private IReadOnlyList<PaymentHistoryEntry> paymentHistory = Array.Empty<PaymentHistoryEntry>();
+
         public SalesReports()
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//back
+        {
             AdminMenu adminMenu = new AdminMenu();
             adminMenu.Show();
-            this.Hide();
+            Hide();
         }
 
         private void SalesReports_Load(object sender, EventArgs e)
         {
-            // Sample data for testing
-            PastPayment testPayment = new PastPayment();
-            testPayment.TableNumber = 5;
-            testPayment.Items = new List<string> { "Burger", "Fries", "Coke" };
-            testPayment.Total = 21.00;
-            testPayment.Status = "Paid";
-            testPayment.Date = DateTime.Now.ToShortDateString();
-
-            PastPaymentStorage.Payments.Add(testPayment);
-
-            MessageBox.Show($"Test Payment Added: Table {testPayment.TableNumber}, Total ${testPayment.Total}, Date {testPayment.Date}, Status {testPayment.Status}");
-
             SetupSalesGrid();
             LoadSalesData();
             CalcSalesSummary();
@@ -47,14 +33,10 @@ namespace SWE_AutomationJs_UI_Design
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
-
-            // Set up columns for the sales data grid
             dataGridView1.Columns.Add("TableNumber", "Table");
             dataGridView1.Columns.Add("Total", "Total");
             dataGridView1.Columns.Add("Date", "Date");
             dataGridView1.Columns.Add("Status", "Status");
-
-            // Set up additional properties for the sales data grid
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -62,37 +44,37 @@ namespace SWE_AutomationJs_UI_Design
 
         private void LoadSalesData()
         {
+            paymentHistory = PaymentRepository.GetPaymentHistory();
             dataGridView1.Rows.Clear();
 
-            foreach (PastPayment payment in PastPaymentStorage.Payments)
+            foreach (PaymentHistoryEntry payment in paymentHistory)
             {
                 dataGridView1.Rows.Add(
-                    payment.TableNumber,
-                    "$" + payment.Total.ToString("0.00"),
-                    payment.Date,
-                    payment.Status
-                );
+                    payment.TableId,
+                    "$" + payment.TotalPaid.ToString("0.00"),
+                    payment.PaidAt.HasValue ? payment.PaidAt.Value.ToString("MM/dd/yyyy") : "N/A",
+                    payment.PaymentStatus);
             }
         }
 
         private void CalcSalesSummary()
         {
-            double totalSales = 0;
-            double highestSale = 0;
-            int totalTransactions = PastPaymentStorage.Payments.Count;
+            decimal totalSales = 0m;
+            decimal highestSale = 0m;
+            int totalTransactions = paymentHistory.Count;
 
-            foreach (PastPayment payment in PastPaymentStorage.Payments)
+            foreach (PaymentHistoryEntry payment in paymentHistory)
             {
-                totalSales += payment.Total;
-                if (payment.Total > highestSale)
+                totalSales += payment.TotalPaid;
+                if (payment.TotalPaid > highestSale)
                 {
-                    highestSale = payment.Total;
+                    highestSale = payment.TotalPaid;
                 }
             }
 
-            double avgSale = 0;
-
-            if (totalTransactions > 0) { avgSale = totalSales / totalTransactions; }
+            decimal avgSale = totalTransactions > 0
+                ? totalSales / totalTransactions
+                : 0m;
 
             label8.Text = $"Total Sales: ${totalSales:F2}";
             label7.Text = $"Average Sales: ${avgSale:F2}";

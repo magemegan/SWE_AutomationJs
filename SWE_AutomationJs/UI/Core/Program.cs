@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
 
 namespace SWE_AutomationJs_UI_Design
 {
@@ -14,10 +15,10 @@ namespace SWE_AutomationJs_UI_Design
         [STAThread]
         static void Main()
         {
+            AppBootstrap.Initialize();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainMenu());
-            Application.Run(new WaiterScreen());
         }
     }
 }

@@ -1,184 +1,94 @@
-﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
+using SWE_AutomationJs_UI_Design.Session;
 
 namespace SWE_AutomationJs_UI_Design
 {
     public partial class AssignTables2 : Form
     {
+        private readonly Dictionary<int, Button> tableButtons;
+
         public AssignTables2()
         {
             InitializeComponent();
-        }
-
-        enum tableStatus
-        {
-            Available,
-            Occupied,
-            Reserved,
-            NeedsCleaning
-        }
-
-        //tableStatus currentStatus = tableStatus.Available;
-        private void TableStatus_Load2(object sender, EventArgs e)
-        {
-            button3.BackColor = Color.LightGreen;
-            button4.BackColor = Color.LightGreen;
-            button5.BackColor = Color.LightGreen;
-            button6.BackColor = Color.LightGreen;
-            button7.BackColor = Color.LightGreen;
-            button8.BackColor = Color.LightGreen;
-            button9.BackColor = Color.LightGreen;
-            button10.BackColor = Color.LightGreen;
-            button11.BackColor = Color.LightGreen;
-            button12.BackColor = Color.LightGreen;
-            button13.BackColor = Color.LightGreen;
-            button14.BackColor = Color.LightGreen;
-
-            button3.Text = "Table 13";
-            button4.Text = "Table 14";
-            button5.Text = "Table 15";
-            button6.Text = "Table 16";
-            button7.Text = "Table 17";
-            button8.Text = "Table 18";
-            button9.Text = "Table 19";
-            button10.Text = "Table 20";
-            button11.Text = "Table 21";
-            button12.Text = "Table 22";
-            button13.Text = "Table 23";
-            button14.Text = "Table 24";
-        }
-
-        private void UpdateButton(object sender, EventArgs e)
-        {
-            Button button = sender as Button;
-
-            if (button.BackColor == Color.LightGreen)
+            tableButtons = new Dictionary<int, Button>
             {
-                button.BackColor = Color.Orange;
-                //button.Text = "Occupied";
-            }
-            else
+                { 13, button3 }, { 14, button4 }, { 15, button5 }, { 16, button6 },
+                { 17, button7 }, { 18, button8 }, { 19, button9 }, { 20, button10 },
+                { 21, button11 }, { 22, button12 }, { 23, button13 }, { 24, button14 }
+            };
+        }
+
+        private void TableStatus_Load2(object sender, System.EventArgs e)
+        {
+            LoadTableStatuses();
+        }
+
+        private void LoadTableStatuses()
+        {
+            IReadOnlyList<TableStatusInfo> statuses = TableRepository.GetAllTableStatuses();
+            IReadOnlyList<int> assignedTables = SessionContext.IsAuthenticated
+                ? TableRepository.GetAssignedTableIds(SessionContext.CurrentEmployee.EmployeeId)
+                : new List<int>();
+            foreach (KeyValuePair<int, Button> entry in tableButtons)
             {
-                button.BackColor = Color.LightGreen;
-                //button.Text = "Avaliable";
+                TableStatusInfo status = statuses.FirstOrDefault(x => x.TableId == entry.Key);
+                entry.Value.Text = $"Table {entry.Key}";
+                entry.Value.BackColor = GetStatusColor(status != null ? status.UiStatus : "Open");
+                entry.Value.Font = assignedTables.Contains(entry.Key)
+                    ? new Font(entry.Value.Font, FontStyle.Bold)
+                    : new Font(entry.Value.Font, FontStyle.Regular);
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {//go back
+        private static Color GetStatusColor(string uiStatus)
+        {
+            switch (uiStatus)
+            {
+                case "Occupied":
+                    return Color.Orange;
+                case "Needs Cleaning":
+                    return Color.IndianRed;
+                default:
+                    return Color.LightGreen;
+            }
+        }
+
+        private void OpenTableOrder(int tableId)
+        {
+            Orders orders = new Orders(tableId);
+            orders.Show();
+            Hide();
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
             AssignTables assignTables = new AssignTables();
             assignTables.Show();
-            this.Hide();
+            Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, System.EventArgs e)
         {
             AssignTables3 assignTables3 = new AssignTables3();
             assignTables3.Show();
-            this.Hide();
+            Hide();
         }
 
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(13);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(14);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(15);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(16);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(17);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(18);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(19);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(20);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(21);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button12_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(22);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button13_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(23);
-            serverName.Show();
-            this.Hide();
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-            UpdateButton(sender, e);
-            Orders serverName = new Orders(24);
-            serverName.Show();
-            this.Hide();
-        }
+        private void button3_Click_1(object sender, System.EventArgs e) { OpenTableOrder(13); }
+        private void button4_Click(object sender, System.EventArgs e) { OpenTableOrder(14); }
+        private void button5_Click(object sender, System.EventArgs e) { OpenTableOrder(15); }
+        private void button6_Click(object sender, System.EventArgs e) { OpenTableOrder(16); }
+        private void button7_Click(object sender, System.EventArgs e) { OpenTableOrder(17); }
+        private void button8_Click(object sender, System.EventArgs e) { OpenTableOrder(18); }
+        private void button9_Click(object sender, System.EventArgs e) { OpenTableOrder(19); }
+        private void button10_Click(object sender, System.EventArgs e) { OpenTableOrder(20); }
+        private void button11_Click(object sender, System.EventArgs e) { OpenTableOrder(21); }
+        private void button12_Click(object sender, System.EventArgs e) { OpenTableOrder(22); }
+        private void button13_Click(object sender, System.EventArgs e) { OpenTableOrder(23); }
+        private void button14_Click(object sender, System.EventArgs e) { OpenTableOrder(24); }
     }
 }

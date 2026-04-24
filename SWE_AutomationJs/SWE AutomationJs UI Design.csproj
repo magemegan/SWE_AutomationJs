@@ -1,6 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -12,7 +13,9 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -32,308 +36,89 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Dapper">
+      <HintPath>$(NuGetPackageRoot)dapper\2.1.35\lib\net461\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Sqlite">
+      <HintPath>$(NuGetPackageRoot)microsoft.data.sqlite.core\6.0.29\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.batteries_v2">
+      <HintPath>$(NuGetPackageRoot)sqlitepclraw.bundle_e_sqlite3\2.1.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.core">
+      <HintPath>$(NuGetPackageRoot)sqlitepclraw.core\2.1.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl">
+      <HintPath>$(NuGetPackageRoot)sqlitepclraw.provider.dynamic_cdecl\2.1.2\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AddEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddEmployee.Designer.cs">
-      <DependentUpon>AddEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AdminMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AdminMenu.Designer.cs">
-      <DependentUpon>AdminMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssignTables.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AssignTables.Designer.cs">
-      <DependentUpon>AssignTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssignTables2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AssignTables2.Designer.cs">
-      <DependentUpon>AssignTables2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssignTables3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AssignTables3.Designer.cs">
-      <DependentUpon>AssignTables3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BusboyScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BusboyScreen.Designer.cs">
-      <DependentUpon>BusboyScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CleaningScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CleaningScreen.Designer.cs">
-      <DependentUpon>CleaningScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs" />
-    <Compile Include="EmployeeMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeMenu.Designer.cs">
-      <DependentUpon>EmployeeMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeProfile.Designer.cs">
-      <DependentUpon>EmployeeProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeRecords.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeRecords.Designer.cs">
-      <DependentUpon>EmployeeRecords.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeScheduling.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EmployeeScheduling.Designer.cs">
-      <DependentUpon>EmployeeScheduling.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EmployeeStorage.cs" />
-    <Compile Include="IncomingOrders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IncomingOrders.Designer.cs">
-      <DependentUpon>IncomingOrders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Inventory.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Inventory.Designer.cs">
-      <DependentUpon>Inventory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InventoryManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InventoryManagement.Designer.cs">
-      <DependentUpon>InventoryManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KitchenScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KitchenScreen.Designer.cs">
-      <DependentUpon>KitchenScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainMenu.Designer.cs">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MenuManagement.Designer.cs">
-      <DependentUpon>MenuManagement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Notification.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Notification.Designer.cs">
-      <DependentUpon>Notification.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Notifications.cs" />
-    <Compile Include="NotificationStorage.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="Orders.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Orders.Designer.cs">
-      <DependentUpon>Orders.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OrderStorage.cs" />
-    <Compile Include="PastPayment.cs" />
-    <Compile Include="PastPaymentStorage.cs" />
-    <Compile Include="Payment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payment.Designer.cs">
-      <DependentUpon>Payment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ProcessPayment.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProcessPayment.Designer.cs">
-      <DependentUpon>ProcessPayment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="UI\**\*.cs" />
+    <Compile Include="Data\*.cs" />
+    <Compile Include="Security\*.cs" />
+    <Compile Include="Session\*.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RequestStorage.cs" />
-    <Compile Include="RestockRequests.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RestockRequests.Designer.cs">
-      <DependentUpon>RestockRequests.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SalesReports.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SalesReports.Designer.cs">
-      <DependentUpon>SalesReports.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Schedule.Designer.cs">
-      <DependentUpon>Schedule.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ScheduleRequest.cs" />
-    <Compile Include="ScheduleRequestStorage.cs" />
-    <Compile Include="Swap.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Swap.Designer.cs">
-      <DependentUpon>Swap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TableStorage.cs" />
-    <Compile Include="TimeOff.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TimeOff.Designer.cs">
-      <DependentUpon>TimeOff.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ViewRequests.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ViewRequests.Designer.cs">
-      <DependentUpon>ViewRequests.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WaiterScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WaiterScreen.Designer.cs">
-      <DependentUpon>WaiterScreen.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="AddEmployee.resx">
-      <DependentUpon>AddEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AdminMenu.resx">
-      <DependentUpon>AdminMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssignTables.resx">
-      <DependentUpon>AssignTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssignTables2.resx">
-      <DependentUpon>AssignTables2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AssignTables3.resx">
-      <DependentUpon>AssignTables3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BusboyScreen.resx">
-      <DependentUpon>BusboyScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CleaningScreen.resx">
-      <DependentUpon>CleaningScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeMenu.resx">
-      <DependentUpon>EmployeeMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeProfile.resx">
-      <DependentUpon>EmployeeProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeRecords.resx">
-      <DependentUpon>EmployeeRecords.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="EmployeeScheduling.resx">
-      <DependentUpon>EmployeeScheduling.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IncomingOrders.resx">
-      <DependentUpon>IncomingOrders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Inventory.resx">
-      <DependentUpon>Inventory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InventoryManagement.resx">
-      <DependentUpon>InventoryManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KitchenScreen.resx">
-      <DependentUpon>KitchenScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainMenu.resx">
-      <DependentUpon>MainMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MenuManagement.resx">
-      <DependentUpon>MenuManagement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Notification.resx">
-      <DependentUpon>Notification.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Orders.resx">
-      <DependentUpon>Orders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Payment.resx">
-      <DependentUpon>Payment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProcessPayment.resx">
-      <DependentUpon>ProcessPayment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RestockRequests.resx">
-      <DependentUpon>RestockRequests.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SalesReports.resx">
-      <DependentUpon>SalesReports.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schedule.resx">
-      <DependentUpon>Schedule.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Swap.resx">
-      <DependentUpon>Swap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimeOff.resx">
-      <DependentUpon>TimeOff.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ViewRequests.resx">
-      <DependentUpon>ViewRequests.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WaiterScreen.resx">
-      <DependentUpon>WaiterScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="UI\**\*.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="$(NuGetPackageRoot)sqlitepclraw.lib.e_sqlite3\2.1.2\runtimes\win-x64\native\e_sqlite3.dll">
+      <Link>e_sqlite3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper">
+      <Version>2.1.35</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>6.0.29</Version>
+    </PackageReference>
+  </ItemGroup>
+
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
