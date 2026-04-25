@@ -41,7 +41,10 @@ namespace SWE_AutomationJs_UI_Design
             listBox1.Items.Clear();
             foreach (OrderLine item in OrderRepository.GetItems(orderId))
             {
-                listBox1.Items.Add($"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2}");
+                string details = string.IsNullOrWhiteSpace(item.Notes)
+                    ? string.Empty
+                    : $" [{item.Notes}]";
+                listBox1.Items.Add($"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2}{details}");
             }
 
             label5.Text = $"Subtotal: ${currentOrder.Subtotal:F2}";
@@ -112,9 +115,7 @@ namespace SWE_AutomationJs_UI_Design
             NotificationStorage.Notify.Add(busboyNotification);
 
             MessageBox.Show("Payment processed for Table " + chosenTable);
-            Payment paymentHistory = new Payment();
-            paymentHistory.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Payment());
         }
 
         private static string NormalizePaymentMethod(string selectedValue)

@@ -17,9 +17,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
         }
 
         private void SalesReports_Load(object sender, EventArgs e)

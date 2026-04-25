@@ -24,44 +24,32 @@ namespace SWE_AutomationJs_UI_Design
         {//logout
             SessionContext.Clear();
             CurrentEmployee = null;
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//employee records
-            EmployeeRecords employeeRecords = new EmployeeRecords();
-            employeeRecords.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new EmployeeRecords());
         }
 
         private void button3_Click(object sender, EventArgs e)
         {//inventory management
-            InventoryManagement inventoryManagement = new InventoryManagement();
-            inventoryManagement.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new InventoryManagement());
         }
 
         private void button4_Click(object sender, EventArgs e)
         {//restock requests
-            RestockRequests restockRequests = new RestockRequests();
-            restockRequests.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new RestockRequests());
         }
 
         private void button5_Click(object sender, EventArgs e)
         {//sales reports
-            SalesReports salesReports = new SalesReports();
-            salesReports.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new SalesReports());
         }
 
         private void button6_Click(object sender, EventArgs e)
         {//employee scheduling
-            EmployeeScheduling employeeScheduling = new EmployeeScheduling();
-            employeeScheduling.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new EmployeeScheduling());
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -71,16 +59,12 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button7_Click_1(object sender, EventArgs e)
         {
-            MenuManagement menuManagement = new MenuManagement();
-            menuManagement.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new MenuManagement());
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Notification notification = new Notification("Admin");
-            notification.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Notification("Admin"));
         }
 
         private void InitializeAdditionalButtons()
@@ -91,9 +75,7 @@ namespace SWE_AutomationJs_UI_Design
             overrideButton.Text = "Override Approvals";
             overrideButton.Click += (sender, args) =>
             {
-                OverrideApprovalForm form = new OverrideApprovalForm();
-                form.Show();
-                Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new OverrideApprovalForm());
             };
             Controls.Add(overrideButton);
 
@@ -103,11 +85,19 @@ namespace SWE_AutomationJs_UI_Design
             tableLayoutButton.Text = "Table Layout";
             tableLayoutButton.Click += (sender, args) =>
             {
-                TableLayoutManagementForm form = new TableLayoutManagementForm();
-                form.Show();
-                Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new TableLayoutManagementForm());
             };
             Controls.Add(tableLayoutButton);
+
+            Button activityLogButton = new Button();
+            activityLogButton.Location = new System.Drawing.Point(662, 317);
+            activityLogButton.Size = new System.Drawing.Size(102, 43);
+            activityLogButton.Text = "Activity Log";
+            activityLogButton.Click += (sender, args) =>
+            {
+                NavigationHelper.ShowAtCurrentPosition(this, new ActivityLogViewerForm());
+            };
+            Controls.Add(activityLogButton);
         }
     }
 }

@@ -7,6 +7,11 @@ namespace SWE_AutomationJs_UI_Design.Data
     {
         private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "activity-log.txt");
 
+        public static string CurrentLogPath
+        {
+            get { return LogPath; }
+        }
+
         public static void Log(string employeeId, string action, string details)
         {
             string line = string.Format(
@@ -17,6 +22,21 @@ namespace SWE_AutomationJs_UI_Design.Data
                 details ?? string.Empty);
 
             File.AppendAllText(LogPath, line + Environment.NewLine);
+        }
+
+        public static string[] ReadAll()
+        {
+            if (!File.Exists(LogPath))
+            {
+                return new string[0];
+            }
+
+            return File.ReadAllLines(LogPath);
+        }
+
+        public static void ExportTo(string targetPath)
+        {
+            File.Copy(LogPath, targetPath, true);
         }
     }
 }

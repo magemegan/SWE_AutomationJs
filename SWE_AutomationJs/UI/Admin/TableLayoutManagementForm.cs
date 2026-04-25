@@ -44,12 +44,26 @@ namespace SWE_AutomationJs_UI_Design
             Button addSeatButton = new Button { Left = 360, Top = 100, Width = 140, Text = "Add Seat" };
             addSeatButton.Click += (sender, args) =>
             {
-                if (tableListBox.SelectedIndex < 0 || tableListBox.SelectedIndex >= tables.Count) return;
-                TableRepository.AddSeat(tables[tableListBox.SelectedIndex].TableId);
-                Log("SeatAdded", "Table " + tables[tableListBox.SelectedIndex].TableId);
-                RefreshTables();
+                RunTableAction(() =>
+                {
+                    int tableId = GetSelectedTableId();
+                    TableRepository.AddSeat(tableId);
+                    Log("SeatAdded", "Table " + tableId + " +1 seat");
+                });
             };
             Controls.Add(addSeatButton);
+
+            Button removeSeatButton = new Button { Left = 520, Top = 100, Width = 160, Text = "Remove Seat" };
+            removeSeatButton.Click += (sender, args) =>
+            {
+                RunTableAction(() =>
+                {
+                    int tableId = GetSelectedTableId();
+                    TableRepository.RemoveSeat(tableId);
+                    Log("SeatRemoved", "Table " + tableId + " -1 seat");
+                });
+            };
+            Controls.Add(removeSeatButton);
 
             Controls.Add(new Label { Left = 360, Top = 160, Width = 220, Text = "Merge selected into target:" });
             mergeTargetComboBox = new ComboBox { Left = 360, Top = 190, Width = 160, DropDownStyle = ComboBoxStyle.DropDownList };
@@ -58,21 +72,25 @@ namespace SWE_AutomationJs_UI_Design
             Button mergeButton = new Button { Left = 540, Top = 188, Width = 140, Text = "Merge Tables" };
             mergeButton.Click += (sender, args) =>
             {
-                if (tableListBox.SelectedIndex < 0 || tableListBox.SelectedIndex >= tables.Count || mergeTargetComboBox.SelectedIndex == -1) return;
-                int primary = int.Parse(mergeTargetComboBox.SelectedItem.ToString());
-                int secondary = tables[tableListBox.SelectedIndex].TableId;
-                TableRepository.MergeTables(primary, secondary);
-                Log("TablesMerged", $"Primary {primary}, Secondary {secondary}");
-                RefreshTables();
+                RunTableAction(() =>
+                {
+                    if (mergeTargetComboBox.SelectedIndex == -1)
+                    {
+                        throw new InvalidOperationException("Choose a target table to merge into.");
+                    }
+
+                    int primary = int.Parse(mergeTargetComboBox.SelectedItem.ToString());
+                    int secondary = GetSelectedTableId();
+                    TableRepository.MergeTables(primary, secondary);
+                    Log("TablesMerged", $"Primary {primary}, Secondary {secondary}");
+                });
             };
             Controls.Add(mergeButton);
 
             Button backButton = new Button { Left = 360, Top = 260, Width = 90, Text = "Back" };
             backButton.Click += (sender, args) =>
             {
-                AdminMenu adminMenu = new AdminMenu();
-                adminMenu.Show();
-                Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
             };
             Controls.Add(backButton);
 
@@ -87,8 +105,31 @@ namespace SWE_AutomationJs_UI_Design
 
             foreach (TableStatusInfo table in tables)
             {
-                tableListBox.Items.Add($"{table.TableId} - {table.TableCode} - {table.UiStatus}");
+                tableListBox.Items.Add($"{table.TableId} - {table.TableCode} - {table.SeatCapacity} seats - {table.UiStatus}");
                 mergeTargetComboBox.Items.Add(table.TableId.ToString());
+            }
+        }
+
+        private int GetSelectedTableId()
+        {
+            if (tableListBox.SelectedIndex < 0 || tableListBox.SelectedIndex >= tables.Count)
+            {
+                throw new InvalidOperationException("Select a table first.");
+            }
+
+            return tables[tableListBox.SelectedIndex].TableId;
+        }
+
+        private void RunTableAction(Action action)
+        {
+            try
+            {
+                action();
+                RefreshTables();
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(ex.Message, "Table Layout", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

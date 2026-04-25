@@ -10,6 +10,16 @@ namespace SWE_AutomationJs_UI_Design
     public partial class Orders : Form
     {
         private const string AllMenuCategory = "All Menu";
+        private static readonly string[] CategoryDisplayOrder =
+        {
+            "Appetizers",
+            "Salads",
+            "Entrees",
+            "Sides",
+            "Sandwiches",
+            "Burgers",
+            "Beverages"
+        };
 
         private sealed class OrderItemListEntry
         {
@@ -24,6 +34,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private readonly int chosenTable;
         private readonly Button[] menuButtons;
+        private readonly Label[] legacySectionLabels;
         private long currentOrderId;
         private IReadOnlyList<MenuCatalogItem> menuCatalog = Array.Empty<MenuCatalogItem>();
         private ComboBox categoryComboBox;
@@ -38,7 +49,9 @@ namespace SWE_AutomationJs_UI_Design
                 button5, button6, button7, button8, button9, button10,
                 button11, button12, button13, button15, button16, button17
             };
+            legacySectionLabels = new[] { label6, label8, label9 };
             InitializeCategorySelector();
+            ConfigureMenuGrid();
         }
 
         private void Orders_load(object sender, EventArgs e)
@@ -46,9 +59,7 @@ namespace SWE_AutomationJs_UI_Design
             if (!SessionContext.IsAuthenticated)
             {
                 MessageBox.Show("Please sign in again before taking orders.");
-                MainMenu mainMenu = new MainMenu();
-                mainMenu.Show();
-                Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
                 return;
             }
 
@@ -62,9 +73,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            AssignTables assignTables = new AssignTables();
-            assignTables.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AssignTables());
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -149,9 +158,7 @@ namespace SWE_AutomationJs_UI_Design
                 return;
             }
 
-            ProcessPayment paymentScreen = new ProcessPayment(currentOrderId, chosenTable);
-            paymentScreen.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new ProcessPayment(currentOrderId, chosenTable));
         }
 
         private void AddCatalogItemByButtonIndex(int index)
@@ -169,7 +176,24 @@ namespace SWE_AutomationJs_UI_Design
             }
 
             MenuCatalogItem item = currentCategoryItems[index];
-            OrderRepository.AddItem(currentOrderId, item.MenuItemId, 1, null, null);
+            IReadOnlyList<MenuOptionGroup> optionGroups = OrderRepository.GetOptionGroups(item.MenuItemId);
+            List<SelectedMenuOption> selectedOptions = null;
+            string notes = null;
+            if (optionGroups.Count > 0)
+            {
+                using (MenuItemOptionsForm optionsForm = new MenuItemOptionsForm(item, optionGroups))
+                {
+                    if (optionsForm.ShowDialog(this) != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    selectedOptions = optionsForm.SelectedOptions;
+                    notes = optionsForm.SummaryText;
+                }
+            }
+
+            OrderRepository.AddItem(currentOrderId, item.MenuItemId, 1, null, notes, selectedOptions);
             ActivityLogService.Log(SessionContext.CurrentEmployee.EmployeeId, "OrderItemAdded", $"Order {currentOrderId} {item.ItemName}");
             LoadOrderState();
         }
@@ -179,7 +203,11 @@ namespace SWE_AutomationJs_UI_Design
             menuCatalog = OrderRepository.GetMenuCatalog();
             categoryComboBox.Items.Clear();
             categoryComboBox.Items.Add(AllMenuCategory);
-            foreach (string category in menuCatalog.Select(x => x.CategoryName).Distinct())
+            foreach (string category in menuCatalog
+                .Select(x => x.CategoryName)
+                .Distinct()
+                .OrderBy(GetCategorySortOrder)
+                .ThenBy(x => x))
             {
                 categoryComboBox.Items.Add(category);
             }
@@ -232,7 +260,36 @@ namespace SWE_AutomationJs_UI_Design
             categoryComboBox.SelectedIndexChanged += (sender, args) => UpdateCategoryItems();
             panel2.Controls.Add(categoryComboBox);
             panel2.Controls.SetChildIndex(categoryComboBox, 0);
-            label5.Text = "Category";
+            label5.Text = "Menu Items";
+        }
+
+        private void ConfigureMenuGrid()
+        {
+            label6.Visible = false;
+            label8.Visible = false;
+            label9.Visible = false;
+
+            System.Drawing.Point[] positions =
+            {
+                new System.Drawing.Point(13, 46),
+                new System.Drawing.Point(143, 46),
+                new System.Drawing.Point(276, 46),
+                new System.Drawing.Point(13, 98),
+                new System.Drawing.Point(143, 98),
+                new System.Drawing.Point(276, 98),
+                new System.Drawing.Point(13, 150),
+                new System.Drawing.Point(143, 150),
+                new System.Drawing.Point(276, 150),
+                new System.Drawing.Point(13, 202),
+                new System.Drawing.Point(143, 202),
+                new System.Drawing.Point(276, 202)
+            };
+
+            for (int i = 0; i < menuButtons.Length; i++)
+            {
+                menuButtons[i].Location = positions[i];
+                menuButtons[i].Size = new System.Drawing.Size(104, 44);
+            }
         }
 
         private void LoadOrderState()
@@ -243,10 +300,10 @@ namespace SWE_AutomationJs_UI_Design
             listBox2.Items.Clear();
             foreach (OrderLine item in items)
             {
-                listBox2.Items.Add(new OrderItemListEntry
+                    listBox2.Items.Add(new OrderItemListEntry
                 {
                     OrderItemId = item.OrderItemId,
-                    DisplayText = $"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2}"
+                    DisplayText = BuildOrderLineText(item)
                 });
             }
 
@@ -272,6 +329,22 @@ namespace SWE_AutomationJs_UI_Design
         private void button15_Click(object sender, EventArgs e) { AddCatalogItemByButtonIndex(9); }
         private void button16_Click(object sender, EventArgs e) { AddCatalogItemByButtonIndex(10); }
         private void button17_Click(object sender, EventArgs e) { AddCatalogItemByButtonIndex(11); }
+
+        private static string BuildOrderLineText(OrderLine item)
+        {
+            if (string.IsNullOrWhiteSpace(item.Notes))
+            {
+                return $"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2}";
+            }
+
+            return $"{item.ItemName} x{item.Qty} - ${item.UnitPriceAtSale:F2} [{item.Notes}]";
+        }
+
+        private static int GetCategorySortOrder(string categoryName)
+        {
+            int index = Array.IndexOf(CategoryDisplayOrder, categoryName);
+            return index >= 0 ? index : int.MaxValue;
+        }
 
         private void label2_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }

@@ -19,7 +19,6 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
             AcceptButton = button1;
             textBox2.UseSystemPasswordChar = true;
-            InitializeHomeDetails();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -97,19 +96,7 @@ namespace SWE_AutomationJs_UI_Design
                     break;
             }
 
-            nextScreen.Show();
-            Hide();
-        }
-
-        private void InitializeHomeDetails()
-        {
-            Label detailsLabel = new Label();
-            detailsLabel.AutoSize = true;
-            detailsLabel.Location = new System.Drawing.Point(543, 107);
-            detailsLabel.Name = "detailsLabel";
-            detailsLabel.Size = new System.Drawing.Size(260, 39);
-            detailsLabel.Text = "Hours: Mon-Sun 11:00 AM - 10:00 PM\r\nContact: (555) 010-3313\r\nAddress: 123 Campus Drive, Kennesaw, GA";
-            Controls.Add(detailsLabel);
+            NavigationHelper.ShowAtCurrentPosition(this, nextScreen);
         }
     }
 }

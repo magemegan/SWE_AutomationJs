@@ -24,30 +24,22 @@ namespace SWE_AutomationJs_UI_Design
         {//log out button
             SessionContext.Clear();
             CurrentEmployee = null;
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
         }
 
         private void button5_Click(object sender, EventArgs e)
         {//view schedule
-            Schedule scheduleScreen = new Schedule("Busboy");
-            scheduleScreen.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Schedule("Busboy"));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//view tables
-            CleaningScreen tableStatus = new CleaningScreen();
-            tableStatus.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new CleaningScreen());
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Notification notificationScreen = new Notification("Busboy");
-            notificationScreen.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Notification("Busboy"));
         }
 
         private void BusboyScreen_Load(object sender, EventArgs e)

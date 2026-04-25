@@ -17,16 +17,12 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {// admin menu
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
         }
 
         private void button3_Click(object sender, EventArgs e)
         {//view requests
-            ViewRequests viewRequests = new ViewRequests();
-            viewRequests.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new ViewRequests());
         }
 
         private void EmployeeScheduling_Load(object sender, EventArgs e)

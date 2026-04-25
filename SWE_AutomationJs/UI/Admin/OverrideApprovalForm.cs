@@ -38,9 +38,7 @@ namespace SWE_AutomationJs_UI_Design
             Button backButton = new Button { Left = 600, Top = 260, Width = 90, Text = "Back" };
             backButton.Click += (sender, args) =>
             {
-                AdminMenu adminMenu = new AdminMenu();
-                adminMenu.Show();
-                Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
             };
             Controls.Add(backButton);
 

@@ -51,6 +51,49 @@ namespace SWE_AutomationJs_UI_Design.Data
         }
     }
 
+    public sealed class MenuOptionGroup
+    {
+        public int OptionGroupId { get; set; }
+        public string GroupName { get; set; }
+        public bool IsRequired { get; set; }
+        public int MinSelections { get; set; }
+        public int MaxSelections { get; set; }
+        public int DisplayOrder { get; set; }
+        public List<MenuOptionChoice> Options { get; } = new List<MenuOptionChoice>();
+    }
+
+    public sealed class MenuOptionChoice
+    {
+        public int OptionId { get; set; }
+        public int OptionGroupId { get; set; }
+        public string OptionName { get; set; }
+        public decimal PriceDelta { get; set; }
+        public int DisplayOrder { get; set; }
+
+        public string DisplayText
+        {
+            get
+            {
+                return PriceDelta > 0
+                    ? string.Format("{0} (+${1:F2})", OptionName, PriceDelta)
+                    : OptionName;
+            }
+        }
+
+        public override string ToString()
+        {
+            return DisplayText;
+        }
+    }
+
+    public sealed class SelectedMenuOption
+    {
+        public string GroupName { get; set; }
+        public string OptionName { get; set; }
+        public decimal PriceDelta { get; set; }
+        public int DisplayOrder { get; set; }
+    }
+
     public static class OrderRepository
     {
         public static long CreateDraftOrder(int tableId, string serverEmployeeId, int? partySize)
@@ -84,36 +127,68 @@ SELECT last_insert_rowid();";
 
         public static void AddItem(long orderId, int menuItemId, int qty, int? seatNumber, string notes)
         {
+            AddItem(orderId, menuItemId, qty, seatNumber, notes, null);
+        }
+
+        public static void AddItem(long orderId, int menuItemId, int qty, int? seatNumber, string notes, IReadOnlyList<SelectedMenuOption> selectedOptions)
+        {
             using (var connection = Db.Open())
+            using (var transaction = connection.BeginTransaction())
             {
+                double? basePrice = connection.ExecuteScalar<double?>(@"
+SELECT Price + 0.0
+FROM MenuItems
+WHERE MenuItemId = @MenuItemId
+  AND IsActive = 1;",
+                    new { MenuItemId = menuItemId },
+                    transaction);
+
+                if (!basePrice.HasValue)
+                {
+                    throw new InvalidOperationException("Menu item not found or inactive.");
+                }
+
+                decimal optionTotal = selectedOptions != null
+                    ? selectedOptions.Sum(x => x.PriceDelta)
+                    : 0m;
+
                 const string sql = @"
 INSERT INTO OrderItems (OrderId, MenuItemId, SeatNumber, Qty, UnitPriceAtSale, Notes)
-SELECT
-    @OrderId,
-    m.MenuItemId,
-    @SeatNumber,
-    @Qty,
-    m.Price,
-    @Notes
-FROM MenuItems m
-WHERE m.MenuItemId = @MenuItemId
-  AND m.IsActive = 1;";
+VALUES
+    (@OrderId, @MenuItemId, @SeatNumber, @Qty, @UnitPriceAtSale, @Notes);
+SELECT last_insert_rowid();";
 
-                int rows = connection.Execute(sql, new
+                long orderItemId = connection.ExecuteScalar<long>(sql, new
                 {
                     OrderId = orderId,
                     MenuItemId = menuItemId,
                     Qty = qty,
                     SeatNumber = seatNumber,
+                    UnitPriceAtSale = Convert.ToDecimal(basePrice.Value) + optionTotal,
                     Notes = string.IsNullOrWhiteSpace(notes) ? null : notes.Trim()
-                });
+                }, transaction);
 
-                if (rows == 0)
+                if (selectedOptions != null)
                 {
-                    throw new InvalidOperationException("Menu item not found or inactive.");
+                    foreach (SelectedMenuOption option in selectedOptions)
+                    {
+                        connection.Execute(@"
+INSERT INTO OrderItemOptions (OrderItemId, OptionGroupName, OptionName, PriceDelta, DisplayOrder)
+VALUES (@OrderItemId, @OptionGroupName, @OptionName, @PriceDelta, @DisplayOrder);",
+                            new
+                            {
+                                OrderItemId = orderItemId,
+                                OptionGroupName = option.GroupName,
+                                OptionName = option.OptionName,
+                                PriceDelta = option.PriceDelta,
+                                DisplayOrder = option.DisplayOrder
+                            },
+                            transaction);
+                    }
                 }
 
-                RecalculateTotals(connection, orderId);
+                RecalculateTotals(connection, orderId, transaction);
+                transaction.Commit();
             }
         }
 
@@ -130,6 +205,48 @@ WHERE m.MenuItemId = @MenuItemId
 
                 connection.Execute("DELETE FROM OrderItems WHERE OrderItemId = @OrderItemId;", new { OrderItemId = orderItemId });
                 RecalculateTotals(connection, orderId.Value);
+            }
+        }
+
+        public static IReadOnlyList<MenuOptionGroup> GetOptionGroups(int menuItemId)
+        {
+            using (var connection = Db.Open())
+            {
+                List<MenuOptionGroup> groups = connection.Query<MenuOptionGroup>(@"
+SELECT
+    OptionGroupId,
+    GroupName,
+    IsRequired,
+    MinSelections,
+    MaxSelections,
+    DisplayOrder
+FROM MenuItemOptionGroups
+WHERE MenuItemId = @MenuItemId
+ORDER BY DisplayOrder, OptionGroupId;",
+                    new { MenuItemId = menuItemId }).ToList();
+
+                if (groups.Count == 0)
+                {
+                    return groups;
+                }
+
+                Dictionary<int, MenuOptionGroup> groupLookup = groups.ToDictionary(x => x.OptionGroupId);
+                foreach (MenuOptionChoice option in connection.Query<MenuOptionChoice>(@"
+SELECT
+    OptionId,
+    OptionGroupId,
+    OptionName,
+    PriceDelta + 0.0 AS PriceDelta,
+    DisplayOrder
+FROM MenuItemOptions
+WHERE OptionGroupId IN @GroupIds
+ORDER BY DisplayOrder, OptionId;",
+                    new { GroupIds = groupLookup.Keys.ToArray() }))
+                {
+                    groupLookup[option.OptionGroupId].Options.Add(option);
+                }
+
+                return groups;
             }
         }
 
@@ -165,9 +282,9 @@ SELECT
     o.ReadyAt,
     o.DeliveredAt,
     o.ClosedAt,
-    o.Subtotal,
-    o.Tax,
-    o.Total
+    o.Subtotal + 0.0 AS Subtotal,
+    o.Tax + 0.0 AS Tax,
+    o.Total + 0.0 AS Total
 FROM Orders o
 INNER JOIN DiningTables t ON t.TableId = o.TableId
 INNER JOIN Employees e ON e.EmployeeId = o.ServerEmployeeId
@@ -229,9 +346,9 @@ SELECT
     o.ReadyAt,
     o.DeliveredAt,
     o.ClosedAt,
-    o.Subtotal,
-    o.Tax,
-    o.Total
+    o.Subtotal + 0.0 AS Subtotal,
+    o.Tax + 0.0 AS Tax,
+    o.Total + 0.0 AS Total
 FROM Orders o
 INNER JOIN DiningTables t ON t.TableId = o.TableId
 INNER JOIN Employees e ON e.EmployeeId = o.ServerEmployeeId
@@ -258,7 +375,7 @@ SELECT
     m.ItemName,
     oi.SeatNumber,
     oi.Qty,
-    oi.UnitPriceAtSale,
+    oi.UnitPriceAtSale + 0.0 AS UnitPriceAtSale,
     oi.Notes,
     oi.CreatedAt
 FROM OrderItems oi
@@ -279,7 +396,7 @@ SELECT
     m.MenuItemId,
     c.CategoryName,
     m.ItemName,
-    m.Price
+    m.Price + 0.0 AS Price
 FROM MenuItems m
 INNER JOIN MenuCategories c ON c.CategoryId = m.CategoryId
 WHERE m.IsActive = 1
@@ -346,9 +463,16 @@ VALUES (
 
         private static void RecalculateTotals(Microsoft.Data.Sqlite.SqliteConnection connection, long orderId)
         {
-            decimal subtotal = connection.ExecuteScalar<decimal>(
-                "SELECT COALESCE(SUM(Qty * UnitPriceAtSale), 0) FROM OrderItems WHERE OrderId = @OrderId;",
-                new { OrderId = orderId });
+            RecalculateTotals(connection, orderId, null);
+        }
+
+        private static void RecalculateTotals(Microsoft.Data.Sqlite.SqliteConnection connection, long orderId, Microsoft.Data.Sqlite.SqliteTransaction transaction)
+        {
+            double subtotalValue = connection.ExecuteScalar<double>(
+                "SELECT COALESCE(SUM(Qty * UnitPriceAtSale), 0.0) FROM OrderItems WHERE OrderId = @OrderId;",
+                new { OrderId = orderId },
+                transaction);
+            decimal subtotal = Convert.ToDecimal(subtotalValue);
 
             decimal taxRate = GetTaxRate();
             decimal tax = decimal.Round(subtotal * taxRate, 2, MidpointRounding.AwayFromZero);
@@ -367,7 +491,7 @@ WHERE OrderId = @OrderId;";
                 Subtotal = subtotal,
                 Tax = tax,
                 Total = total
-            });
+            }, transaction);
         }
 
         private static decimal GetTaxRate()

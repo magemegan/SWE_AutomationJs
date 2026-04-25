@@ -24,37 +24,27 @@ namespace SWE_AutomationJs_UI_Design
         {//log out
             SessionContext.Clear();
             CurrentEmployee = null;
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            IncomingOrders orders = new IncomingOrders();
-            orders.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new IncomingOrders());
         }
 
         private void button5_Click(object sender, EventArgs e)
         {//restock inventory
-            Inventory inventoryScreen = new Inventory();
-            inventoryScreen.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Inventory());
         }
 
         private void button6_Click(object sender, EventArgs e)
         {//schedule
-            Schedule scheduleScreen = new Schedule("Kitchen");
-            scheduleScreen.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Schedule("Kitchen"));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Notification notificationScreen = new Notification("Kitchen");
-            notificationScreen.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Notification("Kitchen"));
         }
     }
 }

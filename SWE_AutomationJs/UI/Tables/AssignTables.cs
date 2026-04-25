@@ -59,23 +59,17 @@ namespace SWE_AutomationJs_UI_Design
 
         private void OpenTableOrder(int tableId)
         {
-            Orders orders = new Orders(tableId);
-            orders.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new Orders(tableId));
         }
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            WaiterScreen waiterScreen = new WaiterScreen();
-            waiterScreen.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new WaiterScreen());
         }
 
         private void button2_Click(object sender, System.EventArgs e)
         {
-            AssignTables2 assignTables2 = new AssignTables2();
-            assignTables2.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AssignTables2());
         }
 
         private void button3_Click(object sender, System.EventArgs e) { OpenTableOrder(1); }

@@ -9,11 +9,188 @@ namespace SWE_AutomationJs_UI_Design.Data
     {
         public static void Initialize()
         {
+            EnsureSchemaCompatibility();
+            EnsurePaymentViews();
             EnsureRoles();
             EnsureSeedCredentials();
             EnsureDiningTables();
             EnsureMinimumStaffing();
-            EnsureMenuExamples();
+            MenuCatalogBootstrap.EnsureConfiguredMenu();
+        }
+
+        private static void EnsureSchemaCompatibility()
+        {
+            using (var connection = Db.Open())
+            {
+                bool diningTablesExists = TableExists(connection, "DiningTables");
+                bool diningTablesNewExists = TableExists(connection, "DiningTables_New");
+
+                if (!diningTablesExists && diningTablesNewExists)
+                {
+                    DropDependentViews(connection);
+                    connection.Execute("ALTER TABLE DiningTables_New RENAME TO DiningTables;");
+                    EnsureDiningTableIndexes(connection);
+                    diningTablesExists = true;
+                }
+
+                if (!diningTablesExists)
+                {
+                    CreateDiningTablesTable(connection, "DiningTables");
+                    EnsureDiningTableIndexes(connection);
+                    return;
+                }
+
+                string diningTablesSql = connection.ExecuteScalar<string>(
+                    "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'DiningTables';");
+
+                if (!string.IsNullOrWhiteSpace(diningTablesSql) &&
+                    diningTablesSql.Contains("SeatCapacity BETWEEN 1 AND 4"))
+                {
+                    DropDependentViews(connection);
+                    connection.Execute("PRAGMA foreign_keys = OFF;");
+
+                    try
+                    {
+                        connection.Execute(@"
+CREATE TABLE DiningTables_New (
+    TableId INTEGER PRIMARY KEY AUTOINCREMENT,
+    TableCode TEXT NOT NULL UNIQUE,
+    ColumnLetter TEXT NOT NULL,
+    RowNumber INTEGER NOT NULL,
+    CurrentTableStatusId INTEGER NOT NULL,
+    SeatCapacity INTEGER NOT NULL CHECK (SeatCapacity >= 4),
+    FOREIGN KEY (CurrentTableStatusId) REFERENCES TableStatus(TableStatusId)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CHECK (length(ColumnLetter) = 1),
+    CHECK (RowNumber BETWEEN 1 AND 6),
+    CHECK (ColumnLetter IN ('A','B','C','D','E','F')),
+    UNIQUE (ColumnLetter, RowNumber)
+);
+
+INSERT INTO DiningTables_New (TableId, TableCode, ColumnLetter, RowNumber, CurrentTableStatusId, SeatCapacity)
+SELECT
+    TableId,
+    TableCode,
+    ColumnLetter,
+    RowNumber,
+    CurrentTableStatusId,
+    CASE
+        WHEN SeatCapacity < 4 THEN 4
+        ELSE SeatCapacity
+    END
+FROM DiningTables;
+
+DROP TABLE DiningTables;
+
+ALTER TABLE DiningTables_New RENAME TO DiningTables;
+
+");
+                        EnsureDiningTableIndexes(connection);
+                    }
+                    finally
+                    {
+                        connection.Execute("PRAGMA foreign_keys = ON;");
+                    }
+                }
+            }
+        }
+
+        private static bool TableExists(Microsoft.Data.Sqlite.SqliteConnection connection, string tableName)
+        {
+            return connection.ExecuteScalar<long>(
+                "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = @TableName;",
+                new { TableName = tableName }) > 0;
+        }
+
+        private static void CreateDiningTablesTable(Microsoft.Data.Sqlite.SqliteConnection connection, string tableName)
+        {
+            connection.Execute($@"
+CREATE TABLE {tableName} (
+    TableId INTEGER PRIMARY KEY AUTOINCREMENT,
+    TableCode TEXT NOT NULL UNIQUE,
+    ColumnLetter TEXT NOT NULL,
+    RowNumber INTEGER NOT NULL,
+    CurrentTableStatusId INTEGER NOT NULL,
+    SeatCapacity INTEGER NOT NULL CHECK (SeatCapacity >= 4),
+    FOREIGN KEY (CurrentTableStatusId) REFERENCES TableStatus(TableStatusId)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+    CHECK (length(ColumnLetter) = 1),
+    CHECK (RowNumber BETWEEN 1 AND 6),
+    CHECK (ColumnLetter IN ('A','B','C','D','E','F')),
+    UNIQUE (ColumnLetter, RowNumber)
+);");
+        }
+
+        private static void EnsureDiningTableIndexes(Microsoft.Data.Sqlite.SqliteConnection connection)
+        {
+            connection.Execute(@"
+CREATE INDEX IF NOT EXISTS idx_diningtables_status
+    ON DiningTables(CurrentTableStatusId);
+
+CREATE INDEX IF NOT EXISTS idx_diningtables_location
+    ON DiningTables(ColumnLetter, RowNumber);");
+        }
+
+        private static void DropDependentViews(Microsoft.Data.Sqlite.SqliteConnection connection)
+        {
+            connection.Execute(@"
+DROP VIEW IF EXISTS vw_order_payment_summary;
+DROP VIEW IF EXISTS vw_order_payment_summary_detailed;");
+        }
+
+        private static void EnsurePaymentViews()
+        {
+            using (var connection = Db.Open())
+            {
+                DropDependentViews(connection);
+                connection.Execute(@"
+CREATE VIEW vw_order_payment_summary AS
+SELECT
+    o.OrderId,
+    ROUND(o.Total, 2) AS OrderTotal,
+    ROUND(IFNULL(SUM(p.Amount), 0), 2) AS TotalPaid,
+    ROUND(o.Total - IFNULL(SUM(p.Amount), 0), 2) AS BalanceRemaining,
+    CASE
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = 0 THEN 'Unpaid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) < ROUND(o.Total, 2) THEN 'Partially Paid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = ROUND(o.Total, 2) THEN 'Paid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) > ROUND(o.Total, 2) THEN 'Overpaid'
+        ELSE 'Unknown'
+    END AS PaymentStatus
+FROM Orders o
+LEFT JOIN Payments p ON o.OrderId = p.OrderId
+GROUP BY o.OrderId;
+
+CREATE VIEW vw_order_payment_summary_detailed AS
+SELECT
+    o.OrderId,
+    dt.TableCode,
+    e.FirstName || ' ' || e.LastName AS ServerName,
+    os.StatusName AS OrderStatus,
+    ROUND(o.Total, 2) AS OrderTotal,
+    ROUND(IFNULL(SUM(p.Amount), 0), 2) AS TotalPaid,
+    ROUND(o.Total - IFNULL(SUM(p.Amount), 0), 2) AS BalanceRemaining,
+    CASE
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = 0 THEN 'Unpaid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) < ROUND(o.Total, 2) THEN 'Partially Paid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) = ROUND(o.Total, 2) THEN 'Paid'
+        WHEN ROUND(IFNULL(SUM(p.Amount), 0), 2) > ROUND(o.Total, 2) THEN 'Overpaid'
+        ELSE 'Unknown'
+    END AS PaymentStatus
+FROM Orders o
+JOIN DiningTables dt ON o.TableId = dt.TableId
+JOIN Employees e ON o.ServerEmployeeId = e.EmployeeId
+JOIN OrderStatus os ON o.OrderStatusId = os.OrderStatusId
+LEFT JOIN Payments p ON o.OrderId = p.OrderId
+GROUP BY
+    o.OrderId,
+    dt.TableCode,
+    e.FirstName,
+    e.LastName,
+    os.StatusName;");
+            }
         }
 
         private static void EnsureRoles()
@@ -248,17 +425,6 @@ VALUES (
             public string TableCode { get; set; }
             public string ColumnLetter { get; set; }
             public int RowNumber { get; set; }
-        }
-
-        private static void EnsureMenuExamples()
-        {
-            using (var connection = Db.Open())
-            {
-                connection.Execute("INSERT OR IGNORE INTO MenuCategories (CategoryName) VALUES ('Soups/Salads');");
-                connection.Execute(@"
-INSERT OR IGNORE INTO MenuItems (CategoryId, ItemName, Price, IsActive)
-VALUES ((SELECT CategoryId FROM MenuCategories WHERE CategoryName = 'Soups/Salads'), 'Caesar Salad', 9.99, 1);");
-            }
         }
     }
 }

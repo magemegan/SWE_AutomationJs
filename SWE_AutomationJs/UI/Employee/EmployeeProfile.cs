@@ -56,9 +56,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//back to employee records
-            EmployeeRecords employeeRecords = new EmployeeRecords();
-            employeeRecords.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new EmployeeRecords());
         }
     }
 }

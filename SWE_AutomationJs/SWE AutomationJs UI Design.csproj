@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -15,7 +14,6 @@
     <Deterministic>true</Deterministic>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -26,7 +24,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
@@ -36,7 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -71,9 +67,149 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
-    <Compile Include="UI\**\*.cs" />
+    <Compile Include="UI\Admin\AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\AddEmployee.Designer.cs" />
+    <Compile Include="UI\Admin\ActivityLogViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\AdminMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\AdminMenu.Designer.cs" />
+    <Compile Include="UI\Admin\EmployeeRecords.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\EmployeeRecords.Designer.cs" />
+    <Compile Include="UI\Admin\EmployeeScheduling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\EmployeeScheduling.Designer.cs" />
+    <Compile Include="UI\Admin\Inventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\Inventory.Designer.cs" />
+    <Compile Include="UI\Admin\InventoryManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\InventoryManagement.Designer.cs" />
+    <Compile Include="UI\Admin\MenuManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\MenuManagement.Designer.cs" />
+    <Compile Include="UI\Admin\OverrideApprovalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\SalesReports.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\SalesReports.Designer.cs" />
+    <Compile Include="UI\Admin\Schedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\Schedule.Designer.cs" />
+    <Compile Include="UI\Admin\Swap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\Swap.Designer.cs" />
+    <Compile Include="UI\Admin\TableLayoutManagementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\ViewRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Admin\ViewRequests.Designer.cs" />
+    <Compile Include="UI\Busboy\BusboyScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Busboy\BusboyScreen.Designer.cs" />
+    <Compile Include="UI\Busboy\CleaningScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Busboy\CleaningScreen.Designer.cs" />
+    <Compile Include="UI\Core\MainMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Core\MainMenu.Designer.cs" />
+    <Compile Include="UI\Core\NavigationHelper.cs" />
+    <Compile Include="UI\Core\Program.cs" />
+    <Compile Include="UI\Employee\Employee.cs" />
+    <Compile Include="UI\Employee\EmployeeMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Employee\EmployeeMenu.Designer.cs" />
+    <Compile Include="UI\Employee\EmployeeProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Employee\EmployeeProfile.Designer.cs" />
+    <Compile Include="UI\Employee\EmployeeStorage.cs" />
+    <Compile Include="UI\Employee\OverrideRequestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Employee\TimeOff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Employee\TimeOff.Designer.cs" />
+    <Compile Include="UI\Employee\WaiterScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Employee\WaiterScreen.Designer.cs" />
+    <Compile Include="UI\Inventory\Request.cs" />
+    <Compile Include="UI\Inventory\RequestStorage.cs" />
+    <Compile Include="UI\Inventory\RestockRequests.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Inventory\RestockRequests.Designer.cs" />
+    <Compile Include="UI\Kitchen\IncomingOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Kitchen\IncomingOrders.Designer.cs" />
+    <Compile Include="UI\Kitchen\KitchenScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Kitchen\KitchenScreen.Designer.cs" />
+    <Compile Include="UI\Notifications\Notification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Notifications\Notification.Designer.cs" />
+    <Compile Include="UI\Notifications\Notifications.cs" />
+    <Compile Include="UI\Notifications\NotificationStorage.cs" />
+    <Compile Include="UI\Orders\MenuItemOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Orders\Order.cs" />
+    <Compile Include="UI\Orders\Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Orders\Orders.Designer.cs" />
+    <Compile Include="UI\Orders\OrderStorage.cs" />
+    <Compile Include="UI\Payment\PastPayment.cs" />
+    <Compile Include="UI\Payment\PastPaymentStorage.cs" />
+    <Compile Include="UI\Payment\Payment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Payment\Payment.Designer.cs" />
+    <Compile Include="UI\Payment\ProcessPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Payment\ProcessPayment.Designer.cs" />
+    <Compile Include="UI\Request\ScheduleRequest.cs" />
+    <Compile Include="UI\Request\ScheduleRequestStorage.cs" />
+    <Compile Include="UI\Tables\AssignTables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tables\AssignTables.Designer.cs" />
+    <Compile Include="UI\Tables\AssignTables2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tables\AssignTables2.Designer.cs" />
+    <Compile Include="UI\Tables\AssignTables3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Tables\AssignTables3.Designer.cs" />
+    <Compile Include="UI\Tables\TableStorage.cs" />
     <Compile Include="Data\*.cs" />
     <Compile Include="Security\*.cs" />
     <Compile Include="Session\*.cs" />
@@ -89,7 +225,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="UI\**\*.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -98,7 +233,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Properties\Settings.settings">
@@ -110,7 +244,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Dapper">
       <Version>2.1.35</Version>
@@ -119,6 +252,5 @@
       <Version>6.0.29</Version>
     </PackageReference>
   </ItemGroup>
-
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

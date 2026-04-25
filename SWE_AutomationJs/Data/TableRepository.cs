@@ -9,6 +9,7 @@ namespace SWE_AutomationJs_UI_Design.Data
         public int TableId { get; set; }
         public string TableCode { get; set; }
         public string StatusName { get; set; }
+        public int SeatCapacity { get; set; }
 
         public string UiStatus
         {
@@ -41,7 +42,8 @@ namespace SWE_AutomationJs_UI_Design.Data
 SELECT
     t.TableId,
     t.TableCode,
-    s.StatusName
+    s.StatusName,
+    t.SeatCapacity
 FROM DiningTables t
 INNER JOIN TableStatus s ON s.TableStatusId = t.CurrentTableStatusId
 ORDER BY t.TableId;";
@@ -58,7 +60,8 @@ ORDER BY t.TableId;";
 SELECT
     t.TableId,
     t.TableCode,
-    s.StatusName
+    s.StatusName,
+    t.SeatCapacity
 FROM DiningTables t
 INNER JOIN TableStatus s ON s.TableStatusId = t.CurrentTableStatusId
 WHERE t.TableId = @TableId;";
@@ -188,9 +191,52 @@ WHERE o.TableId = @TableId
         {
             using (var connection = Db.Open())
             {
+                EnsureNoActiveOrder(connection, tableId, "Seats can only be changed when the table has no active order.");
+                int currentSeats = connection.ExecuteScalar<int>(
+                    "SELECT SeatCapacity FROM DiningTables WHERE TableId = @TableId;",
+                    new { TableId = tableId });
+
+                if (currentSeats >= 6)
+                {
+                    throw new System.InvalidOperationException("A single table can have at most 6 seats. Merge tables for larger parties.");
+                }
+
                 connection.Execute(@"
 UPDATE DiningTables
-SET SeatCapacity = SeatCapacity + 1
+SET SeatCapacity = CASE
+    WHEN SeatCapacity >= 6 THEN SeatCapacity
+    ELSE SeatCapacity + 1
+END
+WHERE TableId = @TableId;",
+                    new { TableId = tableId });
+            }
+        }
+
+        public static void RemoveSeat(int tableId)
+        {
+            using (var connection = Db.Open())
+            {
+                EnsureNoActiveOrder(connection, tableId, "Seats can only be changed when the table has no active order.");
+                int currentSeats = connection.ExecuteScalar<int>(
+                    "SELECT SeatCapacity FROM DiningTables WHERE TableId = @TableId;",
+                    new { TableId = tableId });
+
+                if (currentSeats <= 4)
+                {
+                    throw new System.InvalidOperationException("Tables keep 4 seats by default. Remove seats by unmerging or keep the base layout.");
+                }
+
+                if (currentSeats > 6)
+                {
+                    throw new System.InvalidOperationException("This table is larger than 6 seats because it was merged. Manage oversized tables through table merges.");
+                }
+
+                connection.Execute(@"
+UPDATE DiningTables
+SET SeatCapacity = CASE
+    WHEN SeatCapacity <= 4 THEN SeatCapacity
+    ELSE SeatCapacity - 1
+END
 WHERE TableId = @TableId;",
                     new { TableId = tableId });
             }
@@ -200,12 +246,15 @@ WHERE TableId = @TableId;",
         {
             if (primaryTableId == secondaryTableId)
             {
-                return;
+                throw new System.InvalidOperationException("Select two different tables to merge.");
             }
 
             using (var connection = Db.Open())
             using (var transaction = connection.BeginTransaction())
             {
+                EnsureNoActiveOrder(connection, primaryTableId, "Tables with active orders cannot be merged.", transaction);
+                EnsureNoActiveOrder(connection, secondaryTableId, "Tables with active orders cannot be merged.", transaction);
+
                 int secondarySeats = connection.ExecuteScalar<int>(
                     "SELECT SeatCapacity FROM DiningTables WHERE TableId = @TableId;",
                     new { TableId = secondaryTableId },
@@ -225,6 +274,23 @@ WHERE TableId = @PrimaryTableId;",
                 connection.Execute("DELETE FROM WaiterTableAssignments WHERE TableId = @TableId AND UnassignedAt IS NULL;", new { TableId = secondaryTableId }, transaction);
                 connection.Execute("DELETE FROM DiningTables WHERE TableId = @TableId;", new { TableId = secondaryTableId }, transaction);
                 transaction.Commit();
+            }
+        }
+
+        private static void EnsureNoActiveOrder(System.Data.IDbConnection connection, int tableId, string message, System.Data.IDbTransaction transaction = null)
+        {
+            long activeOrders = connection.ExecuteScalar<long>(@"
+SELECT COUNT(*)
+FROM Orders o
+INNER JOIN OrderStatus s ON s.OrderStatusId = o.OrderStatusId
+WHERE o.TableId = @TableId
+  AND s.StatusName IN ('Open', 'Submitted', 'Ready');",
+                new { TableId = tableId },
+                transaction);
+
+            if (activeOrders > 0)
+            {
+                throw new System.InvalidOperationException(message);
             }
         }
     }

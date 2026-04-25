@@ -17,9 +17,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            KitchenScreen kitchenScreen = new KitchenScreen();
-            kitchenScreen.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new KitchenScreen());
         }
 
         private void IncomingOrders_Load(object sender, EventArgs e)
@@ -62,7 +60,10 @@ namespace SWE_AutomationJs_UI_Design
             listBox2.Items.Clear();
             foreach (OrderLine item in OrderRepository.GetItems(selectedOrder.OrderId))
             {
-                listBox2.Items.Add($"{item.ItemName} x{item.Qty}");
+                string details = string.IsNullOrWhiteSpace(item.Notes)
+                    ? string.Empty
+                    : $" [{item.Notes}]";
+                listBox2.Items.Add($"{item.ItemName} x{item.Qty}{details}");
             }
         }
 

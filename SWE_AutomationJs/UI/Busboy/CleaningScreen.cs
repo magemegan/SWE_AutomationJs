@@ -18,9 +18,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BusboyScreen busboyScreen = new BusboyScreen();
-            busboyScreen.Show();
-            Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new BusboyScreen());
         }
 
         private void CleaningScreen_Load(object sender, EventArgs e)

@@ -17,9 +17,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//back button
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
         }
 
         private void RequestLoad()

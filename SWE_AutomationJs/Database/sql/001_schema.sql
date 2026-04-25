@@ -63,7 +63,7 @@ CREATE TABLE DiningTables (
     ColumnLetter TEXT NOT NULL,
     RowNumber INTEGER NOT NULL,
     CurrentTableStatusId INTEGER NOT NULL,
-    SeatCapacity INTEGER NOT NULL CHECK (SeatCapacity BETWEEN 1 AND 4),
+    SeatCapacity INTEGER NOT NULL CHECK (SeatCapacity >= 4),
     FOREIGN KEY (CurrentTableStatusId) REFERENCES TableStatus(TableStatusId)
         ON UPDATE CASCADE
         ON DELETE RESTRICT,

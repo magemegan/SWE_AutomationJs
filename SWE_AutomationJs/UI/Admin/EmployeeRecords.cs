@@ -25,16 +25,12 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button1_Click(object sender, EventArgs e)
         {//add employee
-            AddEmployee addEmployee = new AddEmployee();
-            addEmployee.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AddEmployee());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {//back to admin menu
-            AdminMenu adminMenu = new AdminMenu();
-            adminMenu.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -47,9 +43,7 @@ namespace SWE_AutomationJs_UI_Design
                 return;
             }
 
-            AddEmployee addEmployee = new AddEmployee(selectedIndex);
-            addEmployee.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new AddEmployee(selectedIndex));
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -100,9 +94,7 @@ namespace SWE_AutomationJs_UI_Design
                 return;
             }
 
-            EmployeeProfile employeeProfile = new EmployeeProfile(selectedIndex);
-            employeeProfile.Show();
-            this.Hide();
+            NavigationHelper.ShowAtCurrentPosition(this, new EmployeeProfile(selectedIndex));
         }
     }
 }

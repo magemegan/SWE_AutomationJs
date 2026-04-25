@@ -28,27 +28,19 @@ namespace SWE_AutomationJs_UI_Design
         {//back
             if (previousScreen == "Busboy")
             {
-                BusboyScreen busboyScreen = new BusboyScreen();
-                busboyScreen.Show();
-                this.Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new BusboyScreen());
             }
             else if (previousScreen == "Kitchen")
             {
-                KitchenScreen kitchenScreen = new KitchenScreen();
-                kitchenScreen.Show();
-                this.Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new KitchenScreen());
             }
             else if (previousScreen == "Waiter")
             {
-                WaiterScreen waiterScreen = new WaiterScreen();
-                waiterScreen.Show();
-                this.Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new WaiterScreen());
             }
             else if (previousScreen == "Admin")
             {
-                AdminMenu adminMenu = new AdminMenu();
-                adminMenu.Show();
-                this.Hide();
+                NavigationHelper.ShowAtCurrentPosition(this, new AdminMenu());
             }
         }
 
