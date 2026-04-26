@@ -17,6 +17,8 @@ namespace SWE_AutomationJs_UI_Design
         public MainMenu()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
+            
             AcceptButton = button1;
             textBox2.UseSystemPasswordChar = true;
         }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SWE_AutomationJs_UI_Design.Session;
 
@@ -17,31 +11,35 @@ namespace SWE_AutomationJs_UI_Design
 
         public BusboyScreen()
         {
+            InitializeComponent();
+
             Button restaurantInfoButton = new Button();
             restaurantInfoButton.Location = new System.Drawing.Point(379, 305);
             restaurantInfoButton.Size = new System.Drawing.Size(100, 58);
             restaurantInfoButton.Text = "Restaurant Info";
+
             restaurantInfoButton.Click += (sender, args) =>
-        {
+            {
                 new AboutRestaurant().ShowDialog();
-        };
-    Controls.Add(restaurantInfoButton);
+            };
+
+            Controls.Add(restaurantInfoButton);
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//log out button
+        {
             SessionContext.Clear();
             CurrentEmployee = null;
             NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {//view schedule
+        {
             NavigationHelper.ShowAtCurrentPosition(this, new Schedule("Busboy"));
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {//view tables
+        {
             NavigationHelper.ShowAtCurrentPosition(this, new CleaningScreen());
         }
 

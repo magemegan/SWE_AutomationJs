@@ -16,6 +16,7 @@ namespace SWE_AutomationJs_UI_Design
         public Schedule(string previousScreen)
         {
             InitializeComponent();
+            UiTheme.Apply(this);
             this.previousScreen = previousScreen;
         }
 
