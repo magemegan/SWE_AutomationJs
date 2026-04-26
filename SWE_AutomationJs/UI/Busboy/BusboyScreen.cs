@@ -17,7 +17,15 @@ namespace SWE_AutomationJs_UI_Design
 
         public BusboyScreen()
         {
-            InitializeComponent();
+            Button restaurantInfoButton = new Button();
+            restaurantInfoButton.Location = new System.Drawing.Point(379, 305);
+            restaurantInfoButton.Size = new System.Drawing.Size(100, 58);
+            restaurantInfoButton.Text = "Restaurant Info";
+            restaurantInfoButton.Click += (sender, args) =>
+        {
+                new AboutRestaurant().ShowDialog();
+        };
+    Controls.Add(restaurantInfoButton);
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -1,16 +1,68 @@
-﻿namespace SWE_AutomationJs_UI_Design
+﻿namespace SWE_AutomationJs_UI_Design.UI.Employee
 {
     partial class WaiterScreen
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        private System.Windows.Forms.Button buttonFaq;
+        private System.Windows.Forms.Button buttonLogout;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void InitializeComponent()
+        {
+            this.buttonFaq = new System.Windows.Forms.Button();
+            this.buttonLogout = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+
+            // 
+            // buttonFaq  (NOW Restaurant Info)
+            // 
+            this.buttonFaq.Location = new System.Drawing.Point(50, 50);
+            this.buttonFaq.Name = "buttonFaq";
+            this.buttonFaq.Size = new System.Drawing.Size(150, 50);
+            this.buttonFaq.TabIndex = 0;
+            this.buttonFaq.Text = "Restaurant Info";
+            this.buttonFaq.UseVisualStyleBackColor = true;
+            this.buttonFaq.Click += new System.EventHandler(this.buttonFaq_Click);
+
+            // 
+            // buttonLogout
+            // 
+            this.buttonLogout.Location = new System.Drawing.Point(50, 120);
+            this.buttonLogout.Name = "buttonLogout";
+            this.buttonLogout.Size = new System.Drawing.Size(150, 50);
+            this.buttonLogout.TabIndex = 1;
+            this.buttonLogout.Text = "Logout";
+            this.buttonLogout.UseVisualStyleBackColor = true;
+            this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
+
+            // 
+            // WaiterScreen
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(400, 250);
+            this.Controls.Add(this.buttonFaq);
+            this.Controls.Add(this.buttonLogout);
+            this.Name = "WaiterScreen";
+            this.Text = "Waiter Screen";
+            this.Load += new System.EventHandler(this.WaiterScreen_Load);
+            this.ResumeLayout(false);
+        }
+    }namespace SWE_AutomationJs_UI_Design
+{
+    partial class WaiterScreen
+    {
+        private System.ComponentModel.IContainer components = null;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,10 +74,6 @@
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
@@ -48,7 +96,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Welcome Waiter/Waitress";
             // 
-            // button1
+            // button1 (Logout)
             // 
             this.button1.Location = new System.Drawing.Point(29, 388);
             this.button1.Name = "button1";
@@ -58,7 +106,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button3
+            // button3 (Assign Tables)
             // 
             this.button3.Location = new System.Drawing.Point(106, 244);
             this.button3.Name = "button3";
@@ -68,7 +116,7 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button7
+            // button7 (Schedule)
             // 
             this.button7.Location = new System.Drawing.Point(540, 244);
             this.button7.Name = "button7";
@@ -78,7 +126,7 @@
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
-            // button5
+            // button5 (Payments)
             // 
             this.button5.Location = new System.Drawing.Point(319, 244);
             this.button5.Name = "button5";
@@ -88,7 +136,7 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button2
+            // button2 (Notifications)
             // 
             this.button2.Location = new System.Drawing.Point(319, 313);
             this.button2.Name = "button2";
@@ -108,13 +156,13 @@
             this.buttonOverride.UseVisualStyleBackColor = true;
             this.buttonOverride.Click += new System.EventHandler(this.buttonOverride_Click);
             // 
-            // buttonFaq
+            // buttonFaq (NOW Restaurant Info)
             // 
             this.buttonFaq.Location = new System.Drawing.Point(540, 313);
             this.buttonFaq.Name = "buttonFaq";
             this.buttonFaq.Size = new System.Drawing.Size(133, 52);
             this.buttonFaq.TabIndex = 10;
-            this.buttonFaq.Text = "FAQ";
+            this.buttonFaq.Text = "Restaurant Info";
             this.buttonFaq.UseVisualStyleBackColor = true;
             this.buttonFaq.Click += new System.EventHandler(this.buttonFaq_Click);
             // 
@@ -132,11 +180,10 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Name = "WaiterScreen";
-            this.Text = "WaitierScreen";
+            this.Text = "WaiterScreen";
             this.Load += new System.EventHandler(this.WaitierScreen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -150,4 +197,5 @@
         private System.Windows.Forms.Button buttonOverride;
         private System.Windows.Forms.Button buttonFaq;
     }
+}
 }

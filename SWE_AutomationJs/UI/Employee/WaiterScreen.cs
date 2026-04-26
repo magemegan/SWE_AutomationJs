@@ -64,7 +64,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void buttonFaq_Click(object sender, EventArgs e)
         {
-            NavigationHelper.ShowAtCurrentPosition(this, new WaiterFaqForm());
+            new AboutRestaurant().ShowDialog();
         }
     }
 }

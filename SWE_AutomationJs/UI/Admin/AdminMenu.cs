@@ -98,6 +98,15 @@ namespace SWE_AutomationJs_UI_Design
                 NavigationHelper.ShowAtCurrentPosition(this, new ActivityLogViewerForm());
             };
             Controls.Add(activityLogButton);
+            Button restaurantInfoButton = new Button();
+            restaurantInfoButton.Location = new System.Drawing.Point(284, 317);
+            restaurantInfoButton.Size = new System.Drawing.Size(102, 43);
+            restaurantInfoButton.Text = "Restaurant Info";
+            restaurantInfoButton.Click += (sender, args) =>
+            {
+                new AboutRestaurant().ShowDialog();
+            };
+            Controls.Add(restaurantInfoButton);
         }
     }
 }

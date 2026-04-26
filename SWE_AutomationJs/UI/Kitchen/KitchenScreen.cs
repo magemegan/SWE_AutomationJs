@@ -17,7 +17,17 @@ namespace SWE_AutomationJs_UI_Design
 
         public KitchenScreen()
         {
-            InitializeComponent();
+             Button restaurantInfoButton = new Button();
+            restaurantInfoButton.Location = new System.Drawing.Point(534, 293);
+            restaurantInfoButton.Size = new System.Drawing.Size(100, 59);
+            restaurantInfoButton.Text = "Restaurant Info";
+            restaurantInfoButton.Click += (sender, args) =>
+        {
+                new AboutRestaurant().ShowDialog();
+        };
+        Controls.Add(restaurantInfoButton);
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
