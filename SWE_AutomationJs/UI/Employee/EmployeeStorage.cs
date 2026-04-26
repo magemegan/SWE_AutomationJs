@@ -14,7 +14,7 @@ namespace SWE_AutomationJs_UI_Design
             Refresh();
         }
 
-        public static List<Employee> Employees { get; private set; }
+        public static List<Employee> Employees { get; private set; } = new List<Employee>();
 
         public static void Refresh()
         {
@@ -25,7 +25,7 @@ SELECT
     e.EmployeeId,
     e.FirstName || ' ' || e.LastName AS Name,
     CASE WHEN r.RoleName = 'Server' THEN 'Waiter' ELSE r.RoleName END AS Role,
-    e.PhoneNumber AS Phone,
+    '' AS Phone,
     lower(e.FirstName || '.' || e.LastName || '@automationjs.local') AS Email,
     'Full-Time' AS EmploymentType
 FROM Employees e
@@ -58,34 +58,39 @@ ORDER BY TableId;",
                     string firstName;
                     string lastName;
                     SplitName(employee.Name, out firstName, out lastName);
+
                     string roleName = ToDatabaseRole(employee.Role);
 
                     connection.Execute(@"
-INSERT OR IGNORE INTO Roles (RoleName) VALUES (@RoleName);",
+INSERT OR IGNORE INTO Roles (RoleName)
+VALUES (@RoleName);",
                         new { RoleName = roleName }, transaction);
 
                     int roleId = connection.ExecuteScalar<int>(@"
-SELECT RoleId FROM Roles WHERE RoleName = @RoleName;",
+SELECT RoleId
+FROM Roles
+WHERE RoleName = @RoleName;",
                         new { RoleName = roleName }, transaction);
 
                     int exists = connection.ExecuteScalar<int>(@"
-SELECT COUNT(*) FROM Employees WHERE EmployeeId = @EmployeeId;",
+SELECT COUNT(*)
+FROM Employees
+WHERE EmployeeId = @EmployeeId;",
                         new { employee.EmployeeId }, transaction);
 
                     if (exists == 0)
                     {
                         connection.Execute(@"
 INSERT INTO Employees
-(EmployeeId, RoleId, FirstName, LastName, PhoneNumber, PasswordHash, IsActive)
+(EmployeeId, RoleId, FirstName, LastName, PasswordHash, IsActive)
 VALUES
-(@EmployeeId, @RoleId, @FirstName, @LastName, @PhoneNumber, @PasswordHash, 1);",
+(@EmployeeId, @RoleId, @FirstName, @LastName, @PasswordHash, 1);",
                             new
                             {
                                 employee.EmployeeId,
                                 RoleId = roleId,
                                 FirstName = firstName,
                                 LastName = lastName,
-                                PhoneNumber = employee.Phone,
                                 PasswordHash = PasswordHasher.HashPassword(DefaultPasswordForRole(roleName))
                             }, transaction);
                     }
@@ -96,7 +101,6 @@ UPDATE Employees
 SET RoleId = @RoleId,
     FirstName = @FirstName,
     LastName = @LastName,
-    PhoneNumber = @PhoneNumber,
     IsActive = 1
 WHERE EmployeeId = @EmployeeId;",
                             new
@@ -104,8 +108,7 @@ WHERE EmployeeId = @EmployeeId;",
                                 employee.EmployeeId,
                                 RoleId = roleId,
                                 FirstName = firstName,
-                                LastName = lastName,
-                                PhoneNumber = employee.Phone
+                                LastName = lastName
                             }, transaction);
                     }
 
@@ -121,7 +124,9 @@ WHERE EmployeeId = @EmployeeId
                         foreach (int tableId in employee.AssignedTables.Distinct())
                         {
                             int tableExists = connection.ExecuteScalar<int>(@"
-SELECT COUNT(*) FROM DiningTables WHERE TableId = @TableId;",
+SELECT COUNT(*)
+FROM DiningTables
+WHERE TableId = @TableId;",
                                 new { TableId = tableId }, transaction);
 
                             if (tableExists == 0)
@@ -130,8 +135,10 @@ SELECT COUNT(*) FROM DiningTables WHERE TableId = @TableId;",
                             }
 
                             connection.Execute(@"
-INSERT INTO WaiterTableAssignments (EmployeeId, TableId)
-VALUES (@EmployeeId, @TableId);",
+INSERT INTO WaiterTableAssignments
+(EmployeeId, TableId)
+VALUES
+(@EmployeeId, @TableId);",
                                 new
                                 {
                                     employee.EmployeeId,
@@ -177,7 +184,8 @@ WHERE EmployeeId = @EmployeeId
 
         private static string ToDatabaseRole(string uiRole)
         {
-            if (string.Equals(uiRole, "Waiter", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(uiRole, "Waiter", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(uiRole, "Waitress", StringComparison.OrdinalIgnoreCase))
             {
                 return "Server";
             }
@@ -207,7 +215,12 @@ WHERE EmployeeId = @EmployeeId
         private static void SplitName(string name, out string firstName, out string lastName)
         {
             string cleaned = string.IsNullOrWhiteSpace(name) ? "New Employee" : name.Trim();
-            string[] parts = cleaned.Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+
+            string[] parts = cleaned.Split(
+                new[] { ' ' },
+                2,
+                StringSplitOptions.RemoveEmptyEntries
+            );
 
             firstName = parts.Length > 0 ? parts[0] : "New";
             lastName = parts.Length > 1 ? parts[1] : "Employee";
