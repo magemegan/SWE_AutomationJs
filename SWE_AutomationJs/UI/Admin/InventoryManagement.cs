@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿﻿using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using SWE_AutomationJs_UI_Design.Data;
 
@@ -17,7 +13,7 @@ namespace SWE_AutomationJs_UI_Design
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {//back to admin menu
+        {
             AdminMenu adminMenu = new AdminMenu();
             adminMenu.Show();
             this.Hide();
@@ -33,17 +29,19 @@ namespace SWE_AutomationJs_UI_Design
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
-            // Set up columns for inventory items
+
             dataGridView1.Columns.Add("ItemID", "Item ID");
             dataGridView1.Columns.Add("ItemName", "Item Name");
-            dataGridView1.Columns.Add("Category", "Category");
+            dataGridView1.Columns.Add("UnitOfMeasure", "Unit");
             dataGridView1.Columns.Add("Quantity", "Quantity");
             dataGridView1.Columns.Add("Status", "Status");
-            // Set properties for better appearance
+
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            // Make all read-only
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+
             foreach (DataGridViewColumn column in dataGridView1.Columns)
             {
                 column.ReadOnly = true;
@@ -52,37 +50,58 @@ namespace SWE_AutomationJs_UI_Design
 
         private void LoadInventoryFromDatabase()
         {
-            dataGridView1.Rows.Clear();
-
-            foreach (InventoryItemInfo item in InventoryRepository.GetActiveInventoryItems())
+            try
             {
-                dataGridView1.Rows.Add(
-                    item.InventoryItemId,
-                    item.ItemName,
-                    item.UnitOfMeasure,
-                    item.QuantityOnHand.ToString("0.##"),
-                    item.Status);
-            }
+                dataGridView1.Rows.Clear();
 
-            ColorRows();
+                foreach (InventoryItemInfo item in InventoryRepository.GetActiveInventoryItems())
+                {
+                    dataGridView1.Rows.Add(
+                        item.InventoryItemId,
+                        item.ItemName,
+                        item.UnitOfMeasure,
+                        item.QuantityOnHand.ToString("0.##"),
+                        item.Status);
+                }
+
+                HighlightInventoryRows();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Inventory could not be loaded.\n\n" + ex.Message);
+            }
         }
 
-        private void ColorRows()
+        private void HighlightInventoryRows()
         {
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
+                if (row.Cells["Status"].Value == null)
+                {
+                    continue;
+                }
+
                 string status = row.Cells["Status"].Value.ToString();
+
                 if (status == "In Stock")
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
                 }
                 else if (status == "Low Stock")
                 {
                     row.DefaultCellStyle.BackColor = Color.Orange;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
                 }
                 else if (status == "Reorder")
                 {
                     row.DefaultCellStyle.BackColor = Color.LightCoral;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
+                }
+                else
+                {
+                    row.DefaultCellStyle.BackColor = Color.White;
+                    row.DefaultCellStyle.ForeColor = Color.Black;
                 }
             }
         }

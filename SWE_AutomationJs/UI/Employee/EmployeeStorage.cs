@@ -25,7 +25,7 @@ SELECT
     e.EmployeeId,
     e.FirstName || ' ' || e.LastName AS Name,
     CASE WHEN r.RoleName = 'Server' THEN 'Waiter' ELSE r.RoleName END AS Role,
-    '' AS Phone,
+    e.PhoneNumber AS Phone,
     lower(e.FirstName || '.' || e.LastName || '@automationjs.local') AS Email,
     'Full-Time' AS EmploymentType
 FROM Employees e
@@ -75,14 +75,17 @@ SELECT COUNT(*) FROM Employees WHERE EmployeeId = @EmployeeId;",
                     if (exists == 0)
                     {
                         connection.Execute(@"
-INSERT INTO Employees (EmployeeId, RoleId, FirstName, LastName, PasswordHash, IsActive)
-VALUES (@EmployeeId, @RoleId, @FirstName, @LastName, @PasswordHash, 1);",
+INSERT INTO Employees
+(EmployeeId, RoleId, FirstName, LastName, PhoneNumber, PasswordHash, IsActive)
+VALUES
+(@EmployeeId, @RoleId, @FirstName, @LastName, @PhoneNumber, @PasswordHash, 1);",
                             new
                             {
                                 employee.EmployeeId,
                                 RoleId = roleId,
                                 FirstName = firstName,
                                 LastName = lastName,
+                                PhoneNumber = employee.Phone,
                                 PasswordHash = PasswordHasher.HashPassword(DefaultPasswordForRole(roleName))
                             }, transaction);
                     }
@@ -93,6 +96,7 @@ UPDATE Employees
 SET RoleId = @RoleId,
     FirstName = @FirstName,
     LastName = @LastName,
+    PhoneNumber = @PhoneNumber,
     IsActive = 1
 WHERE EmployeeId = @EmployeeId;",
                             new
@@ -100,7 +104,8 @@ WHERE EmployeeId = @EmployeeId;",
                                 employee.EmployeeId,
                                 RoleId = roleId,
                                 FirstName = firstName,
-                                LastName = lastName
+                                LastName = lastName,
+                                PhoneNumber = employee.Phone
                             }, transaction);
                     }
 
@@ -118,6 +123,7 @@ WHERE EmployeeId = @EmployeeId
                             int tableExists = connection.ExecuteScalar<int>(@"
 SELECT COUNT(*) FROM DiningTables WHERE TableId = @TableId;",
                                 new { TableId = tableId }, transaction);
+
                             if (tableExists == 0)
                             {
                                 continue;
@@ -149,6 +155,7 @@ VALUES (@EmployeeId, @TableId);",
             }
 
             string employeeId = Employees[index].EmployeeId;
+
             using (var connection = Db.Open())
             {
                 connection.Execute(@"
@@ -201,6 +208,7 @@ WHERE EmployeeId = @EmployeeId
         {
             string cleaned = string.IsNullOrWhiteSpace(name) ? "New Employee" : name.Trim();
             string[] parts = cleaned.Split(new[] { ' ' }, 2, StringSplitOptions.RemoveEmptyEntries);
+
             firstName = parts.Length > 0 ? parts[0] : "New";
             lastName = parts.Length > 1 ? parts[1] : "Employee";
         }
