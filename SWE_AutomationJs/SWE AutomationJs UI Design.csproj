@@ -68,6 +68,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\Admin\AboutRestaurant.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\Admin\AddEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,10 +264,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Dapper">
-      <Version>2.1.35</Version>
+      <Version>2.1.72</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>6.0.29</Version>
+      <Version>10.0.7</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

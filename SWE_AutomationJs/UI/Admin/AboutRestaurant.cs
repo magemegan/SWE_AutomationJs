@@ -1,14 +1,12 @@
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class AboutRestaurant : Form
+    public class AboutRestaurant : Form
     {
         public AboutRestaurant()
         {
-            InitializeComponent();
             BuildPage();
         }
 
