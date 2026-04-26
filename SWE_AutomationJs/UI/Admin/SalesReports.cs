@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using SWE_AutomationJs_UI_Design.Data;
 
@@ -31,10 +30,12 @@ namespace SWE_AutomationJs_UI_Design
         {
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
+
             dataGridView1.Columns.Add("TableNumber", "Table");
-            dataGridView1.Columns.Add("Total", "Total");
+            dataGridView1.Columns.Add("Total", "Net Total");
             dataGridView1.Columns.Add("Date", "Date");
             dataGridView1.Columns.Add("Status", "Status");
+
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -49,7 +50,7 @@ namespace SWE_AutomationJs_UI_Design
             {
                 dataGridView1.Rows.Add(
                     payment.TableId,
-                    "$" + payment.TotalPaid.ToString("0.00"),
+                    "$" + payment.NetPaid.ToString("0.00"),
                     payment.PaidAt.HasValue ? payment.PaidAt.Value.ToString("MM/dd/yyyy") : "N/A",
                     payment.PaymentStatus);
             }
@@ -63,10 +64,11 @@ namespace SWE_AutomationJs_UI_Design
 
             foreach (PaymentHistoryEntry payment in paymentHistory)
             {
-                totalSales += payment.TotalPaid;
-                if (payment.TotalPaid > highestSale)
+                totalSales += payment.NetPaid;
+
+                if (payment.NetPaid > highestSale)
                 {
-                    highestSale = payment.TotalPaid;
+                    highestSale = payment.NetPaid;
                 }
             }
 
