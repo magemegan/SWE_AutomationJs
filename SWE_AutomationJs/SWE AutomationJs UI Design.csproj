@@ -154,6 +154,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\Employee\TimeOff.Designer.cs" />
+    <Compile Include="UI\Employee\WaiterFaqForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UI\Employee\WaiterScreen.cs">
       <SubType>Form</SubType>
     </Compile>

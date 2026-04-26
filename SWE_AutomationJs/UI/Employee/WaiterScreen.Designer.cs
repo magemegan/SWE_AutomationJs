@@ -35,7 +35,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonOverride = new System.Windows.Forms.Button();
-            this.labelRestaurantDetails = new System.Windows.Forms.Label();
+            this.buttonFaq = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -50,7 +50,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(29, 402);
+            this.button1.Location = new System.Drawing.Point(29, 388);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(106, 318);
+            this.button3.Location = new System.Drawing.Point(106, 244);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(142, 53);
             this.button3.TabIndex = 3;
@@ -70,7 +70,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(540, 318);
+            this.button7.Location = new System.Drawing.Point(540, 244);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(133, 53);
             this.button7.TabIndex = 7;
@@ -80,7 +80,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(319, 318);
+            this.button5.Location = new System.Drawing.Point(319, 244);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(142, 53);
             this.button5.TabIndex = 5;
@@ -90,7 +90,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(319, 387);
+            this.button2.Location = new System.Drawing.Point(319, 313);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(142, 52);
             this.button2.TabIndex = 8;
@@ -100,7 +100,7 @@
             // 
             // buttonOverride
             // 
-            this.buttonOverride.Location = new System.Drawing.Point(106, 387);
+            this.buttonOverride.Location = new System.Drawing.Point(106, 313);
             this.buttonOverride.Name = "buttonOverride";
             this.buttonOverride.Size = new System.Drawing.Size(142, 52);
             this.buttonOverride.TabIndex = 9;
@@ -108,21 +108,22 @@
             this.buttonOverride.UseVisualStyleBackColor = true;
             this.buttonOverride.Click += new System.EventHandler(this.buttonOverride_Click);
             // 
-            // labelRestaurantDetails
+            // buttonFaq
             // 
-            this.labelRestaurantDetails.AutoSize = true;
-            this.labelRestaurantDetails.Location = new System.Drawing.Point(271, 126);
-            this.labelRestaurantDetails.Name = "labelRestaurantDetails";
-            this.labelRestaurantDetails.Size = new System.Drawing.Size(108, 13);
-            this.labelRestaurantDetails.TabIndex = 10;
-            this.labelRestaurantDetails.Text = "Restaurant details text";
+            this.buttonFaq.Location = new System.Drawing.Point(540, 313);
+            this.buttonFaq.Name = "buttonFaq";
+            this.buttonFaq.Size = new System.Drawing.Size(133, 52);
+            this.buttonFaq.TabIndex = 10;
+            this.buttonFaq.Text = "FAQ";
+            this.buttonFaq.UseVisualStyleBackColor = true;
+            this.buttonFaq.Click += new System.EventHandler(this.buttonFaq_Click);
             // 
             // WaiterScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.labelRestaurantDetails);
+            this.Controls.Add(this.buttonFaq);
             this.Controls.Add(this.buttonOverride);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button7);
@@ -147,6 +148,6 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button buttonOverride;
-        private System.Windows.Forms.Label labelRestaurantDetails;
+        private System.Windows.Forms.Button buttonFaq;
     }
 }
