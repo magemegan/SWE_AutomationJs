@@ -16,6 +16,7 @@ namespace SWE_AutomationJs_UI_Design.Data
             EnsureDiningTables();
             EnsureMinimumStaffing();
             MenuCatalogBootstrap.EnsureConfiguredMenu();
+            EnsureInventoryItems();
         }
 
         private static void EnsureSchemaCompatibility()
@@ -289,6 +290,23 @@ VALUES
                             SeatCapacity = 4
                         });
                 }
+            }
+        }
+
+        private static void EnsureInventoryItems()
+        {
+            using (var connection = Db.Open())
+            {
+                connection.Execute(@"
+INSERT OR IGNORE INTO InventoryItems (ItemName, UnitOfMeasure, QuantityOnHand, ReorderLevel, IsActive) VALUES
+    ('Chicken Breast', 'lbs', 50, 15, 1),
+    ('Ground Beef', 'lbs', 35, 10, 1),
+    ('Lettuce', 'heads', 18, 8, 1),
+    ('Tomatoes', 'lbs', 22, 8, 1),
+    ('Cheddar Cheese', 'lbs', 14, 6, 1),
+    ('French Fries', 'bags', 20, 7, 1),
+    ('Sweet Tea', 'gallons', 12, 5, 1),
+    ('To-Go Cups', 'cases', 4, 5, 1);");
             }
         }
 

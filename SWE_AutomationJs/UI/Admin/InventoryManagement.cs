@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SWE_AutomationJs_UI_Design.Data;
 
 namespace SWE_AutomationJs_UI_Design
 {
@@ -25,7 +26,7 @@ namespace SWE_AutomationJs_UI_Design
         private void InventoryManagement_Load(object sender, EventArgs e)
         {
             SetupInventoryGrid();
-            LoadSampleInventory();
+            LoadInventoryFromDatabase();
         }
 
         private void SetupInventoryGrid()
@@ -49,12 +50,19 @@ namespace SWE_AutomationJs_UI_Design
             }
         }
 
-        private void LoadSampleInventory()
+        private void LoadInventoryFromDatabase()
         {
-            dataGridView1.Rows.Add("001", "Coffee Beans", "Dry Goods ", "50", "In Stock");
-            dataGridView1.Rows.Add("002", "Milk", "Diary ", "30", "Low Stock");
-            dataGridView1.Rows.Add("003", "Sugar", "Bakery ","100", "In Stock");
-            dataGridView1.Rows.Add("004", "Cups", "Supplies ", "200", "Reorder");
+            dataGridView1.Rows.Clear();
+
+            foreach (InventoryItemInfo item in InventoryRepository.GetActiveInventoryItems())
+            {
+                dataGridView1.Rows.Add(
+                    item.InventoryItemId,
+                    item.ItemName,
+                    item.UnitOfMeasure,
+                    item.QuantityOnHand.ToString("0.##"),
+                    item.Status);
+            }
 
             ColorRows();
         }

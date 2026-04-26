@@ -51,8 +51,7 @@ namespace SWE_AutomationJs_UI_Design
             if (listBox1.SelectedItem != null && listBox1.SelectedIndex >= 0)
             {
                 Employee employee = EmployeeStorage.Employees[listBox1.SelectedIndex];
-                EmployeeStorage.Employees.RemoveAt(listBox1.SelectedIndex);
-                EmployeeStorage.Save();
+                EmployeeStorage.DeleteAt(listBox1.SelectedIndex);
                 ActivityLogService.Log("MANAGER", "EmployeeProfileDeleted", employee.EmployeeId + " " + employee.Name);
                 LoadEmployeeQueue();
             }
