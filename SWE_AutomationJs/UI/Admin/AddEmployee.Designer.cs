@@ -41,6 +41,10 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.textBoxEmployeeId = new System.Windows.Forms.TextBox();
+            this.labelEmployeeId = new System.Windows.Forms.Label();
+            this.textBoxAssignedTables = new System.Windows.Forms.TextBox();
+            this.labelAssignedTables = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label6
@@ -167,11 +171,49 @@
             this.comboBox2.Size = new System.Drawing.Size(295, 21);
             this.comboBox2.TabIndex = 26;
             // 
+            // textBoxEmployeeId
+            // 
+            this.textBoxEmployeeId.Location = new System.Drawing.Point(269, 78);
+            this.textBoxEmployeeId.Name = "textBoxEmployeeId";
+            this.textBoxEmployeeId.Size = new System.Drawing.Size(289, 20);
+            this.textBoxEmployeeId.TabIndex = 13;
+            // 
+            // labelEmployeeId
+            // 
+            this.labelEmployeeId.AutoSize = true;
+            this.labelEmployeeId.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEmployeeId.Location = new System.Drawing.Point(188, 73);
+            this.labelEmployeeId.Name = "labelEmployeeId";
+            this.labelEmployeeId.Size = new System.Drawing.Size(34, 25);
+            this.labelEmployeeId.TabIndex = 27;
+            this.labelEmployeeId.Text = "ID:";
+            // 
+            // textBoxAssignedTables
+            // 
+            this.textBoxAssignedTables.Location = new System.Drawing.Point(269, 334);
+            this.textBoxAssignedTables.Name = "textBoxAssignedTables";
+            this.textBoxAssignedTables.Size = new System.Drawing.Size(289, 20);
+            this.textBoxAssignedTables.TabIndex = 28;
+            // 
+            // labelAssignedTables
+            // 
+            this.labelAssignedTables.AutoSize = true;
+            this.labelAssignedTables.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssignedTables.Location = new System.Drawing.Point(102, 329);
+            this.labelAssignedTables.Name = "labelAssignedTables";
+            this.labelAssignedTables.Size = new System.Drawing.Size(154, 25);
+            this.labelAssignedTables.TabIndex = 29;
+            this.labelAssignedTables.Text = "Assigned Tables:";
+            // 
             // AddEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelAssignedTables);
+            this.Controls.Add(this.textBoxAssignedTables);
+            this.Controls.Add(this.labelEmployeeId);
+            this.Controls.Add(this.textBoxEmployeeId);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBox3);
@@ -207,5 +249,9 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox textBoxEmployeeId;
+        private System.Windows.Forms.Label labelEmployeeId;
+        private System.Windows.Forms.TextBox textBoxAssignedTables;
+        private System.Windows.Forms.Label labelAssignedTables;
     }
 }

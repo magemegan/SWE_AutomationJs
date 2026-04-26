@@ -18,8 +18,7 @@ namespace SWE_AutomationJs_UI_Design
         public WaiterScreen()
         {
             InitializeComponent();
-            InitializeRestaurantDetails();
-            InitializeOverrideButton();
+            ConfigureRestaurantDetails();
         }
 
         private void WaitierScreen_Load(object sender, EventArgs e)
@@ -59,26 +58,14 @@ namespace SWE_AutomationJs_UI_Design
             NavigationHelper.ShowAtCurrentPosition(this, new Notification("Waiter"));
         }
 
-        private void InitializeOverrideButton()
+        private void buttonOverride_Click(object sender, EventArgs e)
         {
-            Button overrideButton = new Button();
-            overrideButton.Location = new System.Drawing.Point(106, 387);
-            overrideButton.Size = new System.Drawing.Size(142, 52);
-            overrideButton.Text = "Request Override";
-            overrideButton.Click += (sender, args) =>
-            {
-                NavigationHelper.ShowAtCurrentPosition(this, new OverrideRequestForm());
-            };
-            Controls.Add(overrideButton);
+            NavigationHelper.ShowAtCurrentPosition(this, new OverrideRequestForm());
         }
 
-        private void InitializeRestaurantDetails()
+        private void ConfigureRestaurantDetails()
         {
-            Label detailsLabel = new Label();
-            detailsLabel.AutoSize = true;
-            detailsLabel.Location = new System.Drawing.Point(271, 126);
-            detailsLabel.Name = "restaurantDetailsLabel";
-            detailsLabel.Text =
+            labelRestaurantDetails.Text =
                 "CONTACT INFO:\r\n" +
                 "jscorner.com\r\n" +
                 "680 Arntson Dr., Marietta, GA 30060\r\n" +
@@ -91,7 +78,6 @@ namespace SWE_AutomationJs_UI_Design
                 "Wednesday: 11:30AM-9:30PM\r\n" +
                 "Thursday: 11AM-9:30PM\r\n" +
                 "Friday: 11AM-9:30PM";
-            Controls.Add(detailsLabel);
         }
     }
 }

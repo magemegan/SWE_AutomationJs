@@ -71,7 +71,9 @@
     <Compile Include="UI\Admin\AddEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Admin\AddEmployee.Designer.cs" />
+    <Compile Include="UI\Admin\AddEmployee.Designer.cs">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Admin\ActivityLogViewerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,7 +157,9 @@
     <Compile Include="UI\Employee\WaiterScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Employee\WaiterScreen.Designer.cs" />
+    <Compile Include="UI\Employee\WaiterScreen.Designer.cs">
+      <DependentUpon>WaiterScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Inventory\Request.cs" />
     <Compile Include="UI\Inventory\RequestStorage.cs" />
     <Compile Include="UI\Inventory\RestockRequests.cs">
@@ -226,7 +230,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\**\*.resx" />
+    <EmbeddedResource Include="UI\Admin\AddEmployee.resx">
+      <DependentUpon>AddEmployee.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Employee\WaiterScreen.resx">
+      <DependentUpon>WaiterScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\**\*.resx" Exclude="UI\Admin\AddEmployee.resx;UI\Employee\WaiterScreen.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

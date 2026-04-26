@@ -14,19 +14,15 @@ namespace SWE_AutomationJs_UI_Design
     public partial class AddEmployee : Form
     {
         private int editIndex = -1; // -1 indicates adding a new employee
-        private TextBox textBoxEmployeeId;
-        private TextBox textBoxAssignedTables;
 
         public AddEmployee()
         {
             InitializeComponent();
-            InitializeAdditionalFields();
         }
         public AddEmployee(int selectedIndex)
         {
             InitializeComponent();
             editIndex = selectedIndex;
-            InitializeAdditionalFields();
         }
 
         private void AddEmployee_Load(object sender, EventArgs e)
@@ -138,33 +134,6 @@ namespace SWE_AutomationJs_UI_Design
         private void button1_Click(object sender, EventArgs e)
         {//back to employee records
             NavigationHelper.ShowAtCurrentPosition(this, new EmployeeRecords());
-        }
-
-        private void InitializeAdditionalFields()
-        {
-            textBoxEmployeeId = new TextBox();
-            textBoxEmployeeId.Location = new System.Drawing.Point(269, 78);
-            textBoxEmployeeId.Size = new System.Drawing.Size(289, 20);
-            Controls.Add(textBoxEmployeeId);
-
-            Label labelEmployeeId = new Label();
-            labelEmployeeId.AutoSize = true;
-            labelEmployeeId.Font = label5.Font;
-            labelEmployeeId.Location = new System.Drawing.Point(188, 73);
-            labelEmployeeId.Text = "ID:";
-            Controls.Add(labelEmployeeId);
-
-            textBoxAssignedTables = new TextBox();
-            textBoxAssignedTables.Location = new System.Drawing.Point(269, 334);
-            textBoxAssignedTables.Size = new System.Drawing.Size(289, 20);
-            Controls.Add(textBoxAssignedTables);
-
-            Label labelAssignedTables = new Label();
-            labelAssignedTables.AutoSize = true;
-            labelAssignedTables.Font = label5.Font;
-            labelAssignedTables.Location = new System.Drawing.Point(102, 329);
-            labelAssignedTables.Text = "Assigned Tables:";
-            Controls.Add(labelAssignedTables);
         }
 
         private static List<int> ParseAssignedTables(string rawText)

@@ -34,6 +34,8 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.buttonOverride = new System.Windows.Forms.Button();
+            this.labelRestaurantDetails = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -96,11 +98,32 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // buttonOverride
+            // 
+            this.buttonOverride.Location = new System.Drawing.Point(106, 387);
+            this.buttonOverride.Name = "buttonOverride";
+            this.buttonOverride.Size = new System.Drawing.Size(142, 52);
+            this.buttonOverride.TabIndex = 9;
+            this.buttonOverride.Text = "Request Override";
+            this.buttonOverride.UseVisualStyleBackColor = true;
+            this.buttonOverride.Click += new System.EventHandler(this.buttonOverride_Click);
+            // 
+            // labelRestaurantDetails
+            // 
+            this.labelRestaurantDetails.AutoSize = true;
+            this.labelRestaurantDetails.Location = new System.Drawing.Point(271, 126);
+            this.labelRestaurantDetails.Name = "labelRestaurantDetails";
+            this.labelRestaurantDetails.Size = new System.Drawing.Size(108, 13);
+            this.labelRestaurantDetails.TabIndex = 10;
+            this.labelRestaurantDetails.Text = "Restaurant details text";
+            // 
             // WaiterScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelRestaurantDetails);
+            this.Controls.Add(this.buttonOverride);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button5);
@@ -123,5 +146,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonOverride;
+        private System.Windows.Forms.Label labelRestaurantDetails;
     }
 }
