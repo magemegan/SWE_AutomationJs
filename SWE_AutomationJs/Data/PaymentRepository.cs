@@ -80,71 +80,81 @@ WHERE PaymentId = @PaymentId
             using (var connection = Db.Open())
             {
                 const string sql = @"
-SELECT
-    s.OrderId,
-    (
-        SELECT p.PaymentId
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-          AND IFNULL(p.RefundFlag, 0) = 0
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS PaymentId,
-    o.TableId,
-    d.TableCode,
-    s.OrderTotal,
-    s.TotalPaid,
-    s.TotalRefunded,
-    s.NetPaid,
-    s.BalanceRemaining,
-    s.PaymentStatus,
-    (
-        SELECT p.PaymentMethod
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS PaymentMethod,
-    (
-        SELECT p.PaidAt
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS PaidAt,
-    (
-        SELECT IFNULL(p.RefundFlag, 0)
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS RefundFlag,
-    (
-        SELECT IFNULL(p.RefundAmount, 0)
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS RefundAmount,
-    (
-        SELECT p.RefundApprovedByEmployeeId
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS RefundApprovedByEmployeeId,
-    (
-        SELECT p.RefundApprovedAt
-        FROM Payments p
-        WHERE p.OrderId = s.OrderId
-        ORDER BY p.PaidAt DESC, p.PaymentId DESC
-        LIMIT 1
-    ) AS RefundApprovedAt
-FROM vw_order_payment_summary s
-INNER JOIN Orders o ON o.OrderId = s.OrderId
-INNER JOIN DiningTables d ON d.TableId = o.TableId
-WHERE s.TotalPaid > 0
-ORDER BY PaidAt DESC, s.OrderId DESC;";
+        SELECT
+            s.OrderId,
+            (
+                SELECT p.PaymentId
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                    AND IFNULL(p.RefundFlag, 0) = 0
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS PaymentId,
+            o.TableId,
+            d.TableCode,
+            s.OrderTotal,
+            s.TotalPaid,
+             IFNULL((
+                SELECT SUM(p.RefundAmount)
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                    AND IFNULL(p.RefundFlag, 0) = 1
+            ), 0) AS TotalRefunded,
+            s.TotalPaid - IFNULL((
+                SELECT SUM(p.RefundAmount)
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                    AND IFNULL(p.RefundFlag, 0) = 1
+            ), 0) AS NetPaid,
+            s.BalanceRemaining,
+            s.PaymentStatus,
+            (
+                SELECT p.PaymentMethod
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS PaymentMethod,
+            (
+                SELECT p.PaidAt
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS PaidAt,
+            (
+                SELECT IFNULL(p.RefundFlag, 0)
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS RefundFlag,
+            (
+                SELECT IFNULL(p.RefundAmount, 0)
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS RefundAmount,
+            (
+                SELECT p.RefundApprovedByEmployeeId
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS RefundApprovedByEmployeeId,
+            (
+                SELECT p.RefundApprovedAt
+                FROM Payments p
+                WHERE p.OrderId = s.OrderId
+                ORDER BY p.PaidAt DESC, p.PaymentId DESC
+                LIMIT 1
+            ) AS RefundApprovedAt
+        FROM vw_order_payment_summary s
+        INNER JOIN Orders o ON o.OrderId = s.OrderId
+        INNER JOIN DiningTables d ON d.TableId = o.TableId
+        WHERE s.TotalPaid > 0
+        ORDER BY PaidAt DESC, s.OrderId DESC;";
 
                 return connection.Query<PaymentHistoryEntry>(sql).ToList();
             }

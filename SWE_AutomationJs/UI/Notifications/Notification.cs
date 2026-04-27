@@ -17,6 +17,7 @@ namespace SWE_AutomationJs_UI_Design
         public Notification()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
         public Notification(string previousScreen)
         {

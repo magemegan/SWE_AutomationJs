@@ -13,6 +13,7 @@ namespace SWE_AutomationJs_UI_Design
         public Inventory()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void Inventory_Load(object sender, EventArgs e)

@@ -16,6 +16,7 @@ namespace SWE_AutomationJs_UI_Design
         public EmployeeMenu()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void button4_Click(object sender, EventArgs e)

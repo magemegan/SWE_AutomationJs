@@ -18,6 +18,7 @@ namespace SWE_AutomationJs_UI_Design
         public WaiterScreen()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void WaitierScreen_Load(object sender, EventArgs e)

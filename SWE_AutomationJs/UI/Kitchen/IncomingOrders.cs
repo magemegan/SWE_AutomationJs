@@ -13,6 +13,7 @@ namespace SWE_AutomationJs_UI_Design
         public IncomingOrders()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void button1_Click(object sender, EventArgs e)

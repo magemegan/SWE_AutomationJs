@@ -12,6 +12,7 @@ namespace SWE_AutomationJs_UI_Design
         public BusboyScreen()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
 
             Button restaurantInfoButton = new Button();
             restaurantInfoButton.Location = new System.Drawing.Point(379, 305);
