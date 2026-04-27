@@ -1,4 +1,8 @@
-﻿namespace Server.Data.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+
+namespace Server.Data.Entities;
 
 using Shared;
 

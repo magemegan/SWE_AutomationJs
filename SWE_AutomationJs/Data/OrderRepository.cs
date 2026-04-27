@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using Dapper;
+using Microsoft.Data.Sqlite;
 
 namespace SWE_AutomationJs_UI_Design.Data
 {

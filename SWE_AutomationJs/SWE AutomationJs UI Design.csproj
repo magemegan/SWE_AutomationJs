@@ -13,9 +13,11 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,15 +25,18 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,183 +51,91 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Dapper">
-      <HintPath>$(NuGetPackageRoot)dapper\2.1.35\lib\net461\Dapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Data.Sqlite">
-      <HintPath>$(NuGetPackageRoot)microsoft.data.sqlite.core\6.0.29\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.batteries_v2">
-      <HintPath>$(NuGetPackageRoot)sqlitepclraw.bundle_e_sqlite3\2.1.2\lib\net461\SQLitePCLRaw.batteries_v2.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.core">
-      <HintPath>$(NuGetPackageRoot)sqlitepclraw.core\2.1.2\lib\netstandard2.0\SQLitePCLRaw.core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SQLitePCLRaw.provider.dynamic_cdecl">
-      <HintPath>$(NuGetPackageRoot)sqlitepclraw.provider.dynamic_cdecl\2.1.2\lib\netstandard2.0\SQLitePCLRaw.provider.dynamic_cdecl.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\Admin\AboutRestaurant.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\AddEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\AddEmployee.Designer.cs">
-      <DependentUpon>AddEmployee.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Admin\ActivityLogViewerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\AdminMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Data\**\*.cs" />
+    <Compile Include="Domain\**\*.cs" />
+    <Compile Include="Security\**\*.cs" />
+    <Compile Include="Session\**\*.cs" />
+    <Compile Include="UI\Admin\ActivityLogViewerForm.cs" />
+    <Compile Include="UI\Admin\AddEmployee.cs" />
+    <Compile Include="UI\Admin\AddEmployee.Designer.cs" />
+    <Compile Include="UI\Admin\AdminMenu.cs" />
     <Compile Include="UI\Admin\AdminMenu.Designer.cs" />
-    <Compile Include="UI\Admin\EmployeeRecords.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\EmployeeRecords.cs" />
     <Compile Include="UI\Admin\EmployeeRecords.Designer.cs" />
-    <Compile Include="UI\Admin\EmployeeScheduling.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\EmployeeScheduling.cs" />
     <Compile Include="UI\Admin\EmployeeScheduling.Designer.cs" />
-    <Compile Include="UI\Admin\Inventory.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\Inventory.cs" />
     <Compile Include="UI\Admin\Inventory.Designer.cs" />
-    <Compile Include="UI\Admin\InventoryManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\InventoryManagement.cs" />
     <Compile Include="UI\Admin\InventoryManagement.Designer.cs" />
-    <Compile Include="UI\Admin\MenuManagement.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\MenuManagement.cs" />
     <Compile Include="UI\Admin\MenuManagement.Designer.cs" />
-    <Compile Include="UI\Admin\OverrideApprovalForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\SalesReports.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\OverrideApprovalForm.cs" />
+    <Compile Include="UI\Admin\ReportsForm.cs" />
+    <Compile Include="UI\Admin\SalesReports.cs" />
     <Compile Include="UI\Admin\SalesReports.Designer.cs" />
-    <Compile Include="UI\Admin\Schedule.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\Schedule.cs" />
     <Compile Include="UI\Admin\Schedule.Designer.cs" />
-    <Compile Include="UI\Admin\Swap.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\Swap.cs" />
     <Compile Include="UI\Admin\Swap.Designer.cs" />
-    <Compile Include="UI\Admin\TableLayoutManagementForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Admin\ViewRequests.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Admin\TableLayoutManagementForm.cs" />
+    <Compile Include="UI\Admin\ViewRequests.cs" />
     <Compile Include="UI\Admin\ViewRequests.Designer.cs" />
-    <Compile Include="UI\Busboy\BusboyScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Busboy\BusboyScreen.cs" />
     <Compile Include="UI\Busboy\BusboyScreen.Designer.cs" />
-    <Compile Include="UI\Busboy\CleaningScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Busboy\CleaningScreen.cs" />
     <Compile Include="UI\Busboy\CleaningScreen.Designer.cs" />
-    <Compile Include="UI\Core\MainMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Core\AboutRestaurant.cs" />
+    <Compile Include="UI\Core\MainMenu.cs" />
     <Compile Include="UI\Core\MainMenu.Designer.cs" />
     <Compile Include="UI\Core\NavigationHelper.cs" />
-    <Compile Include="UI\Core\Program.cs" />
     <Compile Include="UI\Employee\Employee.cs" />
-    <Compile Include="UI\Employee\EmployeeMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Employee\EmployeeMenu.cs" />
     <Compile Include="UI\Employee\EmployeeMenu.Designer.cs" />
-    <Compile Include="UI\Employee\EmployeeProfile.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Employee\EmployeeProfile.cs" />
     <Compile Include="UI\Employee\EmployeeProfile.Designer.cs" />
     <Compile Include="UI\Employee\EmployeeStorage.cs" />
-    <Compile Include="UI\Employee\OverrideRequestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Employee\TimeOff.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Employee\OverrideRequestForm.cs" />
+    <Compile Include="UI\Employee\TimeOff.cs" />
     <Compile Include="UI\Employee\TimeOff.Designer.cs" />
-    <Compile Include="UI\Employee\WaiterFaqForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Employee\WaiterScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Employee\WaiterScreen.Designer.cs">
-      <DependentUpon>WaiterScreen.cs</DependentUpon>
-    </Compile>
+    <Compile Include="UI\Employee\WaiterFaqForm.cs" />
+    <Compile Include="UI\Employee\WaiterScreen.cs" />
+    <Compile Include="UI\Employee\WaiterScreen.Designer.cs" />
     <Compile Include="UI\Inventory\Request.cs" />
     <Compile Include="UI\Inventory\RequestStorage.cs" />
-    <Compile Include="UI\Inventory\RestockRequests.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Inventory\RestockRequests.cs" />
     <Compile Include="UI\Inventory\RestockRequests.Designer.cs" />
-    <Compile Include="UI\Kitchen\IncomingOrders.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Kitchen\IncomingOrders.cs" />
     <Compile Include="UI\Kitchen\IncomingOrders.Designer.cs" />
-    <Compile Include="UI\Kitchen\KitchenScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Kitchen\KitchenScreen.cs" />
     <Compile Include="UI\Kitchen\KitchenScreen.Designer.cs" />
-    <Compile Include="UI\Notifications\Notification.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Notifications\Notification.cs" />
     <Compile Include="UI\Notifications\Notification.Designer.cs" />
     <Compile Include="UI\Notifications\Notifications.cs" />
     <Compile Include="UI\Notifications\NotificationStorage.cs" />
-    <Compile Include="UI\Orders\MenuItemOptionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Orders\MenuItemOptionsForm.cs" />
     <Compile Include="UI\Orders\Order.cs" />
-    <Compile Include="UI\Orders\Orders.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Orders\Orders.cs" />
     <Compile Include="UI\Orders\Orders.Designer.cs" />
     <Compile Include="UI\Orders\OrderStorage.cs" />
     <Compile Include="UI\Payment\PastPayment.cs" />
     <Compile Include="UI\Payment\PastPaymentStorage.cs" />
-    <Compile Include="UI\Payment\Payment.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Payment\Payment.cs" />
     <Compile Include="UI\Payment\Payment.Designer.cs" />
-    <Compile Include="UI\Payment\ProcessPayment.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Payment\ProcessPayment.cs" />
     <Compile Include="UI\Payment\ProcessPayment.Designer.cs" />
     <Compile Include="UI\Request\ScheduleRequest.cs" />
     <Compile Include="UI\Request\ScheduleRequestStorage.cs" />
-    <Compile Include="UI\Tables\AssignTables.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Tables\AssignTables.cs" />
     <Compile Include="UI\Tables\AssignTables.Designer.cs" />
-    <Compile Include="UI\Tables\AssignTables2.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Tables\AssignTables2.cs" />
     <Compile Include="UI\Tables\AssignTables2.Designer.cs" />
-    <Compile Include="UI\Tables\AssignTables3.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="UI\Tables\AssignTables3.cs" />
     <Compile Include="UI\Tables\AssignTables3.Designer.cs" />
     <Compile Include="UI\Tables\TableStorage.cs" />
-    <Compile Include="Data\*.cs" />
-    <Compile Include="Security\*.cs" />
-    <Compile Include="Session\*.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -236,15 +149,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\Admin\AddEmployee.resx">
-      <DependentUpon>AddEmployee.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Employee\WaiterScreen.resx">
-      <DependentUpon>WaiterScreen.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\**\*.resx" Exclude="UI\Admin\AddEmployee.resx;UI\Employee\WaiterScreen.resx" />
+    <EmbeddedResource Include="UI\**\*.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -257,17 +162,21 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="$(NuGetPackageRoot)sqlitepclraw.lib.e_sqlite3\2.1.2\runtimes\win-x64\native\e_sqlite3.dll">
-      <Link>e_sqlite3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper">
-      <Version>2.1.72</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Data.Sqlite">
-      <Version>10.0.7</Version>
+    <Content Include="Database\data\restaurant.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\**\*.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database\**\*.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3">
+      <Version>2.1.6</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

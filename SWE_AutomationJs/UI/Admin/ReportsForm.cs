@@ -5,7 +5,7 @@ using SWE_AutomationJs_UI_Design.Data;
 
 namespace SWE_AutomationJs_UI_Design
 {
-    public partial class ReportsForm : Form
+    public class ReportsForm : Form
     {
         private Label lblOrders;
         private Label lblRevenue;
@@ -15,7 +15,6 @@ namespace SWE_AutomationJs_UI_Design
 
         public ReportsForm()
         {
-            InitializeComponent();
             BuildPage();
             LoadReportData();
         }
@@ -82,9 +81,21 @@ namespace SWE_AutomationJs_UI_Design
 
         private void LoadReportData()
         {
-            lblOrders.Text = "Orders Today: " + ReportRepository.GetTotalOrdersToday();
-            lblRevenue.Text = "Revenue Today: $" + ReportRepository.GetRevenueToday().ToString("0.00");
-            lblPopularItem.Text = "Most Popular Item: " + ReportRepository.GetMostPopularItem();
+            try
+            {
+                lblOrders.Text = "Orders Today: " + ReportRepository.GetTotalOrdersToday();
+                lblRevenue.Text = "Revenue Today: $" + ReportRepository.GetRevenueToday().ToString("0.00");
+                lblPopularItem.Text = "Most Popular Item: " + ReportRepository.GetMostPopularItem();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error loading report data:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
         }
     }
 }

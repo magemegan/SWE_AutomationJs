@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Dapper;
 using SWE_AutomationJs_UI_Design.Security;
 using SWE_AutomationJs_UI_Design.Session;
+using Microsoft.Data.Sqlite;
 
 namespace SWE_AutomationJs_UI_Design.Data
 {
