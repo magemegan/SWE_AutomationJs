@@ -13,113 +13,150 @@ namespace SWE_AutomationJs_UI_Design
         public AdminMenu()
         {
             InitializeComponent();
-            UiTheme.Apply(this);
-            FormatMainButtons();
-            InitializeAdditionalButtons();
+
+            ClientSize = new Size(1050, 700);
+            Text = "Admin Dashboard";
+
+            Controls.Clear();
+
+            BuildDashboard();
         }
 
-        // =========================
-        // MAIN BUTTON FORMATTING
-        // =========================
-        private void FormatMainButtons()
+        private void BuildDashboard()
         {
-            int width = 180;
-            int height = 55;
+            BackColor = UiTheme.Background;
+            Font = new Font("Segoe UI", 9F);
+            StartPosition = FormStartPosition.CenterScreen;
 
-            int startX = 120;
-            int startY = 140;
-            int gapX = 220;
-            int gapY = 85;
+            Label title = new Label
+            {
+                Text = "Admin Dashboard",
+                Location = new Point(55, 40),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 30F, FontStyle.Bold),
+                ForeColor = UiTheme.PrimaryDark
+            };
+            Controls.Add(title);
 
-            // Row 1
-            SetButton(button2, "Employee Records", startX, startY, width, height);
-            SetButton(button3, "Inventory", startX + gapX, startY, width, height);
-            SetButton(button4, "Restock Requests", startX + (gapX * 2), startY, width, height);
+            Label subtitle = new Label
+            {
+                Text = "Manage restaurant operations, staff, reports, tables, menu, and system activity.",
+                Location = new Point(60, 100),
+                AutoSize = true,
+                Font = new Font("Segoe UI", 11F),
+                ForeColor = Color.DimGray
+            };
+            Controls.Add(subtitle);
 
-            // Row 2
-            SetButton(button5, "Sales Reports", startX, startY + gapY, width, height);
-            SetButton(button6, "Scheduling", startX + gapX, startY + gapY, width, height);
-            SetButton(button7, "Menu Management", startX + (gapX * 2), startY + gapY, width, height);
+            Button restaurantInfo = CreateTopButton("Restaurant Info", 775, 45,
+                (s, e) => new AboutRestaurant().ShowDialog());
+            Controls.Add(restaurantInfo);
 
-            // Row 3
-            SetButton(button8, "Notifications", startX, startY + (gapY * 2), width, height);
+            Button overrideApprovals = CreateTopButton("Override Approvals", 775, 90,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new OverrideApprovalForm()));
+            Controls.Add(overrideApprovals);
 
-            // Logout bottom
-            SetButton(button1, "Logout", startX, startY + (gapY * 3), width, height);
-            button1.BackColor = Color.FromArgb(185, 45, 45); // red
+            int cardW = 275;
+            int cardH = 120;
+            int gapX = 35;
+            int gapY = 32;
+
+            int startX = 60;
+            int startY = 165;
+
+            AddDashboardCard("Employees", "Manage staff records", startX, startY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new EmployeeRecords()));
+
+            AddDashboardCard("Inventory", "Track restaurant supplies", startX + cardW + gapX, startY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new InventoryManagement()));
+
+            AddDashboardCard("Restock", "Review restock requests", startX + (cardW + gapX) * 2, startY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new RestockRequests()));
+
+            AddDashboardCard("Reports", "View sales analytics", startX, startY + cardH + gapY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new ReportsForm()));
+
+            AddDashboardCard("Scheduling", "Manage employee shifts", startX + cardW + gapX, startY + cardH + gapY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new EmployeeScheduling()));
+
+            AddDashboardCard("Menu", "Edit menu items", startX + (cardW + gapX) * 2, startY + cardH + gapY, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new MenuManagement()));
+
+            AddDashboardCard("Notifications", "View admin alerts", startX, startY + (cardH + gapY) * 2, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new Notification("Admin")));
+
+            AddDashboardCard("Table Layout", "Manage tables and seats", startX + cardW + gapX, startY + (cardH + gapY) * 2, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new TableLayoutManagementForm()));
+
+            AddDashboardCard("Activity Log", "Audit system activity", startX + (cardW + gapX) * 2, startY + (cardH + gapY) * 2, cardW, cardH,
+                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new ActivityLogViewerForm()));
+
+            Button logout = new Button
+            {
+                Text = "Logout",
+                Location = new Point(60, 625),
+                Size = new Size(170, 42),
+                BackColor = UiTheme.Danger,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+            logout.FlatAppearance.BorderSize = 0;
+            logout.Click += button1_Click;
+            Controls.Add(logout);
         }
 
-        private void SetButton(Button btn, string text, int x, int y, int w, int h)
+        private void AddDashboardCard(
+            string title,
+            string description,
+            int x,
+            int y,
+            int width,
+            int height,
+            EventHandler click)
         {
-            btn.Text = text;
-            btn.Location = new Point(x, y);
-            btn.Size = new Size(w, h);
-            UiTheme.StyleButton(btn);
+            Button card = new Button
+            {
+                Location = new Point(x, y),
+                Size = new Size(width, height),
+                BackColor = Color.White,
+                ForeColor = UiTheme.TextDark,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                TextAlign = ContentAlignment.MiddleLeft,
+                Padding = new Padding(22, 12, 12, 12),
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold),
+                Text = title + Environment.NewLine + Environment.NewLine + description
+            };
+
+            card.FlatAppearance.BorderSize = 1;
+            card.FlatAppearance.BorderColor = Color.FromArgb(220, 230, 238);
+            card.FlatAppearance.MouseOverBackColor = Color.FromArgb(235, 247, 252);
+            card.Click += click;
+
+            Controls.Add(card);
         }
 
-        // =========================
-        // EXTRA BUTTONS (FIXED)
-        // =========================
-        private void InitializeAdditionalButtons()
+        private Button CreateTopButton(string text, int x, int y, EventHandler click)
         {
-            int width = 180;
-            int height = 55;
-            int y = 400;
+            Button button = new Button
+            {
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(210, 35),
+                BackColor = UiTheme.Primary,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
 
-            Button overrideButton = CreateAdminButton(
-                "Override Approvals",
-                new Point(120, y),
-                width,
-                height,
-                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new OverrideApprovalForm())
-            );
+            button.FlatAppearance.BorderSize = 0;
+            button.Click += click;
 
-            Button restaurantInfoButton = CreateAdminButton(
-                "Restaurant Info",
-                new Point(340, y),
-                width,
-                height,
-                (s, e) => new AboutRestaurant().ShowDialog()
-            );
-
-            Button tableLayoutButton = CreateAdminButton(
-                "Table Layout",
-                new Point(560, y),
-                width,
-                height,
-                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new TableLayoutManagementForm())
-            );
-
-            Button activityLogButton = CreateAdminButton(
-                "Activity Log",
-                new Point(780, y),
-                width,
-                height,
-                (s, e) => NavigationHelper.ShowAtCurrentPosition(this, new ActivityLogViewerForm())
-            );
-
-            Controls.Add(overrideButton);
-            Controls.Add(restaurantInfoButton);
-            Controls.Add(tableLayoutButton);
-            Controls.Add(activityLogButton);
+            return button;
         }
-
-        private Button CreateAdminButton(string text, Point location, int width, int height, EventHandler click)
-        {
-            Button btn = new Button();
-            btn.Text = text;
-            btn.Location = location;
-            btn.Size = new Size(width, height);
-            btn.Click += click;
-
-            UiTheme.StyleButton(btn);
-
-            return btn;
-        }
-
-        // =========================
-        // BUTTON EVENTS
-        // =========================
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -162,7 +199,5 @@ namespace SWE_AutomationJs_UI_Design
         {
             NavigationHelper.ShowAtCurrentPosition(this, new Notification("Admin"));
         }
-
-        
     }
 }

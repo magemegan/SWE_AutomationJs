@@ -8,6 +8,7 @@ namespace SWE_AutomationJs_UI_Design
         public Swap(string previousScreen)
         {
             InitializeComponent();
+            UiTheme.Apply(this);
             this.previousScreen = previousScreen;
         }
 

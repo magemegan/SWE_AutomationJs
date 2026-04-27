@@ -16,6 +16,7 @@ namespace SWE_AutomationJs_UI_Design
         public EmployeeRecords()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void label1_Click(object sender, EventArgs e)

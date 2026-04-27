@@ -10,6 +10,7 @@ namespace SWE_AutomationJs_UI_Design
         public InventoryManagement()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
 
         private void button1_Click(object sender, EventArgs e)

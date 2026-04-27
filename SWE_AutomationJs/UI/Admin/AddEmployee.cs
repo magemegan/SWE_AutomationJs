@@ -18,6 +18,7 @@ namespace SWE_AutomationJs_UI_Design
         public AddEmployee()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
         }
         public AddEmployee(int selectedIndex)
         {

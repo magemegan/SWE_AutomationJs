@@ -36,6 +36,7 @@ namespace SWE_AutomationJs_UI_Design
         public MenuManagement()
         {
             InitializeComponent();
+            UiTheme.Apply(this);
             BuildLayout();
             LoadCategories();
             LoadMenuItems();
