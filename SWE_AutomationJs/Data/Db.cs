@@ -7,25 +7,27 @@ namespace SWE_AutomationJs_UI_Design.Data
 {
     internal static class Db
     {
-        private const string ConnectionStringName = "Restaurant";
-        private const string DbPathKey = "Restaurant.DbPath";
+        private const string ConnectionStringName = "RestaurantDb";
 
-        static Db()
+        public static string DatabasePath
         {
-            SQLitePCL.Batteries_V2.Init();
+            get { return ResolveDbPath(); }
         }
 
         public static string ConnectionString
         {
             get
             {
-                ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[ConnectionStringName];
+                ConnectionStringSettings settings =
+                    ConfigurationManager.ConnectionStrings[ConnectionStringName];
+
                 SqliteConnectionStringBuilder builder = settings != null
                     ? new SqliteConnectionStringBuilder(settings.ConnectionString)
                     : new SqliteConnectionStringBuilder();
 
                 builder.DataSource = ResolveDbPath();
                 builder.ForeignKeys = true;
+
                 return builder.ToString();
             }
         }
@@ -34,30 +36,38 @@ namespace SWE_AutomationJs_UI_Design.Data
         {
             SqliteConnection connection = new SqliteConnection(ConnectionString);
             connection.Open();
+
+            using (SqliteCommand command = connection.CreateCommand())
+            {
+                command.CommandText = "PRAGMA foreign_keys = ON;";
+                command.ExecuteNonQuery();
+            }
+
             return connection;
         }
 
         private static string ResolveDbPath()
         {
-            string configuredPath = ConfigurationManager.AppSettings[DbPathKey];
-            if (!string.IsNullOrWhiteSpace(configuredPath))
-            {
-                return Path.GetFullPath(configuredPath);
-            }
-
             DirectoryInfo current = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
+
             while (current != null)
             {
-                string candidate = Path.Combine(current.FullName, "Database", "data", "restaurant.db");
-                if (File.Exists(candidate))
+                string databaseFolder = Path.Combine(current.FullName, "Database");
+
+                if (Directory.Exists(databaseFolder))
                 {
-                    return candidate;
+                    return Path.Combine(databaseFolder, "data", "restaurant.db");
                 }
 
                 current = current.Parent;
             }
 
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "restaurant.db");
+            return Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Database",
+                "data",
+                "restaurant.db"
+            );
         }
     }
 }

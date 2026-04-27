@@ -13,11 +13,57 @@ namespace SWE_AutomationJs_UI_Design.Data
             EnsureSchemaCompatibility();
             EnsurePaymentViews();
             EnsureRoles();
+            EnsureBaseEmployees();
             EnsureSeedCredentials();
             EnsureDiningTables();
             EnsureMinimumStaffing();
             MenuCatalogBootstrap.EnsureConfiguredMenu();
             EnsureInventoryItems();
+        }
+
+        private static void EnsureBaseEmployees()
+        {
+            using (var connection = Db.Open())
+            {
+                EnsureEmployee(connection, "E00001", "System", "Admin", "Admin", "Admin@123");
+                EnsureEmployee(connection, "E00002", "General", "Manager", "Manager", "Manager@123");
+                EnsureEmployee(connection, "E00003", "Default", "Server", "Server", "Server@123");
+                EnsureEmployee(connection, "E00004", "Default", "Cashier", "Cashier", "Cashier@123");
+                EnsureEmployee(connection, "E00005", "Default", "Kitchen", "Kitchen", "Kitchen@123");
+            }
+        }
+
+        private static void EnsureSeedCredentials()
+        {
+            var defaultPasswords = new Dictionary<string, string>
+            {
+                { "E00001", "Admin@123" },
+                { "E00002", "Manager@123" },
+                { "E00003", "Server@123" },
+                { "E00004", "Cashier@123" },
+                { "E00005", "Kitchen@123" },
+                { "E00006", "Server@123" },
+                { "E00007", "Server@123" },
+                { "E00008", "Kitchen@123" },
+                { "E00009", "Kitchen@123" },
+                { "E00010", "Busboy@123" }
+            };
+
+            using (var connection = Db.Open())
+            {
+                foreach (var pair in defaultPasswords)
+                {
+                    connection.Execute(
+                        @"UPDATE Employees
+                          SET PasswordHash = @PasswordHash, IsActive = 1
+                          WHERE EmployeeId = @EmployeeId;",
+                        new
+                        {
+                            EmployeeId = pair.Key,
+                            PasswordHash = PasswordHasher.HashPassword(pair.Value)
+                        });
+                }
+            }
         }
 
         private static void EnsureSchemaCompatibility()
@@ -70,7 +116,8 @@ CREATE TABLE DiningTables_New (
     UNIQUE (ColumnLetter, RowNumber)
 );
 
-INSERT INTO DiningTables_New (TableId, TableCode, ColumnLetter, RowNumber, CurrentTableStatusId, SeatCapacity)
+INSERT INTO DiningTables_New 
+    (TableId, TableCode, ColumnLetter, RowNumber, CurrentTableStatusId, SeatCapacity)
 SELECT
     TableId,
     TableCode,
@@ -86,7 +133,6 @@ FROM DiningTables;
 DROP TABLE DiningTables;
 
 ALTER TABLE DiningTables_New RENAME TO DiningTables;
-
 ");
                         EnsureDiningTableIndexes(connection);
                     }
@@ -98,14 +144,14 @@ ALTER TABLE DiningTables_New RENAME TO DiningTables;
             }
         }
 
-        private static bool TableExists(Microsoft.Data.Sqlite.SqliteConnection connection, string tableName)
+        private static bool TableExists(SqliteConnection connection, string tableName)
         {
             return connection.ExecuteScalar<long>(
                 "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table' AND name = @TableName;",
                 new { TableName = tableName }) > 0;
         }
 
-        private static void CreateDiningTablesTable(Microsoft.Data.Sqlite.SqliteConnection connection, string tableName)
+        private static void CreateDiningTablesTable(SqliteConnection connection, string tableName)
         {
             connection.Execute($@"
 CREATE TABLE {tableName} (
@@ -125,7 +171,7 @@ CREATE TABLE {tableName} (
 );");
         }
 
-        private static void EnsureDiningTableIndexes(Microsoft.Data.Sqlite.SqliteConnection connection)
+        private static void EnsureDiningTableIndexes(SqliteConnection connection)
         {
             connection.Execute(@"
 CREATE INDEX IF NOT EXISTS idx_diningtables_status
@@ -135,7 +181,7 @@ CREATE INDEX IF NOT EXISTS idx_diningtables_location
     ON DiningTables(ColumnLetter, RowNumber);");
         }
 
-        private static void DropDependentViews(Microsoft.Data.Sqlite.SqliteConnection connection)
+        private static void DropDependentViews(SqliteConnection connection)
         {
             connection.Execute(@"
 DROP VIEW IF EXISTS vw_order_payment_summary;
@@ -147,6 +193,7 @@ DROP VIEW IF EXISTS vw_order_payment_summary_detailed;");
             using (var connection = Db.Open())
             {
                 DropDependentViews(connection);
+
                 connection.Execute(@"
 CREATE VIEW vw_order_payment_summary AS
 SELECT
@@ -210,48 +257,13 @@ INSERT OR IGNORE INTO Roles (RoleName) VALUES
             }
         }
 
-        private static void EnsureSeedCredentials()
-        {
-            var defaultPasswords = new Dictionary<string, string>
-            {
-                { "E00001", "Admin@123" },
-                { "E00002", "Manager@123" },
-                { "E00003", "Server@123" },
-                { "E00004", "Cashier@123" },
-                { "E00005", "Kitchen@123" },
-                { "E00010", "Busboy@123" }
-            };
-
-            using (var connection = Db.Open())
-            {
-                foreach (KeyValuePair<string, string> pair in defaultPasswords)
-                {
-                    string currentHash = connection.ExecuteScalar<string>(
-                        "SELECT PasswordHash FROM Employees WHERE EmployeeId = @EmployeeId;",
-                        new { EmployeeId = pair.Key });
-
-                    if (!PasswordHasher.IsLegacyPlaceholder(currentHash))
-                    {
-                        continue;
-                    }
-
-                    connection.Execute(
-                        "UPDATE Employees SET PasswordHash = @PasswordHash WHERE EmployeeId = @EmployeeId;",
-                        new
-                        {
-                            EmployeeId = pair.Key,
-                            PasswordHash = PasswordHasher.HashPassword(pair.Value)
-                        });
-                }
-            }
-        }
-
         private static void EnsureDiningTables()
         {
             using (var connection = Db.Open())
             {
                 int availableStatusId = connection.ExecuteScalar<int>(
                     "SELECT TableStatusId FROM TableStatus WHERE StatusName = 'Available';");
+
                 List<DiningTableSeed> existingTables = connection.Query<DiningTableSeed>(@"
 SELECT
     TableId,
@@ -259,9 +271,12 @@ SELECT
     ColumnLetter,
     RowNumber
 FROM DiningTables;").ToList();
+
                 HashSet<int> existingTableIds = new HashSet<int>(existingTables.Select(x => x.TableId));
+
                 HashSet<string> occupiedCoordinates = new HashSet<string>(
                     existingTables.Select(x => BuildCoordinateKey(x.ColumnLetter, x.RowNumber)));
+
                 Queue<DiningTableSeed> freeLayouts = new Queue<DiningTableSeed>(
                     BuildDefaultLayouts().Where(x => !occupiedCoordinates.Contains(BuildCoordinateKey(x.ColumnLetter, x.RowNumber))));
 
@@ -299,7 +314,9 @@ VALUES
             using (var connection = Db.Open())
             {
                 connection.Execute(@"
-INSERT OR IGNORE INTO InventoryItems (ItemName, UnitOfMeasure, QuantityOnHand, ReorderLevel, IsActive) VALUES
+INSERT OR IGNORE INTO InventoryItems 
+    (ItemName, UnitOfMeasure, QuantityOnHand, ReorderLevel, IsActive) 
+VALUES
     ('Chicken Breast', 'lbs', 50, 15, 1),
     ('Ground Beef', 'lbs', 35, 10, 1),
     ('Lettuce', 'heads', 18, 8, 1),
@@ -324,16 +341,24 @@ INSERT OR IGNORE INTO InventoryItems (ItemName, UnitOfMeasure, QuantityOnHand, R
                 EnsureWaiterAssignment(connection, "E00003", 1);
                 EnsureWaiterAssignment(connection, "E00003", 2);
                 EnsureWaiterAssignment(connection, "E00003", 3);
+
                 EnsureWaiterAssignment(connection, "E00006", 4);
                 EnsureWaiterAssignment(connection, "E00006", 5);
                 EnsureWaiterAssignment(connection, "E00006", 6);
+
                 EnsureWaiterAssignment(connection, "E00007", 7);
                 EnsureWaiterAssignment(connection, "E00007", 8);
                 EnsureWaiterAssignment(connection, "E00007", 9);
             }
         }
 
-        private static void EnsureEmployee(Microsoft.Data.Sqlite.SqliteConnection connection, string employeeId, string firstName, string lastName, string roleName, string password)
+        private static void EnsureEmployee(
+            SqliteConnection connection,
+            string employeeId,
+            string firstName,
+            string lastName,
+            string roleName,
+            string password)
         {
             long existing = connection.ExecuteScalar<long>(
                 "SELECT COUNT(*) FROM Employees WHERE EmployeeId = @EmployeeId;",
@@ -345,7 +370,8 @@ INSERT OR IGNORE INTO InventoryItems (ItemName, UnitOfMeasure, QuantityOnHand, R
             }
 
             connection.Execute(@"
-INSERT INTO Employees (EmployeeId, RoleId, FirstName, LastName, PasswordHash, IsActive)
+INSERT INTO Employees 
+    (EmployeeId, RoleId, FirstName, LastName, PasswordHash, IsActive)
 VALUES (
     @EmployeeId,
     (SELECT RoleId FROM Roles WHERE RoleName = @RoleName),
@@ -364,11 +390,12 @@ VALUES (
                 });
         }
 
-        private static void EnsureWaiterAssignment(Microsoft.Data.Sqlite.SqliteConnection connection, string employeeId, int tableId)
+        private static void EnsureWaiterAssignment(SqliteConnection connection, string employeeId, int tableId)
         {
             long employeeExists = connection.ExecuteScalar<long>(
                 "SELECT COUNT(*) FROM Employees WHERE EmployeeId = @EmployeeId;",
                 new { EmployeeId = employeeId });
+
             long tableExists = connection.ExecuteScalar<long>(
                 "SELECT COUNT(*) FROM DiningTables WHERE TableId = @TableId;",
                 new { TableId = tableId });
@@ -379,7 +406,11 @@ VALUES (
             }
 
             long existing = connection.ExecuteScalar<long>(
-                "SELECT COUNT(*) FROM WaiterTableAssignments WHERE EmployeeId = @EmployeeId AND TableId = @TableId AND UnassignedAt IS NULL;",
+                @"SELECT COUNT(*) 
+                  FROM WaiterTableAssignments 
+                  WHERE EmployeeId = @EmployeeId 
+                    AND TableId = @TableId 
+                    AND UnassignedAt IS NULL;",
                 new
                 {
                     EmployeeId = employeeId,
