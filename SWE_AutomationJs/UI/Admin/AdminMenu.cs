@@ -144,7 +144,7 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button5_Click(object sender, EventArgs e)
         {
-            NavigationHelper.ShowAtCurrentPosition(this, new SalesReports());
+            NavigationHelper.ShowAtCurrentPosition(this, new ReportsForm());
         }
 
         private void button6_Click(object sender, EventArgs e)

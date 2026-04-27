@@ -14,10 +14,12 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
             UiTheme.Apply(this);
 
-            Button restaurantInfoButton = new Button();
-            restaurantInfoButton.Location = new System.Drawing.Point(379, 305);
-            restaurantInfoButton.Size = new System.Drawing.Size(100, 58);
-            restaurantInfoButton.Text = "Restaurant Info";
+            Button restaurantInfoButton = new Button
+            {
+                Location = new Point(379, 305),
+                Size = new Size(100, 58),
+                Text = "Restaurant Info"
+            };
 
             restaurantInfoButton.Click += (sender, args) =>
             {
@@ -27,8 +29,21 @@ namespace SWE_AutomationJs_UI_Design
             Controls.Add(restaurantInfoButton);
         }
 
+        private void BusboyScreen_Load(object sender, EventArgs e)
+        {
+            if (!SessionContext.IsAuthenticated)
+            {
+                MessageBox.Show("You must be logged in first.");
+                NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
+                return;
+            }
+
+            CurrentEmployee = SessionContext.CurrentEmployee.EmployeeId;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
+            // Log out
             SessionContext.Clear();
             CurrentEmployee = null;
             NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
@@ -36,22 +51,20 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button5_Click(object sender, EventArgs e)
         {
+            // Schedule
             NavigationHelper.ShowAtCurrentPosition(this, new Schedule("Busboy"));
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // Cleaning screen
             NavigationHelper.ShowAtCurrentPosition(this, new CleaningScreen());
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Notifications
             NavigationHelper.ShowAtCurrentPosition(this, new Notification("Busboy"));
-        }
-
-        private void BusboyScreen_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

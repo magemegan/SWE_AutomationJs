@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using SWE_AutomationJs_UI_Design.Session;
 
@@ -20,21 +14,36 @@ namespace SWE_AutomationJs_UI_Design
             InitializeComponent();
             UiTheme.Apply(this);
 
-            Button restaurantInfoButton = new Button();
-            restaurantInfoButton.Location = new System.Drawing.Point(534, 293);
-            restaurantInfoButton.Size = new System.Drawing.Size(100, 59);
-            restaurantInfoButton.Text = "Restaurant Info";
+            Button restaurantInfoButton = new Button
+            {
+                Location = new Point(534, 293),
+                Size = new Size(100, 59),
+                Text = "Restaurant Info"
+            };
 
             restaurantInfoButton.Click += (sender, args) =>
             {
                 new AboutRestaurant().ShowDialog();
             };
 
-    Controls.Add(restaurantInfoButton);
-}
+            Controls.Add(restaurantInfoButton);
+        }
+
+        private void KitchenScreen_Load(object sender, EventArgs e)
+        {
+            if (!SessionContext.IsAuthenticated)
+            {
+                MessageBox.Show("You must be logged in first.");
+                NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
+                return;
+            }
+
+            CurrentEmployee = SessionContext.CurrentEmployee.EmployeeId;
+        }
 
         private void button1_Click(object sender, EventArgs e)
-        {//log out
+        {
+            // Log out
             SessionContext.Clear();
             CurrentEmployee = null;
             NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
@@ -42,21 +51,25 @@ namespace SWE_AutomationJs_UI_Design
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // Incoming orders
             NavigationHelper.ShowAtCurrentPosition(this, new IncomingOrders());
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {//restock inventory
+        {
+            // Restock inventory
             NavigationHelper.ShowAtCurrentPosition(this, new Inventory());
         }
 
         private void button6_Click(object sender, EventArgs e)
-        {//schedule
+        {
+            // Schedule
             NavigationHelper.ShowAtCurrentPosition(this, new Schedule("Kitchen"));
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            // Notifications
             NavigationHelper.ShowAtCurrentPosition(this, new Notification("Kitchen"));
         }
     }

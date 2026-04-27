@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dapper;
+using SWE_AutomationJs_UI_Design.Security;
 
 namespace SWE_AutomationJs_UI_Design.Data
 {
@@ -75,14 +76,27 @@ WHERE t.TableId = @TableId;";
             using (var connection = Db.Open())
             using (var transaction = connection.BeginTransaction())
             {
-                int? currentStatusId = connection.ExecuteScalar<int?>(
-                    "SELECT CurrentTableStatusId FROM DiningTables WHERE TableId = @TableId;",
+                var current = connection.QuerySingleOrDefault<dynamic>(@"
+SELECT
+    t.CurrentTableStatusId,
+    s.StatusName
+FROM DiningTables t
+INNER JOIN TableStatus s ON s.TableStatusId = t.CurrentTableStatusId
+WHERE t.TableId = @TableId;",
                     new { TableId = tableId },
                     transaction);
 
-                if (!currentStatusId.HasValue)
+                if (current == null)
                 {
-                    return;
+                    throw new System.InvalidOperationException("Table was not found.");
+                }
+
+                string currentStatusName = current.StatusName;
+
+                if (!RolePermissionService.CanChangeTableStatus(currentStatusName, targetStatusName))
+                {
+                    throw new System.UnauthorizedAccessException(
+                        $"Your role cannot change a table from {currentStatusName} to {targetStatusName}.");
                 }
 
                 int nextStatusId = connection.ExecuteScalar<int>(
@@ -90,7 +104,7 @@ WHERE t.TableId = @TableId;";
                     new { StatusName = targetStatusName },
                     transaction);
 
-                if (currentStatusId.Value == nextStatusId)
+                if ((int)current.CurrentTableStatusId == nextStatusId)
                 {
                     transaction.Commit();
                     return;
@@ -113,7 +127,7 @@ VALUES (@TableId, @OldStatusId, @NewStatusId, @ChangedByEmployeeId);",
                     new
                     {
                         TableId = tableId,
-                        OldStatusId = currentStatusId.Value,
+                        OldStatusId = (int)current.CurrentTableStatusId,
                         NewStatusId = nextStatusId,
                         ChangedByEmployeeId = changedByEmployeeId
                     },

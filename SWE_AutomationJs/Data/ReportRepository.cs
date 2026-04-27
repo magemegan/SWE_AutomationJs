@@ -1,55 +1,108 @@
+using System.Collections.Generic;
 using Dapper;
 
 namespace SWE_AutomationJs_UI_Design.Data
 {
+    public sealed class ManagerReportSummary
+    {
+        public int OrdersToday { get; set; }
+        public decimal RevenueToday { get; set; }
+        public decimal RevenueWeek { get; set; }
+        public decimal RevenueMonth { get; set; }
+        public string MostPopularItem { get; set; }
+        public double AverageTurnaroundMinutes { get; set; }
+        public double AveragePreparationMinutes { get; set; }
+        public double AverageReadyToServedMinutes { get; set; }
+    }
+
     public static class ReportRepository
     {
-        public static int GetTotalOrdersToday()
+        public static ManagerReportSummary GetManagerSummary()
         {
-            using (var connection = Db.Open())
+            using (var db = Db.Open())
             {
-                const string sql = @"
+                return new ManagerReportSummary
+                {
+                    OrdersToday = db.ExecuteScalar<int>(@"
 SELECT COUNT(*)
 FROM Orders
-WHERE date(CreatedAt) = date('now');";
+WHERE date(CreatedAt) = date('now');"),
 
-                return connection.ExecuteScalar<int>(sql);
-            }
-        }
+                    RevenueToday = db.ExecuteScalar<decimal>(@"
+SELECT IFNULL(SUM(TotalAmount), 0)
+FROM Orders
+WHERE date(CreatedAt) = date('now');"),
 
-        public static decimal GetRevenueToday()
-        {
-            using (var connection = Db.Open())
-            {
-                const string sql = @"
-SELECT IFNULL(SUM(Amount), 0)
-FROM Payments
-WHERE date(PaymentTime) = date('now');";
+                    RevenueWeek = db.ExecuteScalar<decimal>(@"
+SELECT IFNULL(SUM(TotalAmount), 0)
+FROM Orders
+WHERE date(CreatedAt) >= date('now', '-7 days');"),
 
-                return connection.ExecuteScalar<decimal>(sql);
-            }
-        }
+                    RevenueMonth = db.ExecuteScalar<decimal>(@"
+SELECT IFNULL(SUM(TotalAmount), 0)
+FROM Orders
+WHERE date(CreatedAt) >= date('now', '-30 days');"),
 
-        public static string GetMostPopularItem()
-        {
-            using (var connection = Db.Open())
-            {
-                const string sql = @"
-SELECT mi.ItemName
+                    MostPopularItem = db.ExecuteScalar<string>(@"
+SELECT mi.Name
 FROM OrderItems oi
-INNER JOIN MenuItems mi ON mi.MenuItemId = oi.MenuItemId
-GROUP BY mi.ItemName
+JOIN MenuItems mi ON mi.MenuItemId = oi.MenuItemId
+GROUP BY mi.Name
 ORDER BY COUNT(*) DESC
-LIMIT 1;";
+LIMIT 1;") ?? "No sales yet",
 
-                string result = connection.ExecuteScalar<string>(sql);
+                    AverageTurnaroundMinutes = 0,
+                    AveragePreparationMinutes = 0,
+                    AverageReadyToServedMinutes = 0
+                };
+            }
+        }
 
-                if (string.IsNullOrWhiteSpace(result))
-                {
-                    return "No sales yet";
-                }
+        public static IEnumerable<dynamic> GetRevenueByHourToday()
+        {
+            using (var db = Db.Open())
+            {
+                return db.Query(@"
+SELECT 
+    strftime('%H:00', CreatedAt) AS Hour,
+    ROUND(SUM(TotalAmount), 2) AS Revenue
+FROM Orders
+WHERE date(CreatedAt) = date('now')
+GROUP BY strftime('%H', CreatedAt)
+ORDER BY Hour;");
+            }
+        }
 
-                return result;
+        public static IEnumerable<dynamic> GetPopularItems(int limit)
+        {
+            using (var db = Db.Open())
+            {
+                return db.Query(@"
+SELECT 
+    mi.Name AS MenuItem,
+    COUNT(*) AS TimesOrdered
+FROM OrderItems oi
+JOIN MenuItems mi ON mi.MenuItemId = oi.MenuItemId
+GROUP BY mi.Name
+ORDER BY TimesOrdered DESC
+LIMIT @Limit;",
+                    new { Limit = limit });
+            }
+        }
+
+        public static IEnumerable<dynamic> GetPersonnelEfficiency()
+        {
+            using (var db = Db.Open())
+            {
+                return db.Query(@"
+SELECT
+    e.FullName AS Employee,
+    COUNT(o.OrderId) AS OrdersHandled,
+    ROUND(IFNULL(SUM(o.TotalAmount), 0), 2) AS RevenueHandled
+FROM Employees e
+LEFT JOIN Orders o ON o.ServerId = e.EmployeeId
+GROUP BY e.EmployeeId, e.FullName
+ORDER BY OrdersHandled DESC;");
             }
         }
     }

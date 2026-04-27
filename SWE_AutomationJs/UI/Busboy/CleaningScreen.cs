@@ -24,6 +24,13 @@ namespace SWE_AutomationJs_UI_Design
 
         private void CleaningScreen_Load(object sender, EventArgs e)
         {
+            if (!SessionContext.IsAuthenticated)
+            {
+                MessageBox.Show("You must be logged in first.");
+                NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
+                return;
+            }
+
             LoadCleaningQueue();
         }
 
@@ -32,7 +39,9 @@ namespace SWE_AutomationJs_UI_Design
             listBox1.Items.Clear();
             dirtyTables.Clear();
 
-            foreach (TableStatusInfo table in TableRepository.GetAllTableStatuses().Where(x => x.UiStatus == "Needs Cleaning"))
+            foreach (TableStatusInfo table in TableRepository
+                         .GetAllTableStatuses()
+                         .Where(x => x.StatusName == "Dirty"))
             {
                 dirtyTables.Add(table.TableId);
                 listBox1.Items.Add($"Table {table.TableId}");
@@ -42,12 +51,14 @@ namespace SWE_AutomationJs_UI_Design
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectedIndex = listBox1.SelectedIndex;
+
             if (selectedIndex < 0 || selectedIndex >= dirtyTables.Count)
             {
                 return;
             }
 
             int selectedTableNumber = dirtyTables[selectedIndex];
+
             label4.Text = $"Table: {selectedTableNumber}";
             label5.Text = "Status: Needs Cleaning";
         }
@@ -55,29 +66,55 @@ namespace SWE_AutomationJs_UI_Design
         private void button2_Click(object sender, EventArgs e)
         {
             int selectedIndex = listBox1.SelectedIndex;
+
             if (selectedIndex < 0 || selectedIndex >= dirtyTables.Count)
             {
+                MessageBox.Show("Please select a dirty table first.");
                 return;
             }
 
             if (!SessionContext.IsAuthenticated)
             {
                 MessageBox.Show("Please sign in again before updating table status.");
+                NavigationHelper.ShowAtCurrentPosition(this, new MainMenu());
                 return;
             }
 
             int selectedTableNumber = dirtyTables[selectedIndex];
-            TableRepository.SetStatus(selectedTableNumber, "Available", SessionContext.CurrentEmployee.EmployeeId);
 
-            label4.Text = "Table:";
-            label5.Text = "Status:";
-            LoadCleaningQueue();
+            try
+            {
+                TableRepository.SetStatus(
+                    selectedTableNumber,
+                    "Available",
+                    SessionContext.CurrentEmployee.EmployeeId
+                );
 
-            Notifications notification = new Notifications();
-            notification.Message = "Table " + selectedTableNumber + " is now clean.";
-            notification.Role = "Waiter";
-            notification.TimeStamp = DateTime.Now.ToShortTimeString();
-            NotificationStorage.Notify.Add(notification);
+                label4.Text = "Table:";
+                label5.Text = "Status:";
+
+                LoadCleaningQueue();
+
+                Notifications notification = new Notifications
+                {
+                    Message = "Table " + selectedTableNumber + " is now clean.",
+                    Role = "Waiter",
+                    TimeStamp = DateTime.Now.ToShortTimeString()
+                };
+
+                NotificationStorage.Notify.Add(notification);
+
+                MessageBox.Show("Table marked as clean.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    ex.Message,
+                    "Unable to Update Table",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
         }
     }
 }
