@@ -13,8 +13,8 @@ def run_sql_file(sql_file_relative_path: str):
     print(f"Using database: {DB_PATH}")
     print(f"Running SQL file: {sql_path}")
 
-    if not DB_PATH.exists():
-        raise FileNotFoundError(f"Database file not found: {DB_PATH}")
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    DB_PATH.touch(exist_ok=True)
 
     if not sql_path.exists():
         raise FileNotFoundError(f"SQL file not found: {sql_path}")
@@ -52,7 +52,7 @@ def run_sql_file(sql_file_relative_path: str):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 scripts/run_sql_file.py <relative_sql_path>")
+        print("Usage: python scripts/run_sql_file.py <relative_sql_path>")
         sys.exit(1)
 
     run_sql_file(sys.argv[1])

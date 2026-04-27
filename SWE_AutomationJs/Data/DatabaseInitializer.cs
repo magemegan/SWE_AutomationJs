@@ -7,17 +7,31 @@ namespace SWE_AutomationJs_UI_Design.Data
 {
     internal static class DatabaseInitializer
     {
+        private static readonly string[] SqlFiles =
+        {
+            "001_schema.sql",
+            "002_seed_lookup_data.sql",
+            "003_seed_core_data.sql",
+            "004_seed_orders.sql",
+            "005_seed_payments.sql",
+            "006_triggers_order_totals.sql",
+            "007_views_payment_summary.sql",
+            "008_triggers_payment_status.sql"
+        };
+
         public static void Initialize()
         {
             EnsureDatabaseFolder();
 
-            RunSqlFile("001_schema.sql");
+            if (IsDatabaseMissingOrEmpty())
+            {
+                CreateDatabaseFromSqlFiles();
+            }
 
             using (var connection = Db.Open())
             {
                 EnsureMenuOptionTables(connection);
                 FixExistingTables(connection);
-                SeedLookupData(connection);
             }
         }
 
@@ -31,13 +45,51 @@ namespace SWE_AutomationJs_UI_Design.Data
             }
         }
 
+        private static bool IsDatabaseMissingOrEmpty()
+        {
+            if (!File.Exists(Db.DatabasePath))
+            {
+                return true;
+            }
+
+            FileInfo fileInfo = new FileInfo(Db.DatabasePath);
+
+            if (fileInfo.Length == 0)
+            {
+                return true;
+            }
+
+            using (var connection = Db.Open())
+            {
+                int tableCount = connection.ExecuteScalar<int>(
+                    "SELECT COUNT(*) FROM sqlite_master WHERE type = 'table';"
+                );
+
+                return tableCount == 0;
+            }
+        }
+
+        private static void CreateDatabaseFromSqlFiles()
+        {
+            foreach (string fileName in SqlFiles)
+            {
+                RunSqlFile(fileName);
+            }
+        }
+
         private static void RunSqlFile(string fileName)
         {
             string sqlPath = FindSqlFile(fileName);
             string sql = File.ReadAllText(sqlPath);
 
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new InvalidOperationException("SQL file is empty: " + sqlPath);
+            }
+
             using (var connection = Db.Open())
             {
+                connection.Execute("PRAGMA foreign_keys = ON;");
                 connection.Execute(sql);
             }
         }
@@ -59,41 +111,6 @@ namespace SWE_AutomationJs_UI_Design.Data
             }
 
             throw new FileNotFoundException("Could not find SQL file: " + fileName);
-        }
-
-        private static void SeedLookupData(SqliteConnection connection)
-        {
-            connection.Execute(@"
-INSERT OR IGNORE INTO Roles (RoleName) VALUES
-    ('Admin'),
-    ('Manager'),
-    ('Server'),
-    ('Cashier'),
-    ('Kitchen'),
-    ('Busboy');
-
-INSERT OR IGNORE INTO TableStatus (StatusName) VALUES
-    ('Available'),
-    ('Occupied'),
-    ('Dirty');
-
-INSERT OR IGNORE INTO OrderStatus (StatusName) VALUES
-    ('Open'),
-    ('Submitted'),
-    ('Ready'),
-    ('Delivered'),
-    ('Closed'),
-    ('Cancelled');
-
-INSERT OR IGNORE INTO MenuCategories (CategoryName) VALUES
-    ('Appetizers'),
-    ('Salads'),
-    ('Entrees'),
-    ('Sides'),
-    ('Sandwiches'),
-    ('Burgers'),
-    ('Beverages');
-");
         }
 
         private static void EnsureMenuOptionTables(SqliteConnection connection)
@@ -141,19 +158,19 @@ CREATE TABLE IF NOT EXISTS OrderItemOptions (
 
         private static void FixExistingTables(SqliteConnection connection)
         {
-            // Menu option fixes
             AddColumnIfMissing(connection, "MenuItemOptionGroups", "DisplayOrder", "INTEGER NOT NULL DEFAULT 0");
             AddColumnIfMissing(connection, "MenuItemOptions", "DisplayOrder", "INTEGER NOT NULL DEFAULT 0");
             AddColumnIfMissing(connection, "OrderItemOptions", "DisplayOrder", "INTEGER NOT NULL DEFAULT 0");
 
-            // Inventory fixes
             AddColumnIfMissing(connection, "InventoryItems", "UnitOfMeasure", "TEXT NOT NULL DEFAULT 'each'");
             AddColumnIfMissing(connection, "InventoryItems", "ReorderLevel", "NUMERIC NOT NULL DEFAULT 0");
             AddColumnIfMissing(connection, "InventoryItems", "IsActive", "INTEGER NOT NULL DEFAULT 1");
 
-            // 🔴 NEW FIX: Employees table
             AddColumnIfMissing(connection, "Employees", "CreatedAt", "DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
-        
+
+            AddColumnIfMissing(connection, "Orders", "CreatedBy", "TEXT");
+            AddColumnIfMissing(connection, "Payments", "CreatedBy", "TEXT");
+            AddColumnIfMissing(connection, "Payments", "ApprovedByEmployeeId", "TEXT");
         }
 
         private static void AddColumnIfMissing(

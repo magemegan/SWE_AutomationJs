@@ -1,9 +1,5 @@
 ﻿PRAGMA foreign_keys = ON;
 
--- =========================================
--- Lookup Tables
--- =========================================
-
 CREATE TABLE IF NOT EXISTS Roles (
     RoleId INTEGER PRIMARY KEY AUTOINCREMENT,
     RoleName TEXT NOT NULL UNIQUE
@@ -23,10 +19,6 @@ CREATE TABLE IF NOT EXISTS MenuCategories (
     CategoryId INTEGER PRIMARY KEY AUTOINCREMENT,
     CategoryName TEXT NOT NULL UNIQUE
 );
-
--- =========================================
--- Employees
--- =========================================
 
 CREATE TABLE IF NOT EXISTS Employees (
     EmployeeId TEXT PRIMARY KEY,
@@ -50,10 +42,6 @@ CREATE TABLE IF NOT EXISTS TimeClock (
     FOREIGN KEY (EmployeeId) REFERENCES Employees(EmployeeId),
     CHECK (ClockOut IS NULL OR ClockOut >= ClockIn)
 );
-
--- =========================================
--- Dining Tables
--- =========================================
 
 CREATE TABLE IF NOT EXISTS DiningTables (
     TableId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -87,10 +75,6 @@ CREATE TABLE IF NOT EXISTS WaiterTableAssignments (
     FOREIGN KEY (TableId) REFERENCES DiningTables(TableId)
 );
 
--- =========================================
--- Menu
--- =========================================
-
 CREATE TABLE IF NOT EXISTS MenuItems (
     MenuItemId INTEGER PRIMARY KEY AUTOINCREMENT,
     CategoryId INTEGER NOT NULL,
@@ -100,8 +84,6 @@ CREATE TABLE IF NOT EXISTS MenuItems (
     FOREIGN KEY (CategoryId) REFERENCES MenuCategories(CategoryId)
 );
 
--- 🔴 FIX: Missing tables (CRITICAL)
-
 CREATE TABLE IF NOT EXISTS MenuItemOptionGroups (
     OptionGroupId INTEGER PRIMARY KEY AUTOINCREMENT,
     MenuItemId INTEGER NOT NULL,
@@ -109,6 +91,7 @@ CREATE TABLE IF NOT EXISTS MenuItemOptionGroups (
     IsRequired INTEGER NOT NULL DEFAULT 0,
     MinSelections INTEGER NOT NULL DEFAULT 0,
     MaxSelections INTEGER NOT NULL DEFAULT 1,
+    DisplayOrder INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (MenuItemId) REFERENCES MenuItems(MenuItemId)
 );
 
@@ -117,12 +100,9 @@ CREATE TABLE IF NOT EXISTS MenuItemOptions (
     OptionGroupId INTEGER NOT NULL,
     OptionName TEXT NOT NULL,
     PriceDelta NUMERIC NOT NULL DEFAULT 0.00,
+    DisplayOrder INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (OptionGroupId) REFERENCES MenuItemOptionGroups(OptionGroupId)
 );
-
--- =========================================
--- Orders
--- =========================================
 
 CREATE TABLE IF NOT EXISTS Orders (
     OrderId INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -155,45 +135,37 @@ CREATE TABLE IF NOT EXISTS OrderItems (
     FOREIGN KEY (MenuItemId) REFERENCES MenuItems(MenuItemId)
 );
 
--- 🔴 FIX: Missing table
-
 CREATE TABLE IF NOT EXISTS OrderItemOptions (
     OrderItemOptionId INTEGER PRIMARY KEY AUTOINCREMENT,
     OrderItemId INTEGER NOT NULL,
     OptionGroupName TEXT NOT NULL,
     OptionName TEXT NOT NULL,
     PriceDelta NUMERIC NOT NULL DEFAULT 0.00,
+    DisplayOrder INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (OrderItemId) REFERENCES OrderItems(OrderItemId)
 );
-
--- =========================================
--- Payments
--- =========================================
 
 CREATE TABLE IF NOT EXISTS Payments (
     PaymentId INTEGER PRIMARY KEY AUTOINCREMENT,
     OrderId INTEGER NOT NULL,
     Amount NUMERIC NOT NULL,
     PaymentMethod TEXT NOT NULL,
+    ApprovedByEmployeeId TEXT,
     PaidAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     RefundFlag INTEGER DEFAULT 0,
     RefundAmount NUMERIC DEFAULT 0,
-    FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
+    FOREIGN KEY (OrderId) REFERENCES Orders(OrderId),
+    FOREIGN KEY (ApprovedByEmployeeId) REFERENCES Employees(EmployeeId)
 );
-
--- =========================================
--- Inventory
--- =========================================
 
 CREATE TABLE IF NOT EXISTS InventoryItems (
     InventoryItemId INTEGER PRIMARY KEY AUTOINCREMENT,
     ItemName TEXT NOT NULL,
-    QuantityOnHand NUMERIC DEFAULT 0
+    UnitOfMeasure TEXT NOT NULL DEFAULT 'each',
+    QuantityOnHand NUMERIC DEFAULT 0,
+    ReorderLevel NUMERIC NOT NULL DEFAULT 0,
+    IsActive INTEGER NOT NULL DEFAULT 1
 );
-
--- =========================================
--- Indexes
--- =========================================
 
 CREATE INDEX IF NOT EXISTS idx_orders_table ON Orders(TableId);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON Orders(OrderStatusId);
